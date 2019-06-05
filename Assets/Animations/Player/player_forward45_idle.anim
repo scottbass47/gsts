@@ -3,8 +3,9 @@
 --- !u!74 &7400000
 AnimationClip:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: player_forward45_idle
   serializedVersion: 6
   m_Legacy: 0
@@ -19,7 +20,8 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300050, guid: 7deb955c31dcc4a4c8d610e1442fd2ce, type: 3}
+      value: {fileID: -5056071391230704221, guid: dc438b197ed71cb49b0d567f753442a3,
+        type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -39,7 +41,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300050, guid: 7deb955c31dcc4a4c8d610e1442fd2ce, type: 3}
+    - {fileID: -5056071391230704221, guid: dc438b197ed71cb49b0d567f753442a3, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -64,5 +66,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_GenerateMotionCurves: 0
   m_Events: []

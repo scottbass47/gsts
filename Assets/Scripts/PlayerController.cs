@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour {
     private Animator anim;
     private AnimState currState;
     private SpriteRenderer spriteRenderer;
-    //private HandController handController;
-    //private GunController gunController;
+    private HandController handController;
+    private GunController gunController;
     //private BulletPanel bulletPanel;
 
     private bool wasIdling = false;
@@ -35,10 +35,10 @@ public class PlayerController : MonoBehaviour {
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        //handController = transform.Find("Hand").gameObject.GetComponent<HandController>();
+        handController = GetComponentInChildren<HandController>();
 
         //heart.GetComponent<HeartController>().SetHealth(10);
-        //gunController = GetComponentInChildren<GunController>();
+        gunController = GetComponentInChildren<GunController>();
 
         //Gun = new Gun(baseGunSprite, gunController.stats);
         //gunController.Offset = Gun.GetLocalOffset();
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         AimAngle = degrees;
-        //gunController.SetAimAngle(AimAngle);
+        gunController.SetAimAngle(AimAngle);
 
         // Find difference between movement and aim angles to determine
         // if the player should be backpedalling
@@ -143,23 +143,23 @@ public class PlayerController : MonoBehaviour {
             anim.SetFloat("speed", 1);
         }
 
-        bool flip = degrees > 90 && degrees < 270;
-
-        if (flip)
-        {
-            degrees = 180 - degrees;
-            if (degrees < 0) degrees += 360;
-        }
-        //bool flip = gunObject.GetComponent<GunController>().Flipped;
+        //bool flip = degrees > 90 && degrees < 270;
 
         //if (flip)
         //{
         //    degrees = 180 - degrees;
         //    if (degrees < 0) degrees += 360;
         //}
-        
+        bool flip = gunController.Flipped;
 
-       spriteRenderer.flipX = flip;
+        if (flip)
+        {
+            degrees = 180 - degrees;
+            if (degrees < 0) degrees += 360;
+        }
+
+
+        spriteRenderer.flipX = flip;
 
        // Forward
         if (degrees >= 270 && degrees < 315)
@@ -182,7 +182,7 @@ public class PlayerController : MonoBehaviour {
             SwitchState(AnimState.Backward, shouldIdle);
         }
 
-        //handController.UpdateTexture(currState, flip);
+        handController.UpdateTexture(currState, flip);
     }
 
     void SwitchState(AnimState newState, bool idle)

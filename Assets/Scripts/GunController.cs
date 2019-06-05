@@ -11,6 +11,12 @@ public class GunController : MonoBehaviour
     private Vector3 offset;
     private SpriteRenderer spriteRenderer;
 
+    private float elapsedTime = 0f;
+    public GameObject bulletPrefab;
+    public float fireRate; // bullets per second
+    public float damage;
+    public float speed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +27,44 @@ public class GunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        elapsedTime += Time.deltaTime;
+    }
+
+    public bool Shoot()
+    {
+        if (elapsedTime * fireRate < 1) return false;
+        elapsedTime = 0;
+
+        float randomOffset = 0; // Random.Range(-stats.Accuracy.ModdedValue(), stats.Accuracy.ModdedValue());
+        float radians = Mathf.Deg2Rad * (aimAngle + randomOffset);
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity) as GameObject;
+
+        //bool critical = Random.Range(0f, 1f) < stats.CriticalChance.Mod;
+
+        var bulletComp = bullet.GetComponent<Bullet>();
+        bulletComp.Shoot(radians);
+        bulletComp.Damage = damage; //critical ? stats.CriticalDamage.ModdedValue() : stats.Damage.ModdedValue();
+        bulletComp.Speed = speed; // stats.BulletSpeed.ModdedValue();
+
+        //if (critical)
+        //{
+        //    bulletComp.GetComponent<SpriteRenderer>().color = Color.blue;
+        //}
+
+        //float yRot = yOff * Mathf.Cos(radians);
+        float degrees = radians * Mathf.Rad2Deg;
+        Vector3 offset = Quaternion.Euler(0, 0, Flipped ? degrees + 180 : degrees) * new Vector3(Flipped ? -1 : 1,0.125f);
+
+        bullet.transform.position = transform.position + offset; //+ new Vector3(0, yOff, 0);
+        bullet.GetComponent<SpriteRenderer>().sortingOrder = spriteRenderer.sortingOrder - 1;
+
+        //bulletsLeft--;
+        //if (bulletsLeft <= 0)
+        //{
+        //    Reloading = true;
+        //    reloadTime = stats.ReloadSpeed.ModdedValue();
+        //}
+        return true;
     }
 
     // Angle in [0, 360)

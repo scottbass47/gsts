@@ -97,10 +97,11 @@ public class PlayerController : MonoBehaviour {
             float angle = Mathf.Atan2(diff.y, diff.x);
 
             //GunController g = gunObject.GetComponent<GunController>();
-            //if(g.Shoot())
+            gunController.Shoot();
+            //if (gunController.Shoot())
             //{
             //    bulletPanel.Shoot();
-            //    if(g.Reloading)
+            //    if (g.Reloading)
             //    {
             //        bulletPanel.Reload(g.stats.ReloadSpeed.ModdedValue());
             //    }

@@ -12,9 +12,9 @@ public class PlayerController : MonoBehaviour {
 
     //public Gun Gun { get; private set; }
     private Rigidbody2D rb2d;
-    private Animator anim;
+    public Animator bodyAnim;
+    public SpriteRenderer bodyRenderer;
     private AnimState currState;
-    private SpriteRenderer spriteRenderer;
     private HandController handController;
     private GunController gunController;
     //private BulletPanel bulletPanel;
@@ -30,10 +30,6 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rb2d = GetComponent<Rigidbody2D>();
-        rb2d.freezeRotation = true;
-
-        anim = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
 
         handController = GetComponentInChildren<HandController>();
 
@@ -65,7 +61,7 @@ public class PlayerController : MonoBehaviour {
         // Stop the player from moving if no input is active
         if (Mathf.Abs(xAxis) < float.Epsilon && Mathf.Abs(yAxis) < float.Epsilon)
         {
-            rb2d.velocity = Vector2.zero;
+            rb2d.AddForce(-rb2d.velocity, ForceMode2D.Impulse);
             shouldIdle = true;
             return;
         }
@@ -80,8 +76,8 @@ public class PlayerController : MonoBehaviour {
 
         float adjustedSpeed = speed; //- gunObject.GetComponent<GunController>().stats.Weight.ModdedValue();
 
-        rb2d.velocity = new Vector2(adjustedSpeed * Mathf.Cos(angle), adjustedSpeed * Mathf.Sin(angle));
-        rb2d.angularVelocity = 0f;
+        var vel = new Vector2(adjustedSpeed * Mathf.Cos(angle), adjustedSpeed * Mathf.Sin(angle));
+        rb2d.AddForce(vel - rb2d.velocity, ForceMode2D.Impulse);
         shouldIdle = false;
         //transform.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * angle);
     }
@@ -137,11 +133,11 @@ public class PlayerController : MonoBehaviour {
         // Negative if obtuse, positive if acute (think dot product)
         if(Mathf.Cos(Mathf.Deg2Rad * angleBetween) < 0 && !shouldIdle)
         {
-            anim.SetFloat("speed", -1);
+            bodyAnim.SetFloat("speed", -1);
         }
         else
         {
-            anim.SetFloat("speed", 1);
+            bodyAnim.SetFloat("speed", 1);
         }
 
         //bool flip = degrees > 90 && degrees < 270;
@@ -160,27 +156,31 @@ public class PlayerController : MonoBehaviour {
         }
 
 
-        spriteRenderer.flipX = flip;
+        bodyRenderer.flipX = flip;
 
        // Forward
-        if (degrees >= 270 && degrees < 315)
+        if (degrees >= 225 && degrees < 315)
         {
             SwitchState(AnimState.Forward, shouldIdle);
         }
         // Forward 45
-        else if ((degrees >= 315 && degrees <= 360) || degrees <= 0)
+        else if ((degrees >= 315 && degrees <= 360) || (degrees > 180 && degrees < 225))
         {
             SwitchState(AnimState.Forward45, shouldIdle);
         }
         // Backward 45
-        else if (degrees <= 45 && degrees > 0)
+        else if ((degrees <= 45 && degrees > 0) || (degrees <= 180 && degrees > 135))
         {
             SwitchState(AnimState.Backward45, shouldIdle);
         }
         // Backward
-        else if (degrees <= 90 && degrees > 45)
+        else if (degrees <= 135 && degrees > 45)
         {
             SwitchState(AnimState.Backward, shouldIdle);
+        }
+        else
+        {
+            Debug.Log($"Degrees: {degrees}");
         }
 
         handController.UpdateTexture(currState, flip);
@@ -194,19 +194,19 @@ public class PlayerController : MonoBehaviour {
         switch (newState)
         {
             case AnimState.Forward:
-                anim.SetTrigger("forward");
+                bodyAnim.SetTrigger("forward");
                 break;
             case AnimState.Forward45:
-                anim.SetTrigger("forward_45");
+                bodyAnim.SetTrigger("forward_45");
                 break;
             case AnimState.Backward:
-                anim.SetTrigger("backward");
+                bodyAnim.SetTrigger("backward");
                 break;
             case AnimState.Backward45:
-                anim.SetTrigger("backward_45");
+                bodyAnim.SetTrigger("backward_45");
                 break;
         }
-        anim.SetBool("idle", idle);
+        bodyAnim.SetBool("idle", idle);
         wasIdling = shouldIdle;
     }
 

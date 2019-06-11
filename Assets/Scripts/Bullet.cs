@@ -24,13 +24,14 @@ public class Bullet : MonoBehaviour {
         transform.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * angle);
     }
 	
-	// Update is called once per frame
-	void Update () {
-	}
-
+    // Update is called once per frame
+    void Update () {
+    }
+  
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject other = collision.gameObject;
+        Debug.Log($"{other.tag}");
 
         Health health = other.GetComponent<Health>();
         if(health != null)

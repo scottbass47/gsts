@@ -13,9 +13,7 @@ public class GunController : MonoBehaviour
 
     private float elapsedTime = 0f;
     public GameObject bulletPrefab;
-    public float fireRate; // bullets per second
-    public float damage;
-    public float speed;
+    [SerializeField] private BulletStats stats;
 
     public Vector2 BarrelOffset => new Vector2(0.9f, 0.375f);
 
@@ -49,7 +47,7 @@ public class GunController : MonoBehaviour
 
     public bool Shoot()
     {
-        if (elapsedTime * fireRate < 1) return false;
+        if (elapsedTime * stats.FireRate < 1) return false;
         elapsedTime = 0;
 
         float randomOffset = 0; // Random.Range(-stats.Accuracy.ModdedValue(), stats.Accuracy.ModdedValue());
@@ -59,11 +57,12 @@ public class GunController : MonoBehaviour
         //bool critical = Random.Range(0f, 1f) < stats.CriticalChance.Mod;
 
         var bulletComp = bullet.GetComponent<Bullet>();
-        bulletComp.Shoot(radians);
-        bulletComp.Damage = damage; //critical ? stats.CriticalDamage.ModdedValue() : stats.Damage.ModdedValue();
-        bulletComp.Speed = speed; // stats.BulletSpeed.ModdedValue();
+        bulletComp.Damage = stats.Damage; //critical ? stats.CriticalDamage.ModdedValue() : stats.Damage.ModdedValue();
+        bulletComp.Speed = stats.Speed; // stats.BulletSpeed.ModdedValue();
+        bulletComp.KnockbackAmount = stats.KnockbackAmount; 
         bullet.transform.position = ShotOrigin; //+ new Vector3(0, yOff, 0);
         bullet.GetComponent<SpriteRenderer>().sortingOrder = spriteRenderer.sortingOrder - 1;
+        bulletComp.Shoot(radians);
 
         //bulletsLeft--;
         //if (bulletsLeft <= 0)

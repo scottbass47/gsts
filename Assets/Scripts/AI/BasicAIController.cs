@@ -10,8 +10,9 @@ public class BasicAIController : MonoBehaviour
     private PathFinder pathFinder;
     private Path path;
     private float lookAngle;
-    private Rigidbody2D rb2d;
+    private Physics rb2d;
     private MovementAnimator moveAnim;
+    private Vector2 heading = Vector2.right;
 
     [SerializeField] private Transform enemyTransform;
     private Transform playerTransform;
@@ -39,7 +40,7 @@ public class BasicAIController : MonoBehaviour
 
     private void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
+        rb2d = GetComponent<Physics>();
         player = GameManager.instance.player;
         playerTransform = player.GetComponent<Physics>().HitboxCenter;
         level = GameManager.instance.level;
@@ -148,7 +149,7 @@ public class BasicAIController : MonoBehaviour
 
     BehaviourTreeStatus StopMoving()
     {
-        rb2d.velocity = Vector2.zero;
+        rb2d.AddForce(Vector2.zero);
         return BehaviourTreeStatus.Success;
     }
 
@@ -220,9 +221,10 @@ public class BasicAIController : MonoBehaviour
 
         // Calculate angle between enemy and goal
         var goalVec = new Vector2(goal.tx - enemyPos.x + 0.5f, goal.ty - enemyPos.y + 0.5f).normalized;
-        var dir = Vector2.Lerp(rb2d.velocity.normalized, goalVec, Time.deltaTime * settings.TurningVelocity);
+        var dir = Vector2.Lerp(heading.normalized, goalVec, Time.deltaTime * settings.TurningVelocity);
 
-        rb2d.velocity = dir * settings.Speed;
+        rb2d.AddForce(dir * settings.Speed);
+        heading = dir;
 
         if(InLOS && false)
         {

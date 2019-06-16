@@ -4,11 +4,30 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    public float Angle = 0f;
-    public float Speed = 10;
-    public float Damage = 20;
+    public float Angle { get; set; } 
+
+    public float Speed
+    {
+        get => speed;
+        set => speed = value;
+    }
+    public float Damage
+    {
+        get => damage;
+        set => damage = value;
+    }
+    public float KnockbackAmount
+    {
+        get => knockbackAmount;
+        set => knockbackAmount = value;
+    }
 
     private Rigidbody2D rb2d;
+    private Vector2 dir;
+
+    private float speed;
+    private float damage;
+    private float knockbackAmount;
 
 	// Use this for initialization
 	void Awake () {
@@ -20,7 +39,8 @@ public class Bullet : MonoBehaviour {
     {
         this.Angle = angle;
 
-        rb2d.velocity = new Vector2(Speed * Mathf.Cos(angle), Speed * Mathf.Sin(angle));
+        dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        rb2d.velocity = Speed * dir;
         transform.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * angle);
     }
   
@@ -33,6 +53,9 @@ public class Bullet : MonoBehaviour {
         {
             health.Amount -= Damage;
         }
+
+        var physics = other.GetComponentInParent<Physics>();
+        physics?.ApplyKnockback(dir, 0.2f, KnockbackAmount);
 
         Destroy(gameObject);
     }

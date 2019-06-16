@@ -12,11 +12,11 @@ public class PlayerController : MonoBehaviour
     public Sprite baseGunSprite;
 
     //public Gun Gun { get; private set; }
-    private Rigidbody2D rb2d;
     public Animator bodyAnim;
     public SpriteRenderer bodyRenderer;
     private HandController handController;
     private GunController gunController;
+    private Physics physics;
     //private BulletPanel bulletPanel;
 
     private bool wasIdling = false;
@@ -30,9 +30,8 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
-
         handController = GetComponentInChildren<HandController>();
+        physics = GetComponent<Physics>();
 
         //heart.GetComponent<HeartController>().SetHealth(10);
         gunController = GetComponentInChildren<GunController>();
@@ -65,7 +64,8 @@ public class PlayerController : MonoBehaviour
         // Stop the player from moving if no input is active
         if (Mathf.Abs(xAxis) < float.Epsilon && Mathf.Abs(yAxis) < float.Epsilon)
         {
-            rb2d.AddForce(-rb2d.velocity, ForceMode2D.Impulse);
+
+            physics.AddForce(Vector2.zero);
             shouldIdle = true;
             return;
         }
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
         float adjustedSpeed = speed; //- gunObject.GetComponent<GunController>().stats.Weight.ModdedValue();
 
         var vel = new Vector2(adjustedSpeed * Mathf.Cos(angle), adjustedSpeed * Mathf.Sin(angle));
-        rb2d.AddForce(vel - rb2d.velocity, ForceMode2D.Impulse);
+        physics.AddForce(vel);
         shouldIdle = false;
         //transform.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * angle);
     }

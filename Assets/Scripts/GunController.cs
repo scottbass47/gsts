@@ -17,6 +17,23 @@ public class GunController : MonoBehaviour
     public float damage;
     public float speed;
 
+    public Vector2 BarrelOffset => new Vector2(0.9f, 0.375f);
+
+    // Returns the location in world space where the bullet originates in the shot
+    // Use this position to calculate the aim angle.
+    public Vector2 ShotOrigin
+    {
+        get
+        {
+            Vector3 offset = Quaternion.Euler(0, 0, Flipped ? aimAngle + 180 : aimAngle) * 
+                             new Vector3(Flipped ? -BarrelOffset.x : BarrelOffset.x, BarrelOffset.y);
+
+            return transform.position + offset; 
+        } 
+
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,17 +62,7 @@ public class GunController : MonoBehaviour
         bulletComp.Shoot(radians);
         bulletComp.Damage = damage; //critical ? stats.CriticalDamage.ModdedValue() : stats.Damage.ModdedValue();
         bulletComp.Speed = speed; // stats.BulletSpeed.ModdedValue();
-
-        //if (critical)
-        //{
-        //    bulletComp.GetComponent<SpriteRenderer>().color = Color.blue;
-        //}
-
-        //float yRot = yOff * Mathf.Cos(radians);
-        float degrees = radians * Mathf.Rad2Deg;
-        Vector3 offset = Quaternion.Euler(0, 0, Flipped ? degrees + 180 : degrees) * new Vector3(Flipped ? -1 : 1,0.125f);
-
-        bullet.transform.position = transform.position + offset; //+ new Vector3(0, yOff, 0);
+        bullet.transform.position = ShotOrigin; //+ new Vector3(0, yOff, 0);
         bullet.GetComponent<SpriteRenderer>().sortingOrder = spriteRenderer.sortingOrder - 1;
 
         //bulletsLeft--;
@@ -103,6 +110,16 @@ public class GunController : MonoBehaviour
         if (shouldFlip) aimingRight = !aimingRight;
 
         Flipped = flipped;
+    }
+
+    public void SetDrawOrder(bool inFront)
+    {
+        spriteRenderer.sortingOrder = inFront ? 1 : -1;
+    }
+
+    public Vector2 GetAimPoint()
+    {
+        return (Vector2)transform.position + BarrelOffset;
     }
 
     private bool RightSide(float angle)

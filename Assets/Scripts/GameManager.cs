@@ -48,13 +48,11 @@ public class GameManager : MonoBehaviour {
 
     public void SetupLevel()
     {
-        Tilemap floor = null;
         Tilemap walls = null;
 
         foreach(var tm in map.GetComponentsInChildren<Tilemap>())
         {
-            if (tm.tag == "Wall") walls = tm;
-            if (tm.tag == "Floor") floor = tm;
+            if (tm.tag == "WallsCollision") walls = tm;
         }
         walls.CompressBounds();
 

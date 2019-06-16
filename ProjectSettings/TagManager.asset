@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Floor
+  - WallsCollision
   layers:
   - Default
   - TransparentFX
@@ -15,14 +16,14 @@ TagManager:
   - UI
   - 
   - 
-  - Player
+  - Player Feet
   - Player Projectile
-  - Enemy
+  - Enemy Feet
   - Enemy Projectile
   - Wall
-  - 
-  - 
-  - 
+  - Player Body
+  - Enemy Body
+  - Wall Projectile
   - 
   - 
   - 

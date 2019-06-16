@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     public float speed = 4;
     public GameObject gunObject;
@@ -14,7 +15,6 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb2d;
     public Animator bodyAnim;
     public SpriteRenderer bodyRenderer;
-    private AnimState currState;
     private HandController handController;
     private GunController gunController;
     //private BulletPanel bulletPanel;
@@ -27,14 +27,17 @@ public class PlayerController : MonoBehaviour {
 
     private float elapsed;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         rb2d = GetComponent<Rigidbody2D>();
 
         handController = GetComponentInChildren<HandController>();
 
         //heart.GetComponent<HeartController>().SetHealth(10);
         gunController = GetComponentInChildren<GunController>();
+
+        bodyRenderer.color = Color.white;
 
         //Gun = new Gun(baseGunSprite, gunController.stats);
         //gunController.Offset = Gun.GetLocalOffset();
@@ -47,7 +50,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         HandleMovement();
         HandleShooting();
         HandleRotation();
@@ -69,7 +73,7 @@ public class PlayerController : MonoBehaviour {
         float angle = Mathf.Atan2(yAxis, xAxis);
 
         movementAngle = Mathf.Rad2Deg * angle;
-        if(movementAngle < 0)
+        if (movementAngle < 0)
         {
             movementAngle += 360;
         }
@@ -85,23 +89,9 @@ public class PlayerController : MonoBehaviour {
     void HandleShooting()
     {
         // Shoot bullets
-        if(Input.GetButton("Shoot"))
+        if (Input.GetButton("Shoot"))
         {
-            Vector2 player = transform.position;
-            Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 diff = mouse - player;
-            float angle = Mathf.Atan2(diff.y, diff.x);
-
-            //GunController g = gunObject.GetComponent<GunController>();
             gunController.Shoot();
-            //if (gunController.Shoot())
-            //{
-            //    bulletPanel.Shoot();
-            //    if (g.Reloading)
-            //    {
-            //        bulletPanel.Reload(g.stats.ReloadSpeed.ModdedValue());
-            //    }
-            //}
         }
     }
 
@@ -131,7 +121,7 @@ public class PlayerController : MonoBehaviour {
         else if (angleBetween > 180) angleBetween -= 360;
 
         // Negative if obtuse, positive if acute (think dot product)
-        if(Mathf.Cos(Mathf.Deg2Rad * angleBetween) < 0 && !shouldIdle)
+        if (Mathf.Cos(Mathf.Deg2Rad * angleBetween) < 0 && !shouldIdle)
         {
             bodyAnim.SetFloat("speed", -1);
         }
@@ -155,73 +145,43 @@ public class PlayerController : MonoBehaviour {
             if (degrees < 0) degrees += 360;
         }
 
-
         bodyRenderer.flipX = flip;
 
-       // Forward
+        float h = 0.0f;
+        float v = 0.0f;
+        // Forward
         if (degrees >= 225 && degrees < 315)
         {
-            SwitchState(AnimState.Forward, shouldIdle);
+            h = -1;
+            v = -1;
         }
         // Forward 45
         else if ((degrees >= 315 && degrees <= 360) || (degrees > 180 && degrees < 225))
         {
-            SwitchState(AnimState.Forward45, shouldIdle);
+            h = 1;
+            v = -1;
         }
         // Backward 45
         else if ((degrees <= 45 && degrees > 0) || (degrees <= 180 && degrees > 135))
         {
-            SwitchState(AnimState.Backward45, shouldIdle);
+            h = 1;
+            v = 1;
         }
         // Backward
         else if (degrees <= 135 && degrees > 45)
         {
-            SwitchState(AnimState.Backward, shouldIdle);
+            h = -1;
+            v = 1;
         }
         else
         {
             Debug.Log($"Degrees: {degrees}");
         }
+        bodyAnim.SetFloat("horizontal", h);
+        bodyAnim.SetFloat("vertical", v);
+        bodyAnim.SetFloat("moving", shouldIdle ? 0.0f : 1.0f);
 
-        handController.UpdateTexture(currState, flip);
+        handController.UpdateTexture(v < 0, flip);
+        gunController.SetDrawOrder(v < 0);
     }
-
-    void SwitchState(AnimState newState, bool idle)
-    {
-        if (currState == newState && wasIdling == shouldIdle) return;
-        currState = newState;
-
-        switch (newState)
-        {
-            case AnimState.Forward:
-                bodyAnim.SetTrigger("forward");
-                break;
-            case AnimState.Forward45:
-                bodyAnim.SetTrigger("forward_45");
-                break;
-            case AnimState.Backward:
-                bodyAnim.SetTrigger("backward");
-                break;
-            case AnimState.Backward45:
-                bodyAnim.SetTrigger("backward_45");
-                break;
-        }
-        bodyAnim.SetBool("idle", idle);
-        wasIdling = shouldIdle;
-    }
-
-    //public void AddAttachment(Attachment attachment)
-    //{
-    //    Gun.AddAttachment(attachment);
-    //    gunController.UpdateTexture(Gun.ModdedGun);
-    //}
-
-}
-
-public enum AnimState
-{
-    Forward,
-    Backward,
-    Forward45,
-    Backward45
 }

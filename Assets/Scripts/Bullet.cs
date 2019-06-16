@@ -23,17 +23,12 @@ public class Bullet : MonoBehaviour {
         rb2d.velocity = new Vector2(Speed * Mathf.Cos(angle), Speed * Mathf.Sin(angle));
         transform.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * angle);
     }
-	
-    // Update is called once per frame
-    void Update () {
-    }
   
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject other = collision.gameObject;
-        Debug.Log($"{other.tag}");
 
-        Health health = other.GetComponent<Health>();
+        Health health = other.GetComponentInParent<Health>();
         if(health != null)
         {
             health.Amount -= Damage;

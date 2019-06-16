@@ -13,10 +13,9 @@ public class BasicAIController : MonoBehaviour
     private Rigidbody2D rb2d;
     private MovementAnimator moveAnim;
 
-    public Transform enemyTransform;
-    public Transform playerTransform;
+    [SerializeField] private Transform enemyTransform;
+    private Transform playerTransform;
 
-    public float Speed = 2;
     private Coord CurrTile
     {
         get
@@ -27,6 +26,13 @@ public class BasicAIController : MonoBehaviour
 
     // AI
     private IBehaviourTreeNode tree;
+    public bool IsAttacking { get; set; }
+    private Animator anim;
+    private bool InLOS;
+
+    [SerializeField] private SmallGremlinSettings settings;
+    private float attackCooldown;
+    private float attackDelay;
 
     // Patrol
     private bool IsWalking;
@@ -39,6 +45,7 @@ public class BasicAIController : MonoBehaviour
         level = GameManager.instance.level;
         pathFinder = level.GetPathFinder();
         moveAnim = GetComponent<MovementAnimator>();
+        anim = GetComponentInChildren<Animator>(); // Will only work if there is only ONE animator
 
         BuildTree();
     }
@@ -49,25 +56,69 @@ public class BasicAIController : MonoBehaviour
         tree = builder
             .Selector("Main")
                 .Sequence("Attack")
-                    .Condition("LOS", t => LOS())
-                    .Condition("Range", t => Range(1.5f))
-                    .Do("Stop", t => StopMoving())
-                    .Do("Attack", t =>
-                    {
-                        //gunController.Shoot
-                        moveAnim.Attack();
-                        return BehaviourTreeStatus.Success;
-                    })
+                    // Either you're already attacking, or you're ready to attack
+                    .Selector("Should Attack")
+                        .Sequence("Ready to Attack")
+                            .Condition("LOS", t => LOS())
+                            .Condition("Range", t => Range(1.5f))
+                        .End()
+                        .Condition("Is Already Attacking", t => IsAttacking)
+                    .End()
+                    .Selector("Waiting to attack or attack")
+                        .Sequence("Waiting to attack again")
+                            .Condition("Waiting", t => attackCooldown > 0)
+                            .Condition("Not Attacking", t => !IsAttacking)
+                            .Do("Stop", t => StopMoving())
+                        .End()
+                        .Sequence("Currently attacking or ready to attack") 
+                            .Do("Stop", t => StopMoving())
+                            .Do("Attack", t =>
+                            {
+                                // If not attacking, setup attack
+                                if (!IsAttacking)
+                                {
+                                    attackCooldown = settings.AttackCooldown;
+                                    IsAttacking = true;
+                                    anim.SetTrigger("attack");
+                                    attackDelay = 0;
+                                }
+                                else
+                                {
+                                    attackDelay += t.deltaTime;
+                                    if(attackDelay > settings.AttackDelay)
+                                    {
+                                        // do damage
+                                        var dir = playerTransform.position - enemyTransform.position;
+                                        var hit = Physics2D.Raycast(
+                                            enemyTransform.position, 
+                                            dir, 
+                                            settings.AttackRange, 
+                                            LayerMask.GetMask("Player Feet")
+                                        );
+
+                                        if(hit.collider != null)
+                                        {
+                                            var player = hit.collider.gameObject;
+                                            player.GetComponentInParent<Health>().Amount -= settings.AttackDamage;
+                                        }
+                                        attackDelay = float.MinValue; // Guarantees attack is only done once
+                                    } 
+                                }
+
+                                return BehaviourTreeStatus.Success;
+                            })
+                        .End()
+                    .End()
                 .End()
                 .Sequence("Follow")
-                    .Condition("LOS", t => LOS())
+                    //.Condition("LOS", t => LOS())
                     .Condition("Get Path", t => GetPath())
                     .Do("Move On Path", t => MoveOnPath())
                 .End()
-                .Sequence("Follow Trail")
-                    .Condition("Has Path", t => HasPath())
-                    .Do("Move On Path", t => MoveOnPath())
-                .End()
+                //.Sequence("Follow Trail")
+                //    .Condition("Has Path", t => HasPath())
+                //    .Do("Move On Path", t => MoveOnPath())
+                //.End()
                 .Do("Patrol", t => Patrol())
             .End()
             .Build();
@@ -77,11 +128,11 @@ public class BasicAIController : MonoBehaviour
     private bool LOS()
     {
         Vector2 diff = playerTransform.position - enemyTransform.position;
-        RaycastHit2D ray = Physics2D.Raycast(enemyTransform.position, diff, 100, LayerMask.GetMask("Walls", "Player Feet"));
+        RaycastHit2D ray = Physics2D.Raycast(enemyTransform.position, diff, 100, LayerMask.GetMask("Wall", "Player Feet"));
 
         Debug.DrawLine(enemyTransform.position, ray.point, Color.red, 0.1f);
-
-        return ray.rigidbody != null && ray.rigidbody.gameObject.tag == "Player";
+        InLOS = ray.rigidbody != null && ray.rigidbody.gameObject.tag == "Player";
+        return InLOS;
     }
 
     private bool Range(float range)
@@ -111,14 +162,14 @@ public class BasicAIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // It's always safe to subtract from the cooldown
+        attackCooldown -= Time.deltaTime;
+
         // We probably don't want the AI itself to have control over whether or not it updates. This should
         // probably be in a state machine somewhere else.
         //if (!OnScreen(0.1f)) return;
 
         tree.Tick(new TimeData(Time.deltaTime));
-        //FollowPlayer();
-        //gunController.SetAimAngle(lookAngle);
-        //moveAnim.LookAngle = lookAngle;
     }
 
     // Returns true if a path can be created between the enemy and the player
@@ -130,7 +181,7 @@ public class BasicAIController : MonoBehaviour
         lookAngle = Mathf.Rad2Deg * Mathf.Atan2(diff.y, diff.x);
 
         // Both lines can be deleted when debug drawing is no longer needed
-        RaycastHit2D ray = Physics2D.Raycast(myTransform.position, diff, 100, LayerMask.GetMask("Walls", "Player Feet"));
+        RaycastHit2D ray = Physics2D.Raycast(myTransform.position, diff, 100, LayerMask.GetMask("Wall", "Player Feet"));
         Debug.DrawLine(myTransform.position, ray.point, Color.red, 0.1f);
 
         Coord playerPos = level.WorldToTile(pTransform.position);
@@ -169,13 +220,20 @@ public class BasicAIController : MonoBehaviour
 
         // Calculate angle between enemy and goal
         var goalVec = new Vector2(goal.tx - enemyPos.x + 0.5f, goal.ty - enemyPos.y + 0.5f).normalized;
-        var dir = Vector2.Lerp(rb2d.velocity.normalized, goalVec, Time.deltaTime * 2);
+        var dir = Vector2.Lerp(rb2d.velocity.normalized, goalVec, Time.deltaTime * settings.TurningVelocity);
 
-        rb2d.velocity = dir * Speed;
+        rb2d.velocity = dir * settings.Speed;
 
-        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        angle = (angle + 360) % 360;
-        moveAnim.LookAngle = angle;
+        if(InLOS && false)
+        {
+            var diff = playerTransform.position - enemyTransform.position;
+            moveAnim.LookAngle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        }
+        else
+        {
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            moveAnim.LookAngle = angle;
+        }
 
         return BehaviourTreeStatus.Success;
     }
@@ -200,16 +258,16 @@ public class BasicAIController : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        if(path != null)
-        {
-            Gizmos.color = Color.blue;
-            for(int i = 0; i < path.path.Count; i++)
-            {
-                Vector2 waypoint = level.TileToWorld(path.path[i]);
-                Gizmos.DrawSphere(waypoint + new Vector2(0.5f, 0.5f), 0.5f);
-            }
-        }
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    if(path != null)
+    //    {
+    //        Gizmos.color = Color.blue;
+    //        for(int i = 0; i < path.path.Count; i++)
+    //        {
+    //            Vector2 waypoint = level.TileToWorld(path.path[i]);
+    //            Gizmos.DrawSphere(waypoint + new Vector2(0.5f, 0.5f), 0.5f);
+    //        }
+    //    }
+    //}
 }

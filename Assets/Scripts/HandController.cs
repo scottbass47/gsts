@@ -15,19 +15,9 @@ public class HandController : MonoBehaviour {
         spriteRenderer.sprite = handFront;
 	}
 
-    public void UpdateTexture(AnimState playerState, bool flip)
+    public void UpdateTexture(bool front, bool flip)
     {
-        switch(playerState)
-        {
-            case AnimState.Forward:
-            case AnimState.Forward45:
-                spriteRenderer.sprite = handFront;
-                break;
-            case AnimState.Backward45:
-            case AnimState.Backward:
-                spriteRenderer.sprite = handBack;
-                break;
-        }
+        spriteRenderer.sprite = front ? handFront : handBack;
         spriteRenderer.flipX = flip;
 
         if ((flip && transform.localPosition.x > 0) || (!flip && transform.localPosition.x < 0))

@@ -100,7 +100,8 @@ public class BasicAIController : MonoBehaviour
                                         if(hit.collider != null)
                                         {
                                             var player = hit.collider.gameObject;
-                                            player.GetComponentInParent<Health>().Amount -= settings.AttackDamage;
+                                            DamageManager.DealDamage(player);
+                                            //player.GetComponentInParent<Health>().Amount -= settings.AttackDamage;
                                         }
                                         attackDelay = float.MinValue; // Guarantees attack is only done once
                                     } 

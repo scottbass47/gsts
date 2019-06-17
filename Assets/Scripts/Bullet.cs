@@ -47,12 +47,7 @@ public class Bullet : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject other = collision.gameObject;
-
-        Health health = other.GetComponentInParent<Health>();
-        if(health != null)
-        {
-            health.Amount -= Damage;
-        }
+        DamageManager.DealDamage(other, Damage);
 
         var physics = other.GetComponentInParent<Physics>();
         physics?.ApplyKnockback(dir, 0.2f, KnockbackAmount);

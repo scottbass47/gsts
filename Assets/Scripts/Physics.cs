@@ -5,7 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Physics : MonoBehaviour
 {
-    public Transform HitboxCenter;
+    [SerializeField] private Transform hitboxCenter;
+    public Transform HitboxCenter => hitboxCenter;
 
     private Rigidbody2D body;
     private Vector2 netForce;

@@ -15,6 +15,6 @@ MonoBehaviour:
   attackDelay: 0.1
   attackCooldown: 1
   attackRange: 1.5
-  attackDamage: 10
+  attackDamage: 0
   turningVelocity: 3
-  speed: 3.5
+  speed: 3

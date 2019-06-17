@@ -111,6 +111,11 @@ public class GunController : MonoBehaviour
         Flipped = flipped;
     }
 
+    public void AimAt(Vector2 target)
+    {
+
+    }
+
     public void SetDrawOrder(bool inFront)
     {
         spriteRenderer.sortingOrder = inFront ? 1 : -1;

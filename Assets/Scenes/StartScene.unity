@@ -126,6 +126,33 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1851062403920670148}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &176109407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176109406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940ec4eecb9a71e48968cdacc4ad6e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &176109408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176109406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc61a76ace0e9684b8fc69fae1892695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  feet: {fileID: 1365806616}
+  settings: {fileID: 11400000, guid: 1291dbd650421eb4bb61231b8fa0d11c, type: 2}
+  anim: {fileID: 1321223187}
 --- !u!114 &176109412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11618,6 +11645,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1321223187 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6267374694890233373, guid: ccc46e423ca439844a36e23561285ff1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1851062403920670148}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1351637246
 GameObject:
   m_ObjectHideFlags: 0
@@ -11710,6 +11743,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1365806616 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1611580547, guid: ccc46e423ca439844a36e23561285ff1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1851062403920670148}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1391721622
 GameObject:
   m_ObjectHideFlags: 3
@@ -14066,6 +14105,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 1291dbd650421eb4bb61231b8fa0d11c,
         type: 2}
+    - target: {fileID: 555497712240730560, guid: ccc46e423ca439844a36e23561285ff1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1096713037429027964, guid: ccc46e423ca439844a36e23561285ff1,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

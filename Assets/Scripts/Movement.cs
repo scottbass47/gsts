@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Physics : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     [SerializeField] private Transform hitboxCenter;
     public Transform HitboxCenter => hitboxCenter;

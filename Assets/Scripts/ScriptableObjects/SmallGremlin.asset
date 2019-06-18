@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 771b528fd69be724984b0885355d30c3, type: 3}
   m_Name: SmallGremlin
   m_EditorClassIdentifier: 
-  attackDelay: 0.1
-  attackCooldown: 1
+  attackDelay: 0.2
+  attackFrame: 0.2
+  attackCooldown: 0.5
   attackRange: 1.5
-  attackDamage: 0
   turningVelocity: 3
   speed: 3

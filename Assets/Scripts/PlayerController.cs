@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer bodyRenderer;
     private HandController handController;
     private GunController gunController;
-    private Physics physics;
+    private Movement physics;
     //private BulletPanel bulletPanel;
 
     private bool wasIdling = false;
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         handController = GetComponentInChildren<HandController>();
-        physics = GetComponent<Physics>();
+        physics = GetComponent<Movement>();
         gunController = GetComponentInChildren<GunController>();
 
         bodyRenderer.color = Color.white;

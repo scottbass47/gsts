@@ -49,7 +49,7 @@ public class Bullet : MonoBehaviour {
         GameObject other = collision.gameObject;
         DamageManager.DealDamage(other, Damage);
 
-        var physics = other.GetComponentInParent<Physics>();
+        var physics = other.GetComponentInParent<Movement>();
         physics?.ApplyKnockback(dir, 0.2f, KnockbackAmount);
 
         Destroy(gameObject);

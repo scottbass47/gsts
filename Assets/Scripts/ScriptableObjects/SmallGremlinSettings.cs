@@ -6,12 +6,14 @@ using UnityEngine;
 public class SmallGremlinSettings : ScriptableObject
 {
     [SerializeField] private float attackDelay;
+    [SerializeField] private float attackFrame;
     [SerializeField] private float attackCooldown;
     [SerializeField] private float attackRange;
     [SerializeField] private float turningVelocity;
     [SerializeField] private float speed;
 
     public float AttackDelay => attackDelay;
+    public float AttackFrame => attackFrame;
     public float AttackCooldown => attackCooldown;
     public float AttackRange => attackRange;
     public float TurningVelocity => turningVelocity;

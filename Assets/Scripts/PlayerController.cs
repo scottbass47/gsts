@@ -5,23 +5,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    public float speed = 4;
-    public GameObject gunObject;
-    public Sprite baseGunSprite;
-
-    //public Gun Gun { get; private set; }
-    public Animator bodyAnim;
-    public SpriteRenderer bodyRenderer;
+    [SerializeField] private float speed = 4;
+    [SerializeField] private Animator bodyAnim;
+    [SerializeField] private SpriteRenderer bodyRenderer;
+    
     private HandController handController;
     private GunController gunController;
     private Movement physics;
-    //private BulletPanel bulletPanel;
 
-    private bool wasIdling = false;
-    private bool shouldIdle = false;
-
-    //private float movementAngle;
     private Vector2 movementVector;
+    private bool shouldIdle;
     public float AimAngle { get; private set; }
 
     private float elapsed;
@@ -127,30 +120,10 @@ public class PlayerController : MonoBehaviour
         var damageFilter = GetComponent<DamageFilter>();
         damageFilter.IsInvulnerable = true;
 
-        yield return Flash(0.15f);
+        yield return DrawUtils.Flash(gameObject, 0.15f);
         yield return Blinking(0.75f, 0.1f);
 
         damageFilter.IsInvulnerable = false;
-    }
-
-    private IEnumerator Flash(float duration)
-    {
-        SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
-        Material[] old = new Material[renderers.Length];
-        for(int i = 0; i < renderers.Length; i++)
-        {
-            var render = renderers[i];
-            old[i] = render.material;
-            render.material = flashMaterial;
-            render.material.SetColor("_BlinkColor", Color.white);
-        }
-        yield return new WaitForSeconds(duration);
-
-        for(int i = 0; i < renderers.Length; i++)
-        {
-            var render = renderers[i];
-            render.material = old[i];
-        }
     }
 
     private IEnumerator Blinking(float duration, float blinkTime)

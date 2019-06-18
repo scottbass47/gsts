@@ -26,7 +26,7 @@ public static class DamageManager
 
         if (damageFilter)
         {
-            damageFilter.DamageEvent?.OnDamage(to, amount);
+            damageFilter.DamageEvent?.OnDamage(damageFilter, amount);
         }
     }
 }

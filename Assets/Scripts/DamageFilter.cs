@@ -18,5 +18,5 @@ public class DamageFilter : MonoBehaviour
 
 public abstract class DamageEvent : ScriptableObject
 {
-    public abstract void OnDamage(GameObject obj, float amount);
+    public abstract void OnDamage(DamageFilter filter, float amount);
 }

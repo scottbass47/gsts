@@ -1,12 +1,32 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
 
 
-class DrawUtils
+public class DrawUtils
 {
+    public static IEnumerator Flash(GameObject obj, float duration)
+    {
+        SpriteRenderer[] renderers = obj.GetComponentsInChildren<SpriteRenderer>();
+        Material[] old = new Material[renderers.Length];
+        for(int i = 0; i < renderers.Length; i++)
+        {
+            var render = renderers[i];
+            old[i] = render.material;
+            render.material = Materials.Instance.FlashMaterial;
+            render.material.SetColor("_BlinkColor", Color.white);
+        }
+        yield return new WaitForSeconds(duration);
+
+        for(int i = 0; i < renderers.Length; i++)
+        {
+            var render = renderers[i];
+            render.material = old[i];
+        }
+    }
 
     public static void DrawLine(int x, int y, int x2, int y2, int texWidth, Color32 color, Color32[] pixels)
     {

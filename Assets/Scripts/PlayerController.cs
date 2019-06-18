@@ -92,7 +92,9 @@ public class PlayerController : MonoBehaviour
         }
 
         AimAngle = degrees;
-        gunController.SetAimAngle(AimAngle);
+        //gunController.SetAimAngle(AimAngle);
+
+        gunController.AimAt(mouse, player);
 
         if(Vector2.Dot(movementVector, aimVector) < 0)
         {

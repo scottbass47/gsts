@@ -14015,6 +14015,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2e374cde344110c4380c42f7886a4328, type: 2}
+    - target: {fileID: 417036213789464920, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: accurateShootingRange
+      value: 1.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db089f40546f3d646961ef2ac4a74701, type: 3}
 --- !u!1001 &1851062403920670148
@@ -14028,6 +14033,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536418901072705457, guid: ccc46e423ca439844a36e23561285ff1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9194530548761137127, guid: ccc46e423ca439844a36e23561285ff1,
         type: 3}
@@ -14115,5 +14125,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2e374cde344110c4380c42f7886a4328, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 555497712240730560, guid: ccc46e423ca439844a36e23561285ff1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ccc46e423ca439844a36e23561285ff1, type: 3}

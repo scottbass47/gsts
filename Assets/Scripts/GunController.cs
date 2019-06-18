@@ -8,7 +8,8 @@ public class GunController : MonoBehaviour
     private float aimAngle;
     private float angleThreshold = 15; // Used for over-aiming
     private bool aimingRight;
-    private Vector3 offset;
+    private Vector2 offset;
+    private Vector2 flippedOffset;
     private SpriteRenderer spriteRenderer;
 
     private float elapsedTime = 0f;
@@ -16,16 +17,16 @@ public class GunController : MonoBehaviour
     [SerializeField] private BulletStats stats;
 
     public Vector2 BarrelOffset => new Vector2(0.9f, 0.375f);
+    
+    [SerializeField] private float accurateShootingRange;
 
     // Returns the location in world space where the bullet originates in the shot
-    // Use this position to calculate the aim angle.
     public Vector2 ShotOrigin
     {
         get
         {
-            Vector3 offset = Quaternion.Euler(0, 0, Flipped ? aimAngle + 180 : aimAngle) * 
-                             new Vector3(Flipped ? -BarrelOffset.x : BarrelOffset.x, BarrelOffset.y);
-
+            Vector3 offset = Quaternion.Euler(0, 0, aimAngle) * new Vector3(BarrelOffset.x, BarrelOffset.y);
+            if (Flipped) offset.x = -offset.x;
             return transform.position + offset; 
         } 
 
@@ -37,6 +38,7 @@ public class GunController : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         offset = transform.localPosition;
+        flippedOffset = new Vector2(-offset.x, offset.y);
     }
 
     // Update is called once per frame
@@ -52,6 +54,7 @@ public class GunController : MonoBehaviour
 
         float randomOffset = 0; // Random.Range(-stats.Accuracy.ModdedValue(), stats.Accuracy.ModdedValue());
         float radians = Mathf.Deg2Rad * (aimAngle + randomOffset);
+        radians = Flipped ? Mathf.PI - radians : radians;
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity) as GameObject;
 
         //bool critical = Random.Range(0f, 1f) < stats.CriticalChance.Mod;
@@ -73,47 +76,46 @@ public class GunController : MonoBehaviour
         return true;
     }
 
-    // Angle in [0, 360)
-    public void SetAimAngle(float angle)
+    public void AimAt(Vector2 target, Vector2 center)
     {
-        bool right = RightSide(angle);
-        aimAngle = angle;
+        var aimVec = target - center;
+        Flipped = aimVec.x < 0;
 
-        bool shouldFlip = false;
-        if (aimingRight && !right)
+        Vector2 pivotToTarget = target - (Vector2)transform.position;
+        float targetDist = pivotToTarget.magnitude;
+        float degrees = 0;
+
+        if(targetDist < accurateShootingRange)
         {
-            shouldFlip = angle > 90 + angleThreshold && angle < 270 - angleThreshold;
-        }
-        else if (!aimingRight && right)
-        {
-            shouldFlip = angle < 90 - angleThreshold || angle > 270 + angleThreshold;
-        }
-
-        bool flipped = shouldFlip == aimingRight;
-
-        Vector3 translate = Vector3.zero;
-        transform.eulerAngles = new Vector3(0, 0, flipped ? angle + 180 : angle);
-        //pixelRotate.SetRotate(flipped ? 180 - angle : angle, HandlePivot + pixelRotate.PivotCenter, out translate);
-
-        spriteRenderer.flipX = flipped;
-        //transform.localPosition = localPos + translate;
-
-        if (flipped)
-        {
-            transform.localPosition = new Vector3(-offset.x, offset.y, 0);
+            degrees = Mathf.Atan2(aimVec.y, Flipped ? -aimVec.x : aimVec.x) * Mathf.Rad2Deg;
         }
         else
         {
-            transform.localPosition = offset;
+            if (Flipped) pivotToTarget.x = -pivotToTarget.x;
+
+            float barrelDist = BarrelOffset.magnitude;
+
+            float theta = Mathf.Acos(BarrelOffset.x / barrelDist);
+            float beta = Mathf.PI - theta;
+            float gamma = Mathf.Asin(barrelDist / targetDist * Mathf.Sin(beta));
+
+            Vector2 pivotToTargetPrime = targetDist * new Vector2(Mathf.Cos(gamma), Mathf.Sin(gamma));
+
+            degrees = Vector2.SignedAngle(pivotToTargetPrime, pivotToTarget);
+
+            //Debug.DrawLine(transform.position, (Vector2)transform.position + pivotToTargetPrime, Color.red);
+            //Debug.DrawLine(transform.position, GetBarrelPos(), Color.red);
+            //Debug.DrawLine(GetBarrelPos(), (Vector2)transform.position + pivotToTargetPrime, Color.red);
+
+            //Debug.DrawLine(transform.position, target, Color.blue);
+            //Debug.DrawLine(transform.position, ShotOrigin, Color.blue);
+            //Debug.DrawLine(ShotOrigin, target, Color.blue);
         }
-        if (shouldFlip) aimingRight = !aimingRight;
+        aimAngle = degrees;
 
-        Flipped = flipped;
-    }
-
-    public void AimAt(Vector2 target)
-    {
-
+        transform.localPosition = Flipped ? flippedOffset : offset;
+        spriteRenderer.flipX = Flipped;
+        transform.eulerAngles = new Vector3(0, 0, Flipped ? 360 - aimAngle : aimAngle);
     }
 
     public void SetDrawOrder(bool inFront)
@@ -121,9 +123,10 @@ public class GunController : MonoBehaviour
         spriteRenderer.sortingOrder = inFront ? 1 : -1;
     }
 
-    public Vector2 GetAimPoint()
+    public Vector2 GetBarrelPos()
     {
-        return (Vector2)transform.position + BarrelOffset;
+        var off = Flipped ? new Vector2(-BarrelOffset.x, BarrelOffset.y) : BarrelOffset;
+        return (Vector2)transform.position + off;
     }
 
     private bool RightSide(float angle)

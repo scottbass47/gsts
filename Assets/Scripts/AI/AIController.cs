@@ -29,7 +29,7 @@ public class AIController : MonoBehaviour
         set => feet = value;
     }
 
-    public Level Level => GameManager.instance.level;
+    public Level Level => GameManager.Instance.level;
 
     private Movement movement;
     public Movement Movement => movement;
@@ -50,6 +50,9 @@ public class AIController : MonoBehaviour
         get => moveDir;
         set => moveDir = value.normalized; 
     }
+
+    private Coroutine flash;
+    private bool flashing = false;
     
     private void Start()
     {
@@ -60,5 +63,17 @@ public class AIController : MonoBehaviour
     private void Update()
     {
        Tree?.Tick(new TimeData(Time.deltaTime)); 
+    }
+
+    public void Flash(float duration)
+    {
+        if (flashing) return;
+        flashing = true;
+        StartCoroutine(DrawUtils.Flash(gameObject, duration, flashFinished));
+    }
+
+    private void flashFinished()
+    {
+        flashing = false;
     }
 }

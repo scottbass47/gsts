@@ -8,7 +8,7 @@ using System.Text;
 
 public class GameManager : MonoBehaviour {
 
-    public static GameManager instance = null;
+    public static GameManager Instance = null;
     public GameObject player;
     public GameObject chestPrefab;
     public GameObject enemy;
@@ -23,18 +23,20 @@ public class GameManager : MonoBehaviour {
     private List<GameObject> enemies;
 
     public Level level { get; private set; }
+    public EventManager Events { get; private set; }
 
 	// Use this for initialization
 	void Awake () {
-		if(instance == null)
+		if(Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
-        else if(instance != this)
+        else if(Instance != this)
         {
             Destroy(gameObject);
         }
         levelGen = GetComponent<LevelGenerator>();
+        Events = GetComponent<EventManager>();
 
         map = Instantiate(map, Vector3.zero, Quaternion.identity) as GameObject;
         map.SetActive(false);

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BasePistolStats
   m_EditorClassIdentifier: 
   speed: 10
-  damage: 0
+  damage: 5
   knockbackAmount: 0
   fireRate: 5

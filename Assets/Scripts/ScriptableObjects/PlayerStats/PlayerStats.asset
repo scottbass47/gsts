@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df040dad74017d84e95df54a71201a73, type: 3}
-  m_Name: EnemyDamage
+  m_Script: {fileID: 11500000, guid: 4add6a89fd334e349a9a67f3284888e6, type: 3}
+  m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  flashDuration: 0.2
+  maxHealth: 5
+  moveSpeed: 4

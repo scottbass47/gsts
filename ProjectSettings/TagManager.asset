@@ -50,3 +50,6 @@ TagManager:
   - name: Cursor
     uniqueID: 2274122543
     locked: 0
+  - name: HUD
+    uniqueID: 3760359843
+    locked: 0

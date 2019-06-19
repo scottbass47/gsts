@@ -5,13 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    [SerializeField] private float speed = 4;
+    [SerializeField] private PlayerStats stats;
     [SerializeField] private Animator bodyAnim;
     [SerializeField] private SpriteRenderer bodyRenderer;
     
     private HandController handController;
     private GunController gunController;
     private Movement physics;
+    private Health health;
 
     private Vector2 movementVector;
     private bool shouldIdle;
@@ -21,12 +22,17 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Material flashMaterial;
 
-    // Use this for initialization
-    void Start()
+    private EventManager events;
+
+    private void Start()
     {
+        events = GameManager.Instance.Events;
         handController = GetComponentInChildren<HandController>();
         physics = GetComponent<Movement>();
         gunController = GetComponentInChildren<GunController>();
+
+        health = GetComponent<Health>();
+        health.Amount = stats.MaxHealth;
 
         bodyRenderer.color = Color.white;
     }
@@ -53,7 +59,7 @@ public class PlayerController : MonoBehaviour
         }
         var movementVector = new Vector2(xAxis, yAxis).normalized;
 
-        float adjustedSpeed = speed; //- gunObject.GetComponent<GunController>().stats.Weight.ModdedValue();
+        float adjustedSpeed = stats.MoveSpeed; //- gunObject.GetComponent<GunController>().stats.Weight.ModdedValue();
 
         var vel = movementVector * adjustedSpeed;
         physics.AddForce(vel);
@@ -110,9 +116,12 @@ public class PlayerController : MonoBehaviour
         gunController.SetDrawOrder(aimVector.y < 0);
     }
 
-    public void TakeDamage()
+    public void TakeDamage(float amount)
     {
         StartCoroutine(DamageRoutine());
+
+        events.FireEvent(new PlayerDamage());
+        events.FireEvent(new PlayerHealthEvent { Health = (int)health.Amount });
     }
     
     private IEnumerator DamageRoutine()

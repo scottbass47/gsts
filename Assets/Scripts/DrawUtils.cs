@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class DrawUtils
 {
-    public static IEnumerator Flash(GameObject obj, float duration)
+    public static IEnumerator Flash(GameObject obj, float duration, Action flashFinishedCallback = null)
     {
         SpriteRenderer[] renderers = obj.GetComponentsInChildren<SpriteRenderer>();
         Material[] old = new Material[renderers.Length];
@@ -26,6 +26,7 @@ public class DrawUtils
             var render = renderers[i];
             render.material = old[i];
         }
+        flashFinishedCallback?.Invoke();
     }
 
     public static void DrawLine(int x, int y, int x2, int y2, int texWidth, Color32 color, Color32[] pixels)

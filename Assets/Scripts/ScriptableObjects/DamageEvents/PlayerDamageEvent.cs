@@ -9,6 +9,6 @@ public class PlayerDamageEvent : DamageEvent
     {
         var obj = filter.gameObject;
         var playerController = obj.GetComponent<PlayerController>();
-        playerController.TakeDamage();
+        playerController.TakeDamage(amount);
     }
 }

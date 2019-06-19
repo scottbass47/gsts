@@ -10,6 +10,6 @@ public class EnemyDamageEvent : DamageEvent
     public override void OnDamage(DamageFilter filter, float amount)
     {
         var obj = filter.gameObject;
-        obj.GetComponent<AIController>().StartCoroutine(DrawUtils.Flash(obj, flashDuration));
+        obj.GetComponent<AIController>().Flash(flashDuration); 
     }
 }

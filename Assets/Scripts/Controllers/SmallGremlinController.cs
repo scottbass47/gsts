@@ -20,7 +20,7 @@ public class SmallGremlinController : MonoBehaviour
         moveAnim = GetComponent<MovementAnimator>();
         ai = GetComponent<AIController>();
         ai.Pos = feet;
-        ai.Target = GameManager.instance.player.GetComponent<Movement>().HitboxCenter;
+        ai.Target = GameManager.Instance.player.GetComponent<Movement>().HitboxCenter;
         ai.Tree = CreateTree();
     }
 

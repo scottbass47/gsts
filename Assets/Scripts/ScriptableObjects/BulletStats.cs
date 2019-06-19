@@ -9,9 +9,15 @@ public class BulletStats : ScriptableObject
     [SerializeField] private float damage;
     [SerializeField] private float knockbackAmount;
     [SerializeField] private float fireRate;
+    [SerializeField] private float reloadRate;
+    [SerializeField] private int magSize;
+    [SerializeField] private bool semiAuto;
 
     public float Speed => speed;
     public float Damage => damage;
     public float KnockbackAmount => knockbackAmount;
     public float FireRate => fireRate;
+    public float ReloadRate => reloadRate;
+    public int MagSize => magSize;
+    public bool IsSemiAuto => semiAuto;
 }

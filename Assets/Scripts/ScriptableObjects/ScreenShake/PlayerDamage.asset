@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: PlayerDamage
   m_EditorClassIdentifier: Assembly-CSharp::ScreenShakeSettings
-  duration: 0.5
-  amplitude: 1
+  duration: 0.3
+  amplitude: 2
   frequency: 1

@@ -9,7 +9,6 @@ using System.Text;
 public class GameManager : MonoBehaviour {
 
     public static GameManager Instance = null;
-    public GameObject player;
     public GameObject chestPrefab;
     public GameObject enemy;
     public GameObject map;
@@ -24,6 +23,10 @@ public class GameManager : MonoBehaviour {
 
     public Level level { get; private set; }
     public EventManager Events { get; private set; }
+
+    [SerializeField] private GameObject playerPrefab;
+    private GameObject player;
+    public GameObject Player => player;
 
 	// Use this for initialization
 	void Awake () {
@@ -47,6 +50,12 @@ public class GameManager : MonoBehaviour {
 
         SetupLevel();
 	}
+
+    public void Start()
+    {
+        player = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
+        Events.FireEvent(new PlayerSpawn { Player = player });
+    }
 
     public void SetupLevel()
     {

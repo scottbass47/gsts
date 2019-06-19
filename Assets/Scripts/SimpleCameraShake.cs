@@ -13,6 +13,7 @@ public class SimpleCameraShake : MonoBehaviour
 
     // Screen shake settings
     [SerializeField] private ScreenShakeSettings playerDamage;
+    [SerializeField] private ScreenShakeSettings weaponFired;
 
     // Use this for initialization
     private void Start()
@@ -24,6 +25,10 @@ public class SimpleCameraShake : MonoBehaviour
         eventManager.AddListener<PlayerDamage>((obj) =>
         {
             Shake(playerDamage);
+        });
+        eventManager.AddListener<WeaponFired>((obj) =>
+        {
+            Shake(weaponFired);
         });
     }
 

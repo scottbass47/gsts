@@ -29,7 +29,18 @@ public class PlayerController : MonoBehaviour
         events = GameManager.Instance.Events;
         handController = GetComponentInChildren<HandController>();
         physics = GetComponent<Movement>();
+
         gunController = GetComponentInChildren<GunController>();
+        gunController.OnReload += (duration) =>
+        {
+            events.FireEvent(new Reload { Duration = duration });
+        };
+        gunController.OnClipChange += (bullets) =>
+        {
+            events.FireEvent(new WeaponClipChange { BulletsInClip = bullets });
+        };
+
+        events.FireEvent(new WeaponMagChange { Bullets = gunController.Stats.MagSize });
 
         health = GetComponent<Health>();
         health.Amount = stats.MaxHealth;
@@ -69,9 +80,15 @@ public class PlayerController : MonoBehaviour
     void HandleShooting()
     {
         // Shoot bullets
-        if (Input.GetButton("Shoot"))
+        bool holding = Input.GetButton("Shoot");  
+        bool click = Input.GetButtonDown("Shoot");  
+        if ((holding && !gunController.Stats.IsSemiAuto) ||
+             click && gunController.Stats.IsSemiAuto)
         {
-            gunController.Shoot();
+            if (gunController.Shoot())
+            {
+                events.FireEvent(new WeaponFired());
+            }
         }
     }
 

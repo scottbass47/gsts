@@ -76,5 +76,27 @@ public class PlayerHealthEvent : GameEvent
    public int Health { get; set; } 
 }
 
+public class PlayerSpawn : GameEvent
+{
+    public GameObject Player { get; set; }
+}
+
 // Only when the player takes damage from an enemy
 public class PlayerDamage : GameEvent { }
+
+public class WeaponFired : GameEvent { }
+
+public class Reload : GameEvent
+{
+    public float Duration { get; set; }
+}
+
+public class WeaponClipChange : GameEvent
+{
+    public int BulletsInClip { get; set; }
+}
+
+public class WeaponMagChange : GameEvent
+{
+    public int Bullets { get; set; }
+}

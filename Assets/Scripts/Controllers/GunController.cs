@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,18 +8,50 @@ public class GunController : MonoBehaviour
     public bool Flipped { get; set; }
     private float aimAngle;
     private float angleThreshold = 15; // Used for over-aiming
-    private bool aimingRight;
     private Vector2 offset;
     private Vector2 flippedOffset;
     private SpriteRenderer spriteRenderer;
 
     private float elapsedTime = 0f;
+    private bool reloading;
+    public bool Reloading
+    {
+        get => reloading;
+        private set
+        {
+            reloading = value;
+            if (reloading)
+            {
+                OnReload?.Invoke(stats.ReloadRate);
+            }
+        }
+    }
+    private int bulletsInClip;
+    public int BulletsInClip
+    {
+        get => bulletsInClip;
+        private set
+        {
+            if(bulletsInClip != value)
+            {
+                bulletsInClip = value;
+                OnClipChange?.Invoke(bulletsInClip);
+            }
+        }
+
+    }
+
+
     public GameObject bulletPrefab;
     [SerializeField] private BulletStats stats;
+    public BulletStats Stats => stats;
 
     public Vector2 BarrelOffset => new Vector2(0.9f, 0.375f);
     
     [SerializeField] private float accurateShootingRange;
+
+    public event Action<float> OnReload;
+    public event Action<int> OnClipChange;
 
     // Returns the location in world space where the bullet originates in the shot
     public Vector2 ShotOrigin
@@ -29,16 +62,15 @@ public class GunController : MonoBehaviour
             if (Flipped) offset.x = -offset.x;
             return transform.position + offset; 
         } 
-
     }
 
-
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         offset = transform.localPosition;
         flippedOffset = new Vector2(-offset.x, offset.y);
+        BulletsInClip = stats.MagSize;
     }
 
     // Update is called once per frame
@@ -49,7 +81,7 @@ public class GunController : MonoBehaviour
 
     public bool Shoot()
     {
-        if (elapsedTime * stats.FireRate < 1) return false;
+        if (elapsedTime * stats.FireRate < 1 || reloading) return false;
         elapsedTime = 0;
 
         float randomOffset = 0; // Random.Range(-stats.Accuracy.ModdedValue(), stats.Accuracy.ModdedValue());
@@ -67,13 +99,21 @@ public class GunController : MonoBehaviour
         bullet.GetComponent<SpriteRenderer>().sortingOrder = spriteRenderer.sortingOrder - 1;
         bulletComp.Shoot(radians);
 
-        //bulletsLeft--;
-        //if (bulletsLeft <= 0)
-        //{
-        //    Reloading = true;
-        //    reloadTime = stats.ReloadSpeed.ModdedValue();
-        //}
+        BulletsInClip--;
+
+        if (BulletsInClip == 0)
+        {
+            StartCoroutine(Reload(stats.ReloadRate));
+        }
         return true;
+    }
+
+    private IEnumerator Reload(float duration)
+    {
+        Reloading = true;
+        yield return new WaitForSeconds(duration);
+        BulletsInClip = stats.MagSize;
+        Reloading = false;
     }
 
     public void AimAt(Vector2 target, Vector2 center)

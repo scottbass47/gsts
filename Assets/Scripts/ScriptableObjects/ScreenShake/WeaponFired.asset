@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7698d23309be3614d99064089dba9c48, type: 3}
-  m_Name: BasePistolStats
-  m_EditorClassIdentifier: 
-  speed: 15
-  damage: 5
-  knockbackAmount: 0
-  fireRate: 200
-  reloadRate: 1
-  magSize: 6
-  semiAuto: 1
+  m_Script: {fileID: 0}
+  m_Name: WeaponFired
+  m_EditorClassIdentifier: Assembly-CSharp::ScreenShakeSettings
+  duration: 0
+  amplitude: 2
+  frequency: 1

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Enemy/Small Gremlin")]
-public class SmallGremlinSettings : ScriptableObject
+[CreateAssetMenu(menuName = "Enemy/Grunt")]
+public class GruntStats : ScriptableObject
 {
     [SerializeField] private float attackDelay;
     [SerializeField] private float attackFrame;
@@ -11,6 +11,7 @@ public class SmallGremlinSettings : ScriptableObject
     [SerializeField] private float attackRange;
     [SerializeField] private float turningVelocity;
     [SerializeField] private float speed;
+    [SerializeField] private float health;
 
     public float AttackDelay => attackDelay;
     public float AttackFrame => attackFrame;
@@ -18,5 +19,6 @@ public class SmallGremlinSettings : ScriptableObject
     public float AttackRange => attackRange;
     public float TurningVelocity => turningVelocity;
     public float Speed => speed;
+    public float Health => health;
     
 }

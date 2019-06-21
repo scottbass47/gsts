@@ -4,10 +4,10 @@ using UnityEngine;
 using FluentBehaviourTree;
 using System;
 
-public class SmallGremlinController : MonoBehaviour
+public class GruntController : MonoBehaviour
 {
     [SerializeField] private Transform feet;
-    [SerializeField] private SmallGremlinSettings settings;
+    [SerializeField] private GruntStats stats;
     [SerializeField] private Animator anim; 
 
     private AIController ai;
@@ -22,6 +22,9 @@ public class SmallGremlinController : MonoBehaviour
         ai.Pos = feet;
         ai.Target = GameManager.Instance.Player.GetComponent<Movement>().HitboxCenter;
         ai.Tree = CreateTree();
+
+        var health = GetComponent<Health>();
+        health.Amount = stats.Health;
     }
 
     private IBehaviourTreeNode CreateTree()
@@ -48,7 +51,7 @@ public class SmallGremlinController : MonoBehaviour
                 .End()
                 .Sequence("Follow")
                     .GetPath()
-                    .MoveOnPath(settings.Speed, settings.TurningVelocity, moveAnim)
+                    .MoveOnPath(stats.Speed, stats.TurningVelocity, moveAnim)
                 .End()
             .End()
             .Build();
@@ -58,17 +61,17 @@ public class SmallGremlinController : MonoBehaviour
     {
         isAttacking = true;
 
-        yield return new WaitForSeconds(settings.AttackDelay);
+        yield return new WaitForSeconds(stats.AttackDelay);
 
         anim.SetTrigger("attack");
 
-        yield return new WaitForSeconds(settings.AttackFrame);
+        yield return new WaitForSeconds(stats.AttackFrame);
 
         var dir = ai.Target.position - ai.Pos.position;
         var hit = Physics2D.Raycast(
             ai.Pos.position,
             dir,
-            settings.AttackRange,
+            stats.AttackRange,
             LayerMask.GetMask("Player Feet")
         );
 
@@ -78,7 +81,7 @@ public class SmallGremlinController : MonoBehaviour
             DamageManager.DealDamage(player);
         }
 
-        yield return new WaitForSeconds(settings.AttackCooldown);
+        yield return new WaitForSeconds(stats.AttackCooldown);
 
         isAttacking = false;
     }

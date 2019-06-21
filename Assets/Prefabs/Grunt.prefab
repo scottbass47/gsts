@@ -62,8 +62,9 @@ GameObject:
   - component: {fileID: 176109407}
   - component: {fileID: 176109408}
   - component: {fileID: 176109412}
+  - component: {fileID: 1270236612}
   m_Layer: 10
-  m_Name: SmallGremlin
+  m_Name: Grunt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feet: {fileID: 1611580547}
-  settings: {fileID: 11400000, guid: 1291dbd650421eb4bb61231b8fa0d11c, type: 2}
+  stats: {fileID: 11400000, guid: 1291dbd650421eb4bb61231b8fa0d11c, type: 2}
   anim: {fileID: 6267374694890233373}
 --- !u!114 &176109412
 MonoBehaviour:
@@ -175,6 +176,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitboxCenter: {fileID: 0}
+--- !u!114 &1270236612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536418901072705457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea98cb56afcd6564187a08f8003012f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageEvent: {fileID: 11400000, guid: 1ce04ed8e8b672847b8e0d922efcc71e, type: 2}
 --- !u!1 &3067845398605578285
 GameObject:
   m_ObjectHideFlags: 0

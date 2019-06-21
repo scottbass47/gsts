@@ -100,3 +100,9 @@ public class WeaponMagChange : GameEvent
 {
     public int Bullets { get; set; }
 }
+
+// Waves
+
+public class WaveStarted : GameEvent { }
+
+public class WaveEnded : GameEvent { }

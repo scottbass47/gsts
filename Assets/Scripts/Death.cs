@@ -8,19 +8,28 @@ public class Death : MonoBehaviour
 {
     private Health health;
 
+    public bool DestroyOnDeath { get; set; } = true;
     public event Action OnDeath;
+    public event Action OnDeathAnimFinish;
+    private bool deathTriggered = false;
 
     private void Start()
     {
         health = GetComponent<Health>();
     }
 
+    public void OnAnimationFinish()
+    {
+        OnDeathAnimFinish?.Invoke();
+    }
+
     private void Update()
     {
-        if(health.Amount < 0)
+        if(health.Amount < 0 && !deathTriggered)
         {
+            deathTriggered = true;
             OnDeath?.Invoke();
-            Destroy(gameObject);
+            if(DestroyOnDeath) Destroy(gameObject);
         }                
     }
 }

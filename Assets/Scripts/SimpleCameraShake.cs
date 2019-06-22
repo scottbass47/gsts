@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.Events;
 using System;
+using Random = UnityEngine.Random;
 
 public class SimpleCameraShake : MonoBehaviour
 {
@@ -35,22 +36,23 @@ public class SimpleCameraShake : MonoBehaviour
     private void Shake(ScreenShakeSettings settings)
     {
         StopAllCoroutines();
-        StartCoroutine(_Shake(settings.Duration, settings.Amplitude, settings.Frequency));
+        StartCoroutine(_Shake(settings.Duration, settings.Noise));
     }
 
-    public void EditorPreviewShake(float duration, float amplitude, float frequency)
+    public void EditorPreviewShake(float duration, NoiseSettings noise)
     {
         StopAllCoroutines();
-        StartCoroutine(_Shake(duration, amplitude, frequency));
+        StartCoroutine(_Shake(duration, noise));
     }
 
-    private IEnumerator _Shake(float duration, float amplitude, float frequency)
+    private IEnumerator _Shake(float duration, NoiseSettings noise)
     {
         float elapsed = 0;
-        virtualCameraNoise.m_AmplitudeGain = amplitude;
-        virtualCameraNoise.m_FrequencyGain = frequency;
+        virtualCameraNoise.m_NoiseProfile = noise;
+        virtualCameraNoise.m_AmplitudeGain = 1f;
+        virtualCameraNoise.m_FrequencyGain = 1f;
 
-        while(elapsed < duration)
+        while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
             yield return null;

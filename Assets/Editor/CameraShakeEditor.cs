@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -8,8 +9,7 @@ public class CameraShakeEditor : Editor
 {
     
     private float duration = 1f;
-    private float amplitude = 1f;
-    private float frequency = 1f;
+    private NoiseSettings noise;
 
     public override void OnInspectorGUI()
     {
@@ -21,12 +21,12 @@ public class CameraShakeEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Preview parameters");
         duration = EditorGUILayout.FloatField("Duration", duration);
-        amplitude = EditorGUILayout.FloatField("Amplitude", amplitude);
-        frequency = EditorGUILayout.FloatField("Frequency", frequency);
+
+        noise = (NoiseSettings) EditorGUILayout.ObjectField("Noise", noise, typeof(NoiseSettings), true);
 
         if(GUILayout.Button("Preview"))
         {
-            shake.EditorPreviewShake(duration, amplitude, frequency);
+            shake.EditorPreviewShake(duration, noise);
         }
     }
 }

@@ -142,7 +142,16 @@ public class TreeBuilder
 
             // Calculate angle between enemy and goal
             var goalVec = new Vector2(goal.tx - enemyPos.x + 0.5f, goal.ty - enemyPos.y + 0.5f).normalized;
-            var dir = Vector2.Lerp(ai.MoveDir, goalVec, Time.deltaTime * turningVelocity);
+
+            Vector2 dir = Vector2.zero;
+            if(Vector2.Angle(goalVec, ai.MoveDir) > 60)
+            {
+                dir = goalVec; 
+            }
+            else
+            {
+                dir = Vector2.Lerp(ai.MoveDir, goalVec, Time.deltaTime * turningVelocity);
+            }
 
             ai.Movement.AddForce(dir * speed);
             ai.MoveDir = dir;

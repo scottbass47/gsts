@@ -103,6 +103,14 @@ public class WeaponMagChange : GameEvent
 
 // Waves
 
-public class WaveStarted : GameEvent { }
+public class WaveStarted : GameEvent
+{
+    public int WaveNum { get; set; }
+}
 
 public class WaveEnded : GameEvent { }
+
+public class WaveEnemyChange : GameEvent
+{
+    public int EnemiesLeft { get; set; }
+}

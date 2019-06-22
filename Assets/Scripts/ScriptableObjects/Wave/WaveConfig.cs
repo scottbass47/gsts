@@ -22,8 +22,8 @@ public class Wave
 [System.Serializable]
 public class SubWave
 {
-    [SerializeField] private EnemyData data;
-    public EnemyData EnemyData => data; 
+    [SerializeField] private EnemyData[] data;
+    public EnemyData[] EnemyData => data; 
 }
 
 [System.Serializable]

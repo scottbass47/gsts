@@ -9,14 +9,12 @@ using System.Text;
 public class GameManager : MonoBehaviour {
 
     public static GameManager Instance = null;
-    public GameObject chestPrefab;
-    public GameObject enemy;
-    public GameObject map;
-    public GameObject vcam;
-    public GameObject screenFade;
-    public Tile floorTile;
-    public Tile wallTile;
-    private LevelGenerator levelGen;
+
+    // Prefabs and References
+    [SerializeField] private GameObject map;
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private WaveConfig waveConfig;
 
     private GameObject chest;
     private List<GameObject> enemies;
@@ -24,11 +22,8 @@ public class GameManager : MonoBehaviour {
     public Level level { get; private set; }
     public EventManager Events { get; private set; }
 
-    [SerializeField] private GameObject playerPrefab;
     private GameObject player;
     public GameObject Player => player;
-
-    [SerializeField] private GameObject enemyPrefab;
 
 	// Use this for initialization
 	void Awake () {
@@ -40,7 +35,6 @@ public class GameManager : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-        levelGen = GetComponent<LevelGenerator>();
         Events = GetComponent<EventManager>();
 
         map = Instantiate(map, Vector3.zero, Quaternion.identity) as GameObject;

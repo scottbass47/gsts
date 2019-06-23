@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: PlayerDamage
   m_EditorClassIdentifier: Assembly-CSharp::ScreenShakeSettings
   duration: 0.5
-  amplitude: 4
-  frequency: 5
+  noise: {fileID: 11400000, guid: 9edbf04686c5694498947566cfa481be, type: 2}

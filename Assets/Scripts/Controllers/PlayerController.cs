@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
         {
             physics.AddForce(Vector2.zero);
             shouldIdle = true;
+            events.FireEvent(new PlayerStopMoving());
             return;
         }
         var movementVector = new Vector2(xAxis, yAxis).normalized;
@@ -73,6 +74,8 @@ public class PlayerController : MonoBehaviour
         float adjustedSpeed = stats.MoveSpeed; //- gunObject.GetComponent<GunController>().stats.Weight.ModdedValue();
 
         var vel = movementVector * adjustedSpeed;
+
+        if (shouldIdle) events.FireEvent(new PlayerStartMoving());
         physics.AddForce(vel);
         shouldIdle = false;
     }

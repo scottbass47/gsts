@@ -84,6 +84,10 @@ public class PlayerSpawn : GameEvent
 // Only when the player takes damage from an enemy
 public class PlayerDamage : GameEvent { }
 
+public class PlayerStartMoving : GameEvent { }
+
+public class PlayerStopMoving : GameEvent { }
+
 public class WeaponFired : GameEvent { }
 
 public class Reload : GameEvent

@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject map;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private WaveConfig waveConfig;
 
     private GameObject chest;
     private List<GameObject> enemies;
@@ -50,7 +49,7 @@ public class GameManager : MonoBehaviour {
     public void Start()
     {
         player = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
-        Instantiate(enemyPrefab, new Vector3(10, -10, 0), Quaternion.identity);
+        //Instantiate(enemyPrefab, new Vector3(10, -10, 0), Quaternion.identity);
         Events.FireEvent(new PlayerSpawn { Player = player });
     }
 
@@ -60,7 +59,7 @@ public class GameManager : MonoBehaviour {
 
         foreach(var tm in map.GetComponentsInChildren<Tilemap>())
         {
-            if (tm.tag == "WallsCollision") walls = tm;
+            if (tm.tag == "Wall") walls = tm;
         }
         walls.CompressBounds();
 

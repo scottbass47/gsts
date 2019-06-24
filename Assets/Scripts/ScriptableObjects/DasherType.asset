@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: PlayerDamage
-  m_EditorClassIdentifier: Assembly-CSharp::ScreenShakeSettings
-  duration: 0.3
-  noise: {fileID: 11400000, guid: 9edbf04686c5694498947566cfa481be, type: 2}
+  m_Script: {fileID: 11500000, guid: 978237ac541918747b826d233869a88e, type: 3}
+  m_Name: DasherType
+  m_EditorClassIdentifier: 

@@ -26,48 +26,6 @@ public class GruntController : MonoBehaviour
 
         var health = GetComponent<Health>();
         health.Amount = stats.Health;
-
-        var anim = GetComponentInChildren<Animator>();
-
-        var death = GetComponent<Death>();
-        death.DestroyOnDeath = false;
-        death.OnDeath += () =>
-        {
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            var allComps = gameObject.GetComponentsInChildren<Behaviour>();
-            foreach(var comp in allComps)
-            {
-                var type = comp.GetType();
-                if (type == typeof(Transform) ||
-                   type == typeof(Animator) ||
-                   type == typeof(SortingGroup) ||
-                   type == typeof(SpriteRenderer)) continue;
-                comp.enabled = false;
-            }
-            anim.SetTrigger("death");
-        };
-        death.OnDeathAnimFinish += () =>
-        {
-            StartCoroutine(DeathFade());
-        };
-    }
-
-    private IEnumerator DeathFade()
-    {
-        var renderers = GetComponentsInChildren<SpriteRenderer>();
-        float duration = 1.5f;
-
-        float t = 0;
-        while(t < duration)
-        {
-            t += Time.deltaTime;
-            foreach(var renderer in renderers)
-            {
-                renderer.color = new Color(1, 1, 1, 1 - t / duration);
-            }
-            yield return null;
-        }
-        Destroy(gameObject);
     }
 
     private IBehaviourTreeNode CreateTree()

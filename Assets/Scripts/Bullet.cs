@@ -43,6 +43,14 @@ public class Bullet : MonoBehaviour {
         rb2d.velocity = Speed * dir;
         transform.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * angle);
     }
+
+    public void Shoot(Vector2 dir)
+    {
+        this.dir = dir;
+        dir.Normalize();
+        rb2d.velocity = Speed * dir;
+        transform.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * Mathf.Atan2(dir.y, dir.x));
+    }
   
     private void OnTriggerEnter2D(Collider2D collision)
     {

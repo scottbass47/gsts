@@ -53,11 +53,20 @@ public class AIController : MonoBehaviour
 
     private Coroutine flash;
     private bool flashing = false;
+
+    [SerializeField] private DeathBehavior onDeath;
     
     private void Start()
     {
         movement = GetComponent<Movement>();
         pathFinder = Level.GetPathFinder();
+
+        var death = GetComponent<Death>();
+        death.DestroyOnDeath = false;
+        death.OnDeath += () =>
+        {
+            onDeath.OnDeath(death);
+        };
     }
 
     private void Update()

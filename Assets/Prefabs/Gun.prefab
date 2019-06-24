@@ -95,3 +95,4 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8799963583245665955, guid: 00396e336f5b4db45bba7178b38f46bc,
     type: 3}
   stats: {fileID: 11400000, guid: d1263057e085096438dc8d4f79dfd32c, type: 2}
+  accurateShootingRange: 0

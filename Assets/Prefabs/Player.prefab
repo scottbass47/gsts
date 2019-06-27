@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7472497153947938651}
   - component: {fileID: 7472497153947938649}
   - component: {fileID: 7472497153947938654}
+  - component: {fileID: 5701378371608538733}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -87,7 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7914535a4e0b31c4cad17ae01e31e40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitboxCenter: {fileID: 7472497154231321011}
 --- !u!114 &7472497153947938649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +114,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageEvent: {fileID: 11400000, guid: 8849ac062b89af14a8f7ec5a7f098a30, type: 2}
+--- !u!114 &5701378371608538733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7472497153947938650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00aa54eda25787c48a01e50426361b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  centerFeet: {fileID: 7472497154231321011}
+  centerBody: {fileID: 7472497154765770212}
 --- !u!1 &7472497154031826409
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,16 +538,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 417036213789464920, guid: db089f40546f3d646961ef2ac4a74701,
-        type: 3}
-      propertyPath: accurateShootingRange
-      value: 1.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 417036213789464919, guid: db089f40546f3d646961ef2ac4a74701,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2e374cde344110c4380c42f7886a4328, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db089f40546f3d646961ef2ac4a74701, type: 3}
 --- !u!4 &7472497154733947884 stripped

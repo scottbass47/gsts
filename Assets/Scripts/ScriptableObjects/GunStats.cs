@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Player/Base Pistol")]
-public class BulletStats : ScriptableObject
+public class GunStats : ScriptableObject
 {
     [SerializeField] private float speed;
     [SerializeField] private float damage;
@@ -12,6 +12,7 @@ public class BulletStats : ScriptableObject
     [SerializeField] private float reloadRate;
     [SerializeField] private int magSize;
     [SerializeField] private bool semiAuto;
+    [SerializeField] private bool enemyGun;
 
     public float Speed => speed;
     public float Damage => damage;
@@ -20,4 +21,5 @@ public class BulletStats : ScriptableObject
     public float ReloadRate => reloadRate;
     public int MagSize => magSize;
     public bool IsSemiAuto => semiAuto;
+    public bool IsEnemyGun => enemyGun;
 }

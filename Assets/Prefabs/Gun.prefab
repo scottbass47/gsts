@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417036213789464917}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.451, y: 0.282, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -49,7 +49,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2e374cde344110c4380c42f7886a4328, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,7 +92,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739408b0d78592843a75e26cbb5c4222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aimAngle: 0
   bulletPrefab: {fileID: 8799963583245665955, guid: 00396e336f5b4db45bba7178b38f46bc,
     type: 3}
   stats: {fileID: 11400000, guid: d1263057e085096438dc8d4f79dfd32c, type: 2}
-  accurateShootingRange: 0
+  barrelOffset: {x: 0.9, y: 0.375}
+  accurateShootingRange: 1.75

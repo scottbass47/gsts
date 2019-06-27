@@ -5,9 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private Transform hitboxCenter;
-    public Transform HitboxCenter => hitboxCenter;
-
     private Rigidbody2D body;
     private Vector2 netForce;
     private bool applyingKnockback;

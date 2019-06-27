@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bceca58164218b9478d6210d040cb999, type: 3}
   m_Name: DasherStats
   m_EditorClassIdentifier: 
-  attackDelay: 0
-  attackCooldown: 1.5
-  attackRange: 5
-  turningVelocity: 3
   speed: 4
   health: 1
+  turningVelocity: 3
+  attackCooldown: 1.5
+  attackRange: 5
+  attackAnticipation: 0.1
   dashTime: 0.3
   dashDistance: 4
+  shuffleDistance: 1
+  shuffleSpeed: 1.5

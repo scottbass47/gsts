@@ -16,15 +16,18 @@ public class MovementAnimator : MonoBehaviour {
 
     private bool isMoving;
     private bool isBack;
+    public bool IsBack => isBack;
     private bool isAttacking = false;
 
     public void SetLookAngle(Vector2 dir, bool moving)
     {
         this.dir = dir;
         bodyRenderer.flipX = dir.x < 0;
+        isBack = dir.y > 0;
+        isMoving = moving;
 
-        bodyAnim.SetFloat("direction", dir.y > 0 ? 1.0f : 0.0f);
-        bodyAnim.SetFloat("move_speed", moving ? 1.0f : 0.0f);
+        bodyAnim.SetFloat("direction", isBack ? 0.9f : 0.1f);
+        bodyAnim.SetFloat("move_speed", isMoving ? 0.9f : 0.1f);
     }
 
     //public void LateUpdate()

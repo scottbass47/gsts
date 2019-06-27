@@ -17,6 +17,8 @@ public class DasherController : MonoBehaviour
     private AIController ai;
     private MovementAnimator moveAnim;
     private Movement movement;
+    private GunController gun;
+    private Transform targetBody;
 
     private bool isAttacking;
     private bool isShuffling;
@@ -27,10 +29,14 @@ public class DasherController : MonoBehaviour
     {
         movement = GetComponent<Movement>();
         moveAnim = GetComponent<MovementAnimator>();
+        gun = GetComponentInChildren<GunController>();
         ai = GetComponent<AIController>();
         ai.Pos = feet;
-        ai.Target = GameManager.Instance.Player.GetComponent<Movement>().HitboxCenter;
-        //ai.Target = target;
+
+        var playerBody = GameManager.Instance.Player.GetComponent<Body>();
+        ai.Target = playerBody.CenterFeet;
+        targetBody = playerBody.CenterBody;
+
         ai.Tree = CreateTree();
 
         var health = GetComponent<Health>();
@@ -41,6 +47,13 @@ public class DasherController : MonoBehaviour
     {
         return new TreeBuilder(ai)
             .Selector("Main")
+                //.Do("", t =>
+                //{
+                //    gun.AimAt(targetBody.position, ai.Pos.position);
+                //    moveAnim.SetLookAngle(ai.Target.position - ai.Pos.position, false);
+                //    gun.SetDrawOrder(!moveAnim.IsBack);
+                //    return BehaviourTreeStatus.Success;
+                //})
                 .Sequence("Attack")
                     .Do("", t => { attackCooldown -= t.deltaTime; return BehaviourTreeStatus.Success; })
                     .Selector("")
@@ -70,13 +83,21 @@ public class DasherController : MonoBehaviour
                         }
                         return BehaviourTreeStatus.Success;
                     })
+                    .Do("Aim", t => Aim())
                 .End()
                 .Sequence("Follow")
                     .GetPath()
                     .MoveOnPath(stats.Speed, stats.TurningVelocity, moveAnim)
+                    .Do("Aim", t => Aim())
                 .End()
             .End()
             .Build();
+    }
+
+    private BehaviourTreeStatus Aim()
+    {
+        gun.AimAt(targetBody.position, ai.Pos.position);
+        return BehaviourTreeStatus.Success;
     }
 
     private IEnumerator Attack()
@@ -111,35 +132,39 @@ public class DasherController : MonoBehaviour
         float t = 0;
 
         var halfDash = dashDir * dashSpeed * dashTime * 0.5f;
-        var halfDashPos = halfDash + ai.Pos.position;
-        var aimVec = ai.Target.position - halfDashPos;
+        var aimTarget = targetBody.position - halfDash;
 
-        StartCoroutine(Shoot(aimVec, dashTime));
-        while(t < dashTime)
+        StartCoroutine(Shoot(aimTarget, dashTime));
+        while (t < dashTime)
         {
             t += Time.deltaTime;
             movement.AddForce(dashDir * dashSpeed);
             yield return null;
         }
 
+        // Guarantees the shooting finishes before moving to shuffling
+        yield return new WaitForSeconds(0.05f);
+
         isAttacking = false;
 
         attackCooldown = stats.AttackCooldown;
     }
 
-    private IEnumerator Shoot(Vector2 dir, float dashTime)
+    private IEnumerator Shoot(Vector2 target, float dashTime)
     {
+        gun.AimAt(target, ai.Pos.position);
         int bullets = 3;
         int shot = 0;
         while(shot < bullets)
         {
             shot++;
-            var bullet = Instantiate(bulletPrefab, ai.Pos.position, Quaternion.identity);
-            bullet.transform.position = ai.Pos.position;
-            var bulletComp = bullet.GetComponent<Bullet>();
-            bulletComp.Speed = 10f;
-            bulletComp.Damage = 1f;
-            bulletComp.Shoot(dir);
+            gun.Shoot();
+            //var bullet = Instantiate(bulletPrefab, ai.Pos.position, Quaternion.identity);
+            //bullet.transform.position = ai.Pos.position;
+            //var bulletComp = bullet.GetComponent<Bullet>();
+            //bulletComp.Speed = 10f;
+            //bulletComp.Damage = 1f;
+            //bulletComp.Shoot(dir);
             yield return new WaitForSeconds(dashTime / (bullets - 1));
         }
     }

@@ -38,16 +38,16 @@ public class GunController : MonoBehaviour
                 OnClipChange?.Invoke(bulletsInClip);
             }
         }
-
     }
 
 
     public GameObject bulletPrefab;
-    [SerializeField] private BulletStats stats;
-    public BulletStats Stats => stats;
+    [SerializeField] private GunStats stats;
+    public GunStats Stats => stats;
 
-    public Vector2 BarrelOffset => new Vector2(0.9f, 0.375f);
-    
+    [SerializeField] private Vector2 barrelOffset;
+    public Vector2 BarrelOffset => barrelOffset;
+
     [SerializeField] private float accurateShootingRange;
 
     public event Action<float> OnReload;
@@ -81,7 +81,7 @@ public class GunController : MonoBehaviour
 
     public bool Shoot()
     {
-        if (elapsedTime * stats.FireRate < 1 || reloading) return false;
+        if ((elapsedTime * stats.FireRate < 1 || reloading) && !stats.IsEnemyGun) return false;
         elapsedTime = 0;
 
         float randomOffset = 0; // Random.Range(-stats.Accuracy.ModdedValue(), stats.Accuracy.ModdedValue());
@@ -101,7 +101,7 @@ public class GunController : MonoBehaviour
 
         BulletsInClip--;
 
-        if (BulletsInClip == 0)
+        if (BulletsInClip == 0 && !stats.IsEnemyGun)
         {
             StartCoroutine(Reload(stats.ReloadRate));
         }
@@ -116,11 +116,6 @@ public class GunController : MonoBehaviour
         Reloading = false;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="target"></param>
-    /// <param name="center"></param>
     public void AimAt(Vector2 target, Vector2 center)
     {
         var aimVec = target - center;

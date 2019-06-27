@@ -21,7 +21,7 @@ public class GruntController : MonoBehaviour
         moveAnim = GetComponent<MovementAnimator>();
         ai = GetComponent<AIController>();
         ai.Pos = feet;
-        ai.Target = GameManager.Instance.Player.GetComponent<Movement>().HitboxCenter;
+        ai.Target = GameManager.Instance.Player.GetComponent<Body>().CenterFeet;
         ai.Tree = CreateTree();
 
         var health = GetComponent<Health>();

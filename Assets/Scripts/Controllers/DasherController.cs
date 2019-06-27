@@ -19,6 +19,7 @@ public class DasherController : MonoBehaviour
     private Movement movement;
 
     private bool isAttacking;
+    private bool isShuffling;
 
     private float attackCooldown;
 
@@ -28,8 +29,8 @@ public class DasherController : MonoBehaviour
         moveAnim = GetComponent<MovementAnimator>();
         ai = GetComponent<AIController>();
         ai.Pos = feet;
-        //ai.Target = GameManager.Instance.Player.GetComponent<Movement>().HitboxCenter;
-        ai.Target = target;
+        ai.Target = GameManager.Instance.Player.GetComponent<Movement>().HitboxCenter;
+        //ai.Target = target;
         ai.Tree = CreateTree();
 
         var health = GetComponent<Health>();
@@ -46,11 +47,10 @@ public class DasherController : MonoBehaviour
                         .Sequence("")
                             .LOS()
                             .Range(stats.AttackRange)
-                            .Condition("Cooldown Over", t => attackCooldown < 0)
+                            .Condition("Cooldown Over", t => attackCooldown < 0 && !isShuffling)
                         .End()
                         .Condition("Is Attacking", t => isAttacking)
                     .End()
-                    .StopMoving()
                     .Do("Attack", t =>
                     {
                         if (!isAttacking)
@@ -61,13 +61,15 @@ public class DasherController : MonoBehaviour
                     })
                 .End()
                 .Sequence("Post-Attack")
-                    .Condition("Cooling Down", t => attackCooldown > 0)
+                    .Condition("Cooling Down", t => attackCooldown > 0 || isShuffling)
                     .Do("Shuffle", t =>
                     {
-
+                        if (!isShuffling)
+                        {
+                            StartCoroutine(Shuffle());
+                        }
                         return BehaviourTreeStatus.Success;
                     })
-                    //.StopMoving()
                 .End()
                 .Sequence("Follow")
                     .GetPath()
@@ -81,7 +83,7 @@ public class DasherController : MonoBehaviour
     {
         isAttacking = true;
 
-        yield return new WaitForSeconds(stats.AttackDelay);
+        yield return new WaitForSeconds(stats.AttackAnticipation);
 
         anim.SetTrigger("attack");
 
@@ -139,6 +141,46 @@ public class DasherController : MonoBehaviour
             bulletComp.Damage = 1f;
             bulletComp.Shoot(dir);
             yield return new WaitForSeconds(dashTime / (bullets - 1));
+        }
+    }
+
+    private IEnumerator Shuffle()
+    {
+        isShuffling = true;
+        var center = ai.Pos.position; 
+
+        while(attackCooldown > 0)
+        {
+            yield return StartCoroutine(PickPointAndMove(center));
+        }
+
+        isShuffling = false;
+    }
+    
+    private IEnumerator PickPointAndMove(Vector2 center)
+    {
+        bool colliding = false;
+        int maxAttempts = 10;
+        int attemptNum = 0;
+        var dir = Vector2.zero;
+        do
+        {
+            dir = Random.insideUnitCircle.normalized;
+            var result = Physics2D.Raycast(center, dir, stats.ShuffleDistance, LayerMask.GetMask("Wall"));
+            colliding = result.rigidbody != null;
+            attemptNum++;
+        } while (colliding && attemptNum < maxAttempts);
+
+        var moveDir = (center + dir * stats.ShuffleDistance) - (Vector2)ai.Pos.position;
+        moveDir.Normalize();
+
+        var time = stats.ShuffleDistance / stats.Speed;
+        while(time > 0)
+        {
+            time -= Time.deltaTime;
+            movement.AddForce(moveDir * stats.ShuffleSpeed);
+            moveAnim.SetLookAngle(ai.Target.position - ai.Pos.position, true);
+            yield return null;
         }
     }
 }

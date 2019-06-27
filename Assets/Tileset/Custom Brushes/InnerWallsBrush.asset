@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InnerWallsBrush
   m_EditorClassIdentifier: 
   m_Cells:
-  - m_Tile: {fileID: 0}
+  - m_Tile: {fileID: 11400000, guid: 483b76f683fc46643b747d8fe742c80a, type: 2}
     m_Matrix:
       e00: 1
       e01: 0
@@ -34,4 +34,5 @@ MonoBehaviour:
     m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Size: {x: 1, y: 1, z: 1}
   m_Pivot: {x: 0, y: 0, z: 0}
-  tile: {fileID: 0}
+  tileWalls: {fileID: 11400000, guid: 6a751bf0c188df54d9694fc4ed6c24a4, type: 2}
+  tileCeiling: {fileID: 11400000, guid: cdf6fbf6128d09e41b7eb00be2b25472, type: 2}

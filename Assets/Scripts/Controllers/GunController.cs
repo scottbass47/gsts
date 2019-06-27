@@ -6,7 +6,7 @@ using UnityEngine;
 public class GunController : MonoBehaviour
 {
     public bool Flipped { get; set; }
-    private float aimAngle;
+    [SerializeField] private float aimAngle;
     private float angleThreshold = 15; // Used for over-aiming
     private Vector2 offset;
     private Vector2 flippedOffset;
@@ -116,6 +116,11 @@ public class GunController : MonoBehaviour
         Reloading = false;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="center"></param>
     public void AimAt(Vector2 target, Vector2 center)
     {
         var aimVec = target - center;
@@ -143,17 +148,23 @@ public class GunController : MonoBehaviour
 
             degrees = Vector2.SignedAngle(pivotToTargetPrime, pivotToTarget);
 
-            //Debug.DrawLine(transform.position, (Vector2)transform.position + pivotToTargetPrime, Color.red);
-            //Debug.DrawLine(transform.position, GetBarrelPos(), Color.red);
-            //Debug.DrawLine(GetBarrelPos(), (Vector2)transform.position + pivotToTargetPrime, Color.red);
+            Debug.DrawLine(transform.position, (Vector2)transform.position + pivotToTargetPrime, Color.red);
+            Debug.DrawLine(transform.position, GetBarrelPos(), Color.red);
+            Debug.DrawLine(GetBarrelPos(), (Vector2)transform.position + pivotToTargetPrime, Color.red);
 
-            //Debug.DrawLine(transform.position, target, Color.blue);
-            //Debug.DrawLine(transform.position, ShotOrigin, Color.blue);
-            //Debug.DrawLine(ShotOrigin, target, Color.blue);
+            Debug.DrawLine(transform.position, target, Color.blue);
+            Debug.DrawLine(transform.position, ShotOrigin, Color.blue);
+            Debug.DrawLine(ShotOrigin, target, Color.blue);
         }
         aimAngle = degrees;
 
+        //Vector3 off = Vector2.zero;
+        ////GetComponent<PixelRotate>().SetRotate(aimAngle, new Vector2(3, 3), out off);
+        ////getComponent<PixelRotate>().SetRotate(aimAngle);
+        //if (Flipped) off.x = -off.x;
+
         transform.localPosition = Flipped ? flippedOffset : offset;
+        //transform.localPosition += off;
         spriteRenderer.flipX = Flipped;
         transform.eulerAngles = new Vector3(0, 0, Flipped ? 360 - aimAngle : aimAngle);
     }

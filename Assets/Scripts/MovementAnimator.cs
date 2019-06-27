@@ -9,16 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class MovementAnimator : MonoBehaviour {
 
-    // Angle from 0-360
-    public float LookAngle
-    {
-        get => lookAngle;
-        set
-        {
-            lookAngle = value - 360 * Mathf.Floor(value / 360f);
-        }
-    }
-    private float lookAngle;
+    private Vector2 dir;
     public Animator bodyAnim;
     public SpriteRenderer bodyRenderer;
     public Rigidbody2D rb2d;
@@ -27,15 +18,24 @@ public class MovementAnimator : MonoBehaviour {
     private bool isBack;
     private bool isAttacking = false;
 
-    public void LateUpdate()
+    public void SetLookAngle(Vector2 dir, bool moving)
     {
-        bool flipped = LookAngle > 90 && LookAngle < 270;
-        bool back = LookAngle > 5 && LookAngle < 175;
-        bool moving = rb2d.velocity.SqrMagnitude() > 0.1f;
+        this.dir = dir;
+        bodyRenderer.flipX = dir.x < 0;
 
-        bodyRenderer.flipX = flipped;
-
-        bodyAnim.SetFloat("direction", back ? 1.0f : 0.0f);
+        bodyAnim.SetFloat("direction", dir.y > 0 ? 1.0f : 0.0f);
         bodyAnim.SetFloat("move_speed", moving ? 1.0f : 0.0f);
     }
+
+    //public void LateUpdate()
+    //{
+    //    bool flipped = LookAngle > 90 && LookAngle < 270;
+    //    bool back = LookAngle > 5 && LookAngle < 175;
+    //    bool moving = rb2d.velocity.SqrMagnitude() > 0.1f;
+
+    //    bodyRenderer.flipX = flipped;
+
+    //    bodyAnim.SetFloat("direction", back ? 1.0f : 0.0f);
+    //    bodyAnim.SetFloat("move_speed", moving ? 1.0f : 0.0f);
+    //}
 }

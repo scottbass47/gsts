@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: DasherStats
   m_EditorClassIdentifier: 
   attackDelay: 0
-  attackCooldown: 0
+  attackCooldown: 1.5
   attackRange: 5
   turningVelocity: 3
   speed: 4
   health: 1
+  dashTime: 0.3
+  dashDistance: 4

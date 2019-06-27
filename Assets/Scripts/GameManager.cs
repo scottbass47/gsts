@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour {
     private GameObject player;
     public GameObject Player => player;
 
+    [SerializeField] private bool enemySpawnDebug;
+    public bool EnemySpawnDebug => enemySpawnDebug;
+
 	// Use this for initialization
 	void Awake () {
 		if(Instance == null)
@@ -49,7 +52,7 @@ public class GameManager : MonoBehaviour {
     public void Start()
     {
         player = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
-        //Instantiate(enemyPrefab, new Vector3(10, -10, 0), Quaternion.identity);
+        if(EnemySpawnDebug) Instantiate(enemyPrefab, new Vector3(10, -10, 0), Quaternion.identity);
         Events.FireEvent(new PlayerSpawn { Player = player });
     }
 

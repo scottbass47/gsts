@@ -155,9 +155,7 @@ public class TreeBuilder
 
             ai.Movement.AddForce(dir * speed);
             ai.MoveDir = dir;
-
-            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            moveAnim.LookAngle = angle;
+            moveAnim.SetLookAngle(dir, true);
 
             return BehaviourTreeStatus.Success;
 

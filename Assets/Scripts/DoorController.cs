@@ -36,11 +36,11 @@ public class DoorController : MonoBehaviour
         events.AddListener<WaveStarted>((obj) => 
         {
             doorText.enabled = false;
-            betweenWaves = false;
+            zone.ZoneEnabled = false;
         });
         events.AddListener<WaveEnded>((obj) => 
         {
-            betweenWaves = true;
+            zone.ZoneEnabled = true;
         });
     }
 

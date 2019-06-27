@@ -83,20 +83,23 @@ public class DasherController : MonoBehaviour
                         }
                         return BehaviourTreeStatus.Success;
                     })
-                    .Do("Aim", t => Aim())
+                    .Do("Aim", t => Aim(targetBody.position))
                 .End()
                 .Sequence("Follow")
                     .GetPath()
                     .MoveOnPath(stats.Speed, stats.TurningVelocity, moveAnim)
-                    .Do("Aim", t => Aim())
+                    // This sets the target to be aimed at to be an imaginary point in the direction
+                    // the enemy is moving in.
+                    .Do("Aim", t => Aim(5 * ai.MoveDir + (Vector2)ai.Pos.position))
                 .End()
             .End()
             .Build();
     }
 
-    private BehaviourTreeStatus Aim()
+    private BehaviourTreeStatus Aim(Vector2 target)
     {
-        gun.AimAt(targetBody.position, ai.Pos.position);
+        gun.AimAt(target, ai.Pos.position);
+        gun.SetDrawOrder(!moveAnim.IsBack);
         return BehaviourTreeStatus.Success;
     }
 

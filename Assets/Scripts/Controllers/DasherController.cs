@@ -47,12 +47,13 @@ public class DasherController : MonoBehaviour
     {
         return new TreeBuilder(ai)
             .Selector("Main")
-                //.Do("", t =>
+                //.do("", t =>
                 //{
-                //    gun.AimAt(targetBody.position, ai.Pos.position);
-                //    moveAnim.SetLookAngle(ai.Target.position - ai.Pos.position, false);
-                //    gun.SetDrawOrder(!moveAnim.IsBack);
-                //    return BehaviourTreeStatus.Success;
+                //    gun.aimat(targetbody.position, ai.pos.position);
+                //    moveanim.setlookangle(ai.target.position - ai.pos.position, false);
+                //    gun.setdraworder(!moveanim.isback);
+                //    gun.shoot();
+                //    return behaviourtreestatus.success;
                 //})
                 .Sequence("Attack")
                     .Do("", t => { attackCooldown -= t.deltaTime; return BehaviourTreeStatus.Success; })

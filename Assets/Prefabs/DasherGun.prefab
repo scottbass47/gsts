@@ -76,12 +76,12 @@ PrefabInstance:
     - target: {fileID: 417036213789464920, guid: db089f40546f3d646961ef2ac4a74701,
         type: 3}
       propertyPath: barrelOffset.x
-      value: 0.9
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 417036213789464920, guid: db089f40546f3d646961ef2ac4a74701,
         type: 3}
       propertyPath: barrelOffset.y
-      value: 0.375
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 417036213789464920, guid: db089f40546f3d646961ef2ac4a74701,
         type: 3}
@@ -89,6 +89,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a1c4d12176a0e8a4a9f71be67d76d6ba,
         type: 2}
+    - target: {fileID: 417036213789464920, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: rotateBullet
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 417036213789464919, guid: db089f40546f3d646961ef2ac4a74701,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -22,6 +22,8 @@ public class Bullet : MonoBehaviour {
         set => knockbackAmount = value;
     }
 
+    public bool RotateTransform { get; set; } = true;
+
     private Rigidbody2D rb2d;
     private Vector2 dir;
 
@@ -49,7 +51,7 @@ public class Bullet : MonoBehaviour {
         this.dir = dir;
         dir.Normalize();
         rb2d.velocity = Speed * dir;
-        transform.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * Mathf.Atan2(dir.y, dir.x));
+        if(RotateTransform) transform.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * Mathf.Atan2(dir.y, dir.x));
     }
   
     private void OnTriggerEnter2D(Collider2D collision)

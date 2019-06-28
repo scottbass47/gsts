@@ -98,3 +98,4 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: d1263057e085096438dc8d4f79dfd32c, type: 2}
   barrelOffset: {x: 0.9, y: 0.375}
   accurateShootingRange: 1.75
+  rotateBullet: 1

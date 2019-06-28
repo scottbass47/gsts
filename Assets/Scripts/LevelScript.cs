@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class LevelScript : MonoBehaviour
 {
@@ -10,6 +11,12 @@ public class LevelScript : MonoBehaviour
 
     [SerializeField] private GameObject door;
     public GameObject Door => door;
+
+    [HideInInspector] public TileBase[] floorTiles;
+    [HideInInspector] public TileBase[] shadowTiles;
+
+    public Tilemap floorDecor;
+    public Tilemap wallDecor;
 
     private void OnDrawGizmos()
     {

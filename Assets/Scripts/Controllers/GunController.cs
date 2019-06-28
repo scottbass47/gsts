@@ -49,6 +49,7 @@ public class GunController : MonoBehaviour
     public Vector2 BarrelOffset => barrelOffset;
 
     [SerializeField] private float accurateShootingRange;
+    [SerializeField] private bool rotateBullet = true;
 
     public event Action<float> OnReload;
     public event Action<int> OnClipChange;
@@ -97,6 +98,7 @@ public class GunController : MonoBehaviour
         bulletComp.KnockbackAmount = stats.KnockbackAmount; 
         bullet.transform.position = ShotOrigin; //+ new Vector3(0, yOff, 0);
         bullet.GetComponent<SpriteRenderer>().sortingOrder = spriteRenderer.sortingOrder - 1;
+        bulletComp.RotateTransform = rotateBullet;
         bulletComp.Shoot(radians);
 
         BulletsInClip--;

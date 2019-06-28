@@ -46,6 +46,11 @@ public class LevelScriptEditor : Editor
         {
             FixShadows();
         }
+
+        if(GUILayout.Button("Add Collision"))
+        {
+            SetupCollision();
+        }
     }
 
     private void FixShadows()
@@ -79,6 +84,36 @@ public class LevelScriptEditor : Editor
                     }
 
                 }
+            }
+        }
+    }
+
+    private void SetupCollision()
+    {
+        var walls = levelScript.wallDecor;
+        var floors = levelScript.floorDecor;
+        var projectileCollision = levelScript.projectileCollision;
+        var wallCollision = levelScript.wallCollision;
+
+        for (int x = walls.cellBounds.xMin; x < walls.cellBounds.xMax; x++)
+        {
+            for (int y = walls.cellBounds.yMin; y < walls.cellBounds.yMax; y++)
+            {
+                var pos = new Vector3Int(x, y, 0);
+                if (walls.GetTile(pos) == null)
+                {
+                    wallCollision.SetTile(pos, null);
+                    continue;
+                }
+
+                var down = walls.GetTile(pos + Vector3Int.down);
+                var up = walls.GetTile(pos + Vector3Int.up);
+
+                bool topWall = up == null && down != null;
+                bool bottomWall = up != null && down == null;
+
+                wallCollision.SetTile(pos, topWall ? null : levelScript.WallCollisionTile);
+                projectileCollision.SetTile(pos, bottomWall || topWall ? null : levelScript.ProjectileCollisionTile);
             }
         }
     }

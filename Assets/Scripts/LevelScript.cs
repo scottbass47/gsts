@@ -17,6 +17,14 @@ public class LevelScript : MonoBehaviour
 
     public Tilemap floorDecor;
     public Tilemap wallDecor;
+    public Tilemap wallCollision;
+    public Tilemap projectileCollision;
+
+    [SerializeField] private TileBase wallCollisionTile;
+    public TileBase WallCollisionTile => wallCollisionTile;
+
+    [SerializeField] private TileBase projectileCollisionTile;
+    public TileBase ProjectileCollisionTile => projectileCollisionTile;
 
     private void OnDrawGizmos()
     {

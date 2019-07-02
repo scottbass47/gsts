@@ -18,7 +18,7 @@ public class ReloadBarUI : MonoBehaviour
         sliderTransform = slider.GetComponent<RectTransform>();
         slider.SetActive(false);
 
-        GameManager.Instance.Events.AddListener<Reload>((obj) =>
+        GameManager.Instance.Events.AddListener<Reload>(this.gameObject, (obj) =>
         {
             gameObject.SetActive(true);
             StartCoroutine(ReloadAnimation(obj.Duration));

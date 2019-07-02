@@ -25,7 +25,7 @@ public class LevelGenerator : MonoBehaviour {
     private Coord treasureSpawn;
     private List<Coord> enemySpawns;
 
-    public Level Level { get; private set; }
+    public LevelData Level { get; private set; }
 
     // Use this for initialization
     void Start () {
@@ -134,7 +134,7 @@ public class LevelGenerator : MonoBehaviour {
         tex.Apply();
 
         //System.IO.File.WriteAllBytes("C:/Users/bobba/Desktop/out.png", tex.EncodeToPNG());
-        Level = new Level();
+        Level = new LevelData();
         Level.Width = Width;
         Level.Height = Height;
         Level.map = cellMap;
@@ -726,7 +726,7 @@ public class LevelGenerator : MonoBehaviour {
         float safeBubbleRadius = 15; // No enemy spawns within 10 tiles of player
         int px = playerSpawn.tx;
         int py = playerSpawn.ty;
-        List<Coord> potentialSpawns = Level.FindCoords(playerSpawn, coord =>
+        List<Coord> potentialSpawns = LevelData.FindCoords(playerSpawn, coord =>
         {
             int x = coord.tx;
             int y = coord.ty;
@@ -760,7 +760,7 @@ public class LevelGenerator : MonoBehaviour {
 
     private List<Coord> FindPotentialSpawns(Coord playerSpawn)
     {
-        return Level.FindCoords(playerSpawn, ValidExit, cellMap);
+        return LevelData.FindCoords(playerSpawn, ValidExit, cellMap);
     }
 
     private bool ValidExit(Coord coord)
@@ -1025,7 +1025,7 @@ public struct Coord
     }
 }
 
-public class Level
+public class LevelData
 {
     public int Width;
     public int Height;
@@ -1036,7 +1036,7 @@ public class Level
     public Vector2 chest;
     public List<Vector2> enemySpawns;
     
-    public Level()
+    public LevelData()
     {
     }
 

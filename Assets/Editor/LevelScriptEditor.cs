@@ -44,7 +44,7 @@ public class LevelScriptEditor : Editor
 
         if(GUILayout.Button("Add Shadows"))
         {
-            FixShadows();
+            levelScript.FixShadows();
         }
 
         if(GUILayout.Button("Add Collision"))
@@ -53,40 +53,6 @@ public class LevelScriptEditor : Editor
         }
     }
 
-    private void FixShadows()
-    {
-        var floors = levelScript.floorDecor;
-        var walls = levelScript.wallDecor;
-
-        for(int x = floors.cellBounds.xMin; x < floors.cellBounds.xMax; x++)
-        {
-            for(int y = floors.cellBounds.yMin; y < floors.cellBounds.yMax; y++)
-            {
-                var pos = new Vector3Int(x, y, 0);
-                if (walls.GetTile(pos) != null) continue;
-
-                var wall = walls.GetTile(pos + new Vector3Int(0,1,0));
-                var floor = floors.GetTile(new Vector3Int(x, y, 0));
-                if(wall == null)
-                {
-                    for (int i = 0; i < levelScript.shadowTiles.Length; i++)
-                    {
-                        var shadowTile = levelScript.shadowTiles[i];
-                        if (shadowTile == floor) floors.SetTile(pos, levelScript.floorTiles[i]);
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < levelScript.floorTiles.Length; i++)
-                    {
-                        var floorTile = levelScript.floorTiles[i];
-                        if (floorTile == floor) floors.SetTile(pos, levelScript.shadowTiles[i]);
-                    }
-
-                }
-            }
-        }
-    }
 
     private void SetupCollision()
     {
@@ -103,6 +69,7 @@ public class LevelScriptEditor : Editor
                 if (walls.GetTile(pos) == null)
                 {
                     wallCollision.SetTile(pos, null);
+                    projectileCollision.SetTile(pos, null);
                     continue;
                 }
 

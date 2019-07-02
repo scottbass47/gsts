@@ -14,18 +14,18 @@ public class WaveUI : MonoBehaviour
 
         var events = GameManager.Instance.Events;
 
-        events.AddListener<WaveStarted>((obj) =>
+        events.AddListener<WaveStarted>(this.gameObject, (obj) =>
         {
             waveNum.text = $"Wave {obj.WaveNum}";
             gameObject.SetActive(true);
         });
 
-        events.AddListener<WaveEnemyChange>((obj) =>
+        events.AddListener<WaveEnemyChange>(this.gameObject, (obj) =>
         {
             enemiesLeft.text = $"{obj.EnemiesLeft}";
         });
 
-        events.AddListener<WaveEnded>((obj) =>
+        events.AddListener<WaveEnded>(this.gameObject, (obj) =>
         {
             gameObject.SetActive(false);
         });

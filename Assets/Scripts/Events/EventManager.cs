@@ -5,21 +5,21 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    private Dictionary<Type, List<Action<GameEvent>>> eventTable;
+    private Dictionary<Type, List<EventPair>> eventTable;
 
     private void Awake()
     {
-        eventTable = new Dictionary<Type, List<Action<GameEvent>>>();
+        eventTable = new Dictionary<Type, List<EventPair>>();
     }
 
-    public void AddListener<T>(Action<T> listener) where T : GameEvent
+    public void AddListener<T>(GameObject go, Action<T> listener) where T : GameEvent
     {
         Type t = typeof(T);
-        List<Action<GameEvent>> listeners;
+        List<EventPair> listeners;
 
         if (!eventTable.TryGetValue(t, out listeners))
         {
-            listeners = new List<Action<GameEvent>>();
+            listeners = new List<EventPair>();
             eventTable.Add(t, listeners);
         }
 
@@ -28,42 +28,55 @@ public class EventManager : MonoBehaviour
             var cast = (T)Convert.ChangeType(obj, t);
             listener(cast);
         };
-        listeners.Add(action);
+        var eventPair = new EventPair { go = go, eventAction = action };
+        listeners.Add(eventPair);
     }
 
-    public void RemoveListener<T>(Action<T> listener) where T : GameEvent
-    {
-        Type t = typeof(T);
-        List<Action<GameEvent>> listeners;
+    //public void RemoveListener<T>(Action<T> listener) where T : GameEvent
+    //{
+    //    Type t = typeof(T);
+    //    List<Action<GameEvent>> listeners;
 
-        if (!eventTable.TryGetValue(t, out listeners))
-        {
-            return;
-        }
+    //    if (!eventTable.TryGetValue(t, out listeners))
+    //    {
+    //        return;
+    //    }
 
-        Action<GameEvent> action = (obj) =>
-        {
-            var cast = (T)Convert.ChangeType(obj, t);
-            listener(cast);
-        };
-        listeners.Remove(action);
-    }
+    //    Action<GameEvent> action = (obj) =>
+    //    {
+    //        var cast = (T)Convert.ChangeType(obj, t);
+    //        listener(cast);
+    //    };
+    //    listeners.Remove(action);
+    //}
 
     public void FireEvent<T>(T gameEvent) where T : GameEvent
     {
         Type t = typeof(T);
-        List<Action<GameEvent>> listeners;
+        List<EventPair> listeners;
 
         if (!eventTable.TryGetValue(t, out listeners))
         {
             return;
         }
 
-        foreach(var listener in listeners)
+        for(int i = listeners.Count - 1; i >= 0; i--)
         {
-            listener(gameEvent);
+            var listener = listeners[i];
+            if(listener.go == null)
+            {
+                listeners.RemoveAt(i);
+                continue;
+            }
+            listener.eventAction(gameEvent);
         }
     }
+}
+
+public class EventPair
+{
+    public GameObject go;
+    public Action<GameEvent> eventAction;
 }
 
 public abstract class GameEvent
@@ -117,4 +130,23 @@ public class WaveEnded : GameEvent { }
 public class WaveEnemyChange : GameEvent
 {
     public int EnemiesLeft { get; set; }
+}
+
+// Level
+
+public class LevelBranchEnter : GameEvent
+{
+    public LevelBranch LevelBranch { get; set; }
+}
+
+public class LevelBranchExit : GameEvent
+{
+    public LevelBranch LevelBranch { get; set; }
+
+    // The level being exited to
+    public LevelScript Level { get; set; }
+}
+
+public class LevelChange : GameEvent
+{
 }

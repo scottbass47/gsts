@@ -19,18 +19,18 @@ public class SoundManager : MonoBehaviour
 
         var events = GameManager.Instance.Events;
 
-        events.AddListener<WeaponFired>((obj) => 
+        events.AddListener<WeaponFired>(this.gameObject, (obj) => 
         {
             PlaySound(weaponShot);
         });
 
-        events.AddListener<PlayerStartMoving>((obj) =>
+        events.AddListener<PlayerStartMoving>(this.gameObject, (obj) =>
         {
             playFootsteps = true;
             if(!playingFootsteps) StartCoroutine(PlayFootsteps());
         });
 
-        events.AddListener<PlayerStopMoving>((obj) =>
+        events.AddListener<PlayerStopMoving>(this.gameObject, (obj) =>
         {
             playFootsteps = false;
         });

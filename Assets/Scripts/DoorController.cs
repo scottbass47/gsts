@@ -33,15 +33,19 @@ public class DoorController : MonoBehaviour
         events = GameManager.Instance.Events;
         enabled = true;
 
-        events.AddListener<WaveStarted>((obj) => 
-        {
-            doorText.enabled = false;
-            zone.ZoneEnabled = false;
-        });
-        events.AddListener<WaveEnded>((obj) => 
-        {
-            zone.ZoneEnabled = true;
-        });
+        events.AddListener<WaveStarted>(this.gameObject, OnWaveStart);
+        events.AddListener<WaveEnded>(this.gameObject, OnWaveEnd);
+    }
+
+    private void OnWaveStart(WaveStarted obj)
+    {
+        doorText.enabled = false;
+        zone.ZoneEnabled = false;
+    }
+
+    private void OnWaveEnd(WaveEnded obj)
+    {
+        zone.ZoneEnabled = true;
     }
 
     private void Update()

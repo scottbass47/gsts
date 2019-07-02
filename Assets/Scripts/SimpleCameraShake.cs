@@ -23,11 +23,11 @@ public class SimpleCameraShake : MonoBehaviour
             virtualCameraNoise = VirtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
 
         var eventManager = GameManager.Instance.Events;
-        eventManager.AddListener<PlayerDamage>((obj) =>
+        eventManager.AddListener<PlayerDamage>(this.gameObject, (obj) =>
         {
             Shake(playerDamage);
         });
-        eventManager.AddListener<WeaponFired>((obj) =>
+        eventManager.AddListener<WeaponFired>(this.gameObject, (obj) =>
         {
             Shake(weaponFired);
         });

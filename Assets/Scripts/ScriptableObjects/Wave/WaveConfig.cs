@@ -8,8 +8,10 @@ using UnityEditor;
 public class WaveConfig : ScriptableObject
 {
     [SerializeField] private List<Wave> waves;
-
     public List<Wave> Waves => waves;
+
+    [SerializeField] private int[] levelChanges;
+    public int[] LevelChanges => levelChanges;
 }
 
 [System.Serializable]

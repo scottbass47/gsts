@@ -29,7 +29,7 @@ public class AIController : MonoBehaviour
         set => feet = value;
     }
 
-    public Level Level => GameManager.Instance.level;
+    public LevelData Level => GameManager.Instance.level;
 
     private Movement movement;
     public Movement Movement => movement;

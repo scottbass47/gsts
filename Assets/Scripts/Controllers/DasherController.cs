@@ -19,6 +19,7 @@ public class DasherController : MonoBehaviour
     private Movement movement;
     private GunController gun;
     private Transform targetBody;
+    private ParticleSystem particles;
 
     private bool isAttacking;
     private bool isShuffling;
@@ -30,6 +31,7 @@ public class DasherController : MonoBehaviour
         movement = GetComponent<Movement>();
         moveAnim = GetComponent<MovementAnimator>();
         gun = GetComponentInChildren<GunController>();
+        particles = GetComponent<ParticleSystem>();
         ai = GetComponent<AIController>();
         ai.Pos = feet;
 
@@ -111,11 +113,13 @@ public class DasherController : MonoBehaviour
         yield return new WaitForSeconds(stats.AttackAnticipation);
 
         anim.SetTrigger("attack");
+        particles.Clear();
+        particles.Play();
 
         var dir = ai.Target.position - ai.Pos.position;
 
         bool colliding = false;
-        int maxAttempts = 10;
+        int maxAttempts = 20;
         int attemptNum = 0;
         var dashDir = Vector3.zero;
         do
@@ -150,6 +154,8 @@ public class DasherController : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
 
         isAttacking = false;
+        anim.SetTrigger("dash_over");
+        particles.Stop();
 
         attackCooldown = stats.AttackCooldown;
     }

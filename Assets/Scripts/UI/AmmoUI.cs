@@ -16,13 +16,13 @@ public class AmmoUI : MonoBehaviour
     {
         var events = GameManager.Instance.Events;
 
-        events.AddListener<WeaponClipChange>((eventObj) => 
+        events.AddListener<WeaponClipChange>(this.gameObject, (eventObj) => 
         {
             ammoClip.SetText($"{eventObj.BulletsInClip}");
             ammoBar.fillAmount = eventObj.BulletsInClip / (float)magSize;
         });
 
-        events.AddListener<WeaponMagChange>((eventObj) => 
+        events.AddListener<WeaponMagChange>(this.gameObject, (eventObj) => 
         {
             magSize = eventObj.Bullets;
             ammoMag.SetText($"{eventObj.Bullets}");

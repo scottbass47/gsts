@@ -6,9 +6,9 @@ using System.Text;
 
 public class PathFinder {
 
-    private Level level;
+    private LevelData level;
 	
-    public PathFinder(Level level)
+    public PathFinder(LevelData level)
     {
         this.level = level;
     }

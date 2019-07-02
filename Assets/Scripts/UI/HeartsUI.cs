@@ -27,7 +27,7 @@ public class HeartsUI : MonoBehaviour
         }
 
         var events = GameManager.Instance.Events;
-        events.AddListener<PlayerHealthEvent>((health) => 
+        events.AddListener<PlayerHealthEvent>(this.gameObject, (health) => 
         {
             int newHealth = health.Health;
             if (newHealth < 0 || newHealth > healthUnits.Length) return;

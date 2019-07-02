@@ -5,35 +5,37 @@ using UnityEngine;
 public class WaveController : MonoBehaviour
 {
     private int currentWave;
-    [SerializeField] private WaveConfig waveConfig;
+    public int CurrentWave => currentWave;
     [SerializeField] private GameObject portalPrefab;
     [SerializeField] private LevelScript levelScript;
     [SerializeField] private EnemySpawner enemySpawner;
 
-    private List<GameObject> portals;
+    private List<GameObject> portals => levelScript.Portals;
     private int alive;
     private EventManager events;
     private GameObject door;
+    private WaveConfig waveConfig;
 
     private void Start()
     {
         events = GameManager.Instance.Events;
 
-        events.AddListener<WaveStarted>(OnWaveStart);
+        events.AddListener<WaveStarted>(this.gameObject, OnWaveStart);
+    }
 
-        portals = new List<GameObject>();
-        foreach(var spawn in levelScript.PortalSpawns)
-        {
-            var portal = Instantiate(portalPrefab, spawn, Quaternion.identity);
-            portal.SetActive(false);
-            portals.Add(portal);
-        }
+    public void SetWaveConfig(WaveConfig config)
+    {
+        waveConfig = config;
+    }
 
-        door = levelScript.Door;
-        door.GetComponent<DoorController>().OnDoorInteract += () =>
-        {
-            events.FireEvent(new WaveStarted{ WaveNum = currentWave + 1 });
-        };
+    public void SetLevel(LevelScript levelScript)
+    {
+        this.levelScript = levelScript;
+    }
+
+    public void StartNextWave()
+    {
+        events.FireEvent(new WaveStarted { WaveNum = currentWave + 1 });
     }
 
     private void OnWaveStart(WaveStarted waveData)
@@ -60,7 +62,7 @@ public class WaveController : MonoBehaviour
             totalEnemies += d.Amount;
         }
 
-        foreach (var portal in portals) portal.SetActive(true);
+        levelScript.OpenPortals();
 
         events.FireEvent(new WaveEnemyChange { EnemiesLeft = totalEnemies });
 
@@ -71,14 +73,13 @@ public class WaveController : MonoBehaviour
             i += portals.Count;
         }
 
-        foreach (var portal in portals) portal.SetActive(false);
+        levelScript.ClosePortals();
 
         while (alive > 0) yield return null;
     }
 
     private IEnumerator SpawnBatch(EnemyData[] data, int index, int totalEnemies)
     {
-
         for(int i = 0; index < totalEnemies && i < portals.Count; i++, index++)
         {
             var type = GetEnemyType(data, index);

@@ -18,7 +18,7 @@ MonoBehaviour:
   attackCooldown: 1.5
   attackRange: 5
   attackAnticipation: 0.1
-  dashTime: 0.3
+  dashTime: 0.2
   dashDistance: 4
   shuffleDistance: 1
-  shuffleSpeed: 1.5
+  shuffleSpeed: 2

@@ -45,7 +45,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 4e460403ad83abd498f526fa9d7155af, type: 3}
     - {fileID: 102900000, guid: b0d6c941e33f7f149a2baa31d9eeb53a, type: 3}
     - {fileID: 102900000, guid: 7d0967f9dff32a14e8f37538d5f9f840, type: 3}
-    totalSpriteSurfaceArea: 45367
+    totalSpriteSurfaceArea: 49021
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -54,15 +54,19 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 1b2c21417bf0f554da7063c48ffd7414, type: 3}
   - {fileID: 21300000, guid: f36fa0619e1a3b043b61e1e0d314d156, type: 3}
   - {fileID: 21300000, guid: 43667f718ce26774e99f196fe4a0b29c, type: 3}
+  - {fileID: 21300000, guid: f865a17235f27604d9bfb9a2ffa66291, type: 3}
   - {fileID: 21300000, guid: 4f8a2213d9b9ba7439ba20f40603ca9a, type: 3}
   - {fileID: 21300000, guid: fa9f54331a5b2ca449febde3242ce90c, type: 3}
   - {fileID: 21300000, guid: 2b1f8093e995ecd4a9ba9af88d44811f, type: 3}
   - {fileID: 21300000, guid: 4e407234d5e08224c8bdd34a79c3bcee, type: 3}
   - {fileID: 21300000, guid: 5bbe8fe4a686b94428b66d5750e2f7d0, type: 3}
+  - {fileID: 21300000, guid: 8a057315c7c3e274facd35993dc82e3e, type: 3}
   - {fileID: 21300000, guid: 9a0129255d67cee4ca21c5359214ef2e, type: 3}
   - {fileID: 21300000, guid: 23d5ff25491cf2d45bc15cb27945aa9a, type: 3}
+  - {fileID: 21300000, guid: 1fc2294542f2ec349ab1c15ba08e6dca, type: 3}
   - {fileID: 21300000, guid: 1cf4f065aef9f71499197eafbc03d267, type: 3}
   - {fileID: 21300000, guid: 831cb585706963643a61aa113871635e, type: 3}
+  - {fileID: 21300000, guid: d138339592902df4385c299a7206302b, type: 3}
   - {fileID: 2486660915761704726, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
   - {fileID: 911881859052452035, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
   - {fileID: -7994963395263852509, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
@@ -92,7 +96,9 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 19b83e0741ecc964080d5a367efaaaa1, type: 3}
   - {fileID: 21300000, guid: bfde54978385c7446b1821409cbf39d6, type: 3}
   - {fileID: 21300000, guid: ef0ddec7f3e5729478c4289bcf362ad8, type: 3}
+  - {fileID: 21300000, guid: 70c367d709511de4c9287702aff5fc96, type: 3}
   - {fileID: 21300000, guid: f6424ef77b8d5b544a2e0d2981f551c2, type: 3}
+  - {fileID: 21300000, guid: 29cf0558fac8ce946aba54c83b917334, type: 3}
   - {fileID: 21300000, guid: a6f5c468002c5cb40b87dbc011945f90, type: 3}
   - {fileID: 21300000, guid: 74cc2b8813f623a4c863776c6df5c985, type: 3}
   - {fileID: 21300000, guid: cafccff8113596a4396a2324cf7e7052, type: 3}
@@ -136,15 +142,19 @@ SpriteAtlas:
   - player_idle_front_side_1
   - enemy_grunt_death_front_side_1
   - player_run_back_side5
+  - enemy_dasher_anticipation_back_side_1
   - player_run_front_side_5
   - player_idle_back_1
   - enemy_dasher_gun_bullet_4
   - gun_base
   - enemy_grunt_death_front_side_4
+  - enemy_dasher_anticipation_back_side_2
   - Portal
   - enemy_grunt_death_front_side_7
+  - enemy_dasher_anticipation_front_side_1
   - enemy_dasher_run_back_side_4
   - player_run_back_side3
+  - enemy_dasher_anticipation_front_side_2
   - enemies_17
   - enemies_16
   - enemies_15
@@ -174,7 +184,9 @@ SpriteAtlas:
   - player_run_front_2
   - player_run_front_1
   - player_run_front_side_3
+  - enemy_dasher_anticipation_front_side_3
   - enemy_grunt_death_front_side_3
+  - enemy_dasher_anticipation_back_side_3
   - enemy_dasher_run_front_side_6
   - enemy_dasher_run_front_side_5
   - player_run_front_6

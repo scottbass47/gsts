@@ -29,7 +29,8 @@ public class AIController : MonoBehaviour
         set => feet = value;
     }
 
-    public LevelData Level => GameManager.Instance.level;
+    //public LevelData Level => GameManager.Instance.level;
+    public LevelScript Level => GameManager.Instance.LevelManager.LevelScript;
 
     private Movement movement;
     public Movement Movement => movement;
@@ -39,10 +40,17 @@ public class AIController : MonoBehaviour
     {
         get => path;
         set => path = value;
-    } 
+    }
 
-    private PathFinder pathFinder;
-    public PathFinder PathFinder => pathFinder;
+    private bool pendingPath;
+    public bool PendingPath
+    {
+        get => pendingPath;
+        set => pendingPath = value;
+    }
+
+    //private PathFinder pathFinder;
+    //public PathFinder PathFinder => pathFinder;
 
     private Vector2 moveDir;
     public Vector2 MoveDir
@@ -55,11 +63,12 @@ public class AIController : MonoBehaviour
     private bool flashing = false;
 
     [SerializeField] private DeathBehavior onDeath;
+    [SerializeField] private bool drawPath = false;
     
     private void Start()
     {
         movement = GetComponent<Movement>();
-        pathFinder = Level.GetPathFinder();
+        //pathFinder = Level.GetPathFinder();
 
         var death = GetComponent<Death>();
         death.DestroyOnDeath = false;
@@ -74,6 +83,11 @@ public class AIController : MonoBehaviour
        Tree?.Tick(new TimeData(Time.deltaTime)); 
     }
 
+    public void Move(float speed)
+    {
+        movement.AddForce(moveDir * speed);
+    }
+
     public void Flash(float duration)
     {
         if (flashing) return;
@@ -84,5 +98,19 @@ public class AIController : MonoBehaviour
     private void flashFinished()
     {
         flashing = false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(path != null && drawPath)
+        {
+            path.DrawWithGizmos();
+            var currPos = transform.position;
+            for (int i = path.CurrentWaypointIndex; i < path.Waypoints.Length; i++)
+            {
+                Debug.DrawLine(currPos, path.Waypoints[i], Color.red);
+                currPos = path.Waypoints[i];
+            }
+        }
     }
 }

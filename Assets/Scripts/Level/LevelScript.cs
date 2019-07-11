@@ -35,7 +35,7 @@ public class LevelScript : MonoBehaviour
 
     public GameObject levelBranchPrefab;
 
-    public LevelData LevelData { get; set; }
+    //public LevelData LevelData { get; set; }
 
     [SerializeField] private GameObject portalPrefab;
     private List<GameObject> portals;
@@ -44,9 +44,12 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private CompositeCollider2D levelBoundary;
     public CompositeCollider2D LevelBoundary => levelBoundary;
 
+    public PathRequestManager PathRequestManager { get; private set; }
+
     private void Awake()
     {
         portals = new List<GameObject>();
+        PathRequestManager = GetComponent<PathRequestManager>();
     }
 
     private void Start()

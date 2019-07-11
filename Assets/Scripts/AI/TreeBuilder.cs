@@ -53,7 +53,7 @@ public class TreeBuilder
             Vector2 diff = ai.Target.position - ai.Pos.position;
             RaycastHit2D ray = Physics2D.Raycast(ai.Pos.position, diff, 100, LayerMask.GetMask("Wall", "Player Feet"));
 
-            Debug.DrawLine(ai.Pos.position, ray.point, Color.red, 0.1f);
+            //Debug.DrawLine(ai.Pos.position, ray.point, Color.red, 0.1f);
             var InLOS = ray.rigidbody != null && ray.rigidbody.gameObject.tag == "Player";
             return InLOS;
         });
@@ -93,29 +93,20 @@ public class TreeBuilder
     {
         builder.Condition("Get Path", t =>
         {
-            Transform pTransform = ai.Target;
-            Transform myTransform = ai.Pos;
-            Vector2 diff = pTransform.position - myTransform.position;
-            var lookAngle = Mathf.Rad2Deg * Mathf.Atan2(diff.y, diff.x);
+            if (ai.Path != null && ai.Path.TargetOnPath(ai.Target.position) && !ai.Path.Done) return true;
 
-            // Both lines can be deleted when debug drawing is no longer needed
-            RaycastHit2D ray = Physics2D.Raycast(myTransform.position, diff, 100, LayerMask.GetMask("Wall", "Player Feet"));
-            Debug.DrawLine(myTransform.position, ray.point, Color.red, 0.1f);
-
-            Coord playerPos = ai.Level.WorldToTile(pTransform.position);
-            Coord enemyPos = ai.Level.WorldToTile(myTransform.position);
-            if (ai.Path == null || !ai.Path.OnPath(playerPos) || !ai.Path.OnPath(enemyPos))
+            if (!ai.PendingPath)
             {
-                ai.Path = ai.PathFinder.GetPath(
-                    enemyPos.tx,
-                    enemyPos.ty,
-                    playerPos.tx,
-                    playerPos.ty
-                );
+                ai.PendingPath = true;
+                ai.Level.PathRequestManager.RequestPath(ai.Pos.position, ai.Target.position, (path, success) =>
+                {
+                    ai.PendingPath = false;
+                    if (!success) return;
+                    ai.Path = new Path(path, ai.Pos.position, 1f);
+                });
             }
 
-            return ai.Path != null && ai.Path.path.Count > 1;
-
+            return false;
         });
         return this;
     }
@@ -124,41 +115,24 @@ public class TreeBuilder
     {
         builder.Do("Move On Path", t =>
         {
-            Coord tile = ai.Level.WorldToTile(ai.Pos.position);
-            Vector2 enemyPos = ai.Level.WorldToLevel(ai.Pos.position);
+            var path = ai.Path;
 
-            // tileCenter in Level Coords
-            Vector2 tileCenter = new Vector2(tile.tx + 0.5f, tile.ty + 0.5f);
-
-            if (ai.Path.AtGoal(tileCenter) || !ai.Path.OnPath(tileCenter)) return BehaviourTreeStatus.Failure;
-
-            Coord goal = ai.Path.GetNext(tile);
-
-            // Try to get close to the center of the tile
-            if ((ai.Level.LevelToWorld(tileCenter) - (Vector2)ai.Pos.position).SqrMagnitude() > 1f)
+            bool done = false;
+            while(path.AtNextWaypoint(ai.Pos.position))
             {
-                goal = tile;
+                path.AdvanceWaypoint();
+                done = path.Done;
             }
+            if (done) return BehaviourTreeStatus.Failure;
 
-            // Calculate angle between enemy and goal
-            var goalVec = new Vector2(goal.tx - enemyPos.x + 0.5f, goal.ty - enemyPos.y + 0.5f).normalized;
+            Vector2 dir = path.CurrentWaypoint - ai.Pos.position;
+            dir.Normalize();
 
-            Vector2 dir = Vector2.zero;
-            if(Vector2.Angle(goalVec, ai.MoveDir) > 60)
-            {
-                dir = goalVec; 
-            }
-            else
-            {
-                dir = Vector2.Lerp(ai.MoveDir, goalVec, Time.deltaTime * turningVelocity);
-            }
-
-            ai.Movement.AddForce(dir * speed);
-            ai.MoveDir = dir;
-            moveAnim.SetLookAngle(dir, true);
+            ai.MoveDir = path.FirstWaypoint ? dir : Vector2.Lerp(ai.MoveDir, dir, t.deltaTime * turningVelocity);
+            ai.Move(speed);
+            moveAnim.SetLookAngle(ai.MoveDir, true);
 
             return BehaviourTreeStatus.Success;
-
         });
         return this;
     }

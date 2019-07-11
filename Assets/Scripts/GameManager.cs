@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private WaveConfig waveConfig;
 
     public LevelManager LevelManager => levelManager;
-    public LevelData level => levelManager.LevelData;
+    //public LevelData level => levelManager.LevelData;
     public EventManager Events { get; private set; }
 
     private GameObject player;

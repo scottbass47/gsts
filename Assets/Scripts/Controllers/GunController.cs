@@ -145,13 +145,13 @@ public class GunController : MonoBehaviour
 
             degrees = Vector2.SignedAngle(pivotToTargetPrime, pivotToTarget);
 
-            Debug.DrawLine(transform.position, (Vector2)transform.position + pivotToTargetPrime, Color.red);
-            Debug.DrawLine(transform.position, GetBarrelPos(), Color.red);
-            Debug.DrawLine(GetBarrelPos(), (Vector2)transform.position + pivotToTargetPrime, Color.red);
+            //Debug.DrawLine(transform.position, (Vector2)transform.position + pivotToTargetPrime, Color.red);
+            //Debug.DrawLine(transform.position, GetBarrelPos(), Color.red);
+            //Debug.DrawLine(GetBarrelPos(), (Vector2)transform.position + pivotToTargetPrime, Color.red);
 
-            Debug.DrawLine(transform.position, target, Color.blue);
-            Debug.DrawLine(transform.position, ShotOrigin, Color.blue);
-            Debug.DrawLine(ShotOrigin, target, Color.blue);
+            //Debug.DrawLine(transform.position, target, Color.blue);
+            //Debug.DrawLine(transform.position, ShotOrigin, Color.blue);
+            //Debug.DrawLine(ShotOrigin, target, Color.blue);
         }
         aimAngle = degrees;
 

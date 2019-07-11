@@ -9632,6 +9632,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6785990252610018478}
   - component: {fileID: 6785990252610018465}
+  - component: {fileID: 8321879103681739125}
+  - component: {fileID: 1567570945751066353}
+  - component: {fileID: 3098036521854958624}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -9714,6 +9717,47 @@ MonoBehaviour:
   portalPrefab: {fileID: 906356675340603544, guid: 937a6557404db7d4d94d3a7bf756ddbb,
     type: 3}
   levelBoundary: {fileID: 7029452819487560172}
+--- !u!114 &8321879103681739125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6785990252610018464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d79b413a1e976d54c92d56514fb5c284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 4096
+--- !u!114 &1567570945751066353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6785990252610018464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc895f3be6a45047b67f4bd9a8cf84f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3098036521854958624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6785990252610018464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4856b0a2d75938447b028881bb548ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seeker: {fileID: 8307310365228713714}
+  target: {fileID: 3484311394919539617}
 --- !u!1 &6785990252782092275
 GameObject:
   m_ObjectHideFlags: 0

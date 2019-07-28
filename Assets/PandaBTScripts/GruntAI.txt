@@ -1,0 +1,36 @@
+tree("Root")
+	fallback
+		tree("Attack")
+		tree("Chase")
+
+tree("Attack")
+	while tree("ShouldAttack") 
+		sequence
+			SetAttacking true
+			mute
+				sequence
+					Idle
+					Wait 0.2 // Attack anticipation
+					PlayAnimation "attack"
+					Wait 0.3 // Wait until attack frame
+					Bite
+					Wait 0.4 // Attack cooldown
+			SetAttacking false
+
+tree("Chase")
+	while not tree("ShouldAttack") 
+		repeat
+			sequence
+				GetPathToTarget
+				not
+					while TargetOnPath
+						MoveOnPath 
+
+tree("ShouldAttack")
+	fallback
+		IsAttacking
+		sequence // Target spotted but too far away to fire
+			TargetInLOS		
+			TargetInRange 1.5
+
+

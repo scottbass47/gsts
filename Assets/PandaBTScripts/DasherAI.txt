@@ -1,0 +1,85 @@
+tree("Root")
+	repeat
+		fallback
+			tree("Attack/Dash")
+			tree("Chase")
+			tree("Patrol")
+
+tree("Attack/Dash")
+	while 
+		fallback
+			IsActing
+			sequence // Target spotted but too far away to fire
+				TargetInLOS		
+				TargetInAttackRange 
+		random(0.8, 0.2)
+			tree("Attack")
+			tree("Dash")
+
+tree("Attack")
+	sequence
+		StartAction
+		StopMoving
+		PickNumberOfShots
+		not
+			while StillShooting
+				repeat
+					sequence
+						race
+							repeat
+								FaceTarget
+							repeat
+								AimAtTarget
+							sequence
+								Shoot
+								Wait 0.5
+						DecrementBullets
+		Wait 0.5 // Shooting cooldown
+		StopAction
+
+tree("Dash")
+	sequence
+		StartAction
+		mute
+			sequence
+				Idle
+				Wait 0.5 // Dash anticipation
+				PickDashDirection
+				PlayAnimation "dash"
+				StartParticles
+				Dash
+				EndDash
+				Wait 0.3 // Dash cooldown
+		StopAction
+
+tree("Chase")
+	while 
+		sequence // Target spotted but too far away to fire
+			TargetInLOS		
+			not	
+				TargetInAttackRange 
+		repeat
+			sequence
+				GetPathToTarget
+				not
+					while TargetOnPath
+						race
+							MoveOnPath 
+							AimGunAlongPath
+
+tree("Patrol")
+	while not TargetInLOS
+		sequence
+			FindPatrolWaypoints
+			not
+				while MoreWaypoints // Move between waypoints
+					repeat
+						sequence
+							ResetPathVariables
+							ObtainPathToWaypoint
+							race
+								MoveOnPath 
+								AimGunAlongPath
+							IncrementWaypoint
+			Idle
+			WaitRandom 1.5 3.0 // Idle before finding new wayoints

@@ -1,0 +1,30 @@
+tree "PlayTag"
+	fallback 
+		tree "ChasePlayer" 
+		tree "AvoidPlayer" 
+		tree "Idle"
+
+// Move to the player while we are 'it'.
+tree "ChasePlayer" 
+	while IsIt
+		sequence
+			SetDestination_Player
+			MoveToDestination
+			Wait 1.0
+
+// Avoid the player while we are not 'it'.
+tree "AvoidPlayer" 
+	while not IsIt
+		sequence
+			IsPlayerNear
+			SetDestination_Random
+			IsDirectionSafe
+			MoveToDestination
+
+// Idle when we are not 'it' and the player is far.
+tree "Idle" 
+	while
+		sequence
+			not IsIt
+			not IsPlayerNear
+		repeat Succeed // Repeat doing nothing.

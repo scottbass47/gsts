@@ -66,6 +66,7 @@ GameObject:
   - component: {fileID: 4217814704532399870}
   - component: {fileID: 3926470258123100010}
   - component: {fileID: 4603546452357618611}
+  - component: {fileID: 825730250306090470}
   m_Layer: 10
   m_Name: Dasher
   m_TagString: Untagged
@@ -152,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onDeath: {fileID: 11400000, guid: 11f215fc21dcee24b9f9536bd1976df9, type: 2}
+  drawPath: 0
 --- !u!114 &145992946864281199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,9 +203,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe7e0648f7b9d14891f6a5b3a820b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 6123940962390884118}
   feet: {fileID: 145992946234107272}
   stats: {fileID: 11400000, guid: 68a4c7acf93dfe24eb15ea98d1a14695, type: 2}
-  anim: {fileID: 6123940962390884118}
   target: {fileID: 0}
   bulletPrefab: {fileID: 7218900296917083157, guid: d28e843647ca3184fb4132d4ff6802f0,
     type: 3}
@@ -4927,6 +4929,28 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &825730250306090470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2392959800455960250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e43e7170fb45b4b81dcd16d0ff55d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scripts:
+  - {fileID: 4900000, guid: 84a3ecb1d7d84f242a4c255216f5a91f, type: 3}
+  autoReset: 1
+  tickOn: 0
+  sourceInfos:
+  - isFoldout: 1
+    breakPoints: 
+    breakPointStatuses: 
+    collapsedLines: 
+    btScript: 
 --- !u!1 &2924391885684482342
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public class DasherStats : ScriptableObject
     [SerializeField] private float attackCooldown;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackAnticipation;
+    [SerializeField] private int maxBullets;
 
     [Header("Dash")]
     [SerializeField] private float dashTime;
@@ -23,9 +24,17 @@ public class DasherStats : ScriptableObject
     [SerializeField] private float shuffleDistance;
     [SerializeField] private float shuffleSpeed;
 
+    [Header("Idle/Patrol")]
+    [SerializeField] private int patrolWaypoints;
+    [SerializeField] private float patrolSpeed;
+    [SerializeField] private float patrolRadius;
+    [SerializeField] private float minIdleTime;
+    [SerializeField] private float maxIdleTime;
+
     public float AttackCooldown => attackCooldown;
     public float AttackRange => attackRange;
     public float AttackAnticipation => attackAnticipation;
+    public int MaxBullets => maxBullets;
 
     public float TurningVelocity => turningVelocity;
     public float Speed => speed;
@@ -37,4 +46,9 @@ public class DasherStats : ScriptableObject
     public float ShuffleDistance => shuffleDistance;
     public float ShuffleSpeed => shuffleSpeed;
     
+    public int PatrolWaypoints => patrolWaypoints;
+    public float PatrolSpeed => patrolSpeed;
+    public float PatrolRadius => patrolRadius;
+    public float MinIdleTime => minIdleTime;
+    public float MaxIdleTime => maxIdleTime;
 }

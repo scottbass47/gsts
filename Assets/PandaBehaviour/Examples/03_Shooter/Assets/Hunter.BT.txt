@@ -1,0 +1,38 @@
+//This Behaviour Tree controls the 'Hunter' unit.
+
+tree("BeAlive")
+	//The highest priority action is to run for cover in critical situations.
+	//If there is no critical threat, this unit will chase the enemy and
+	//shoot at it on sight.
+	//When there is nothing to run away from or to shoot at, just idle.
+	fallback
+		tree("RunForCover")
+		while not tree("IsThreatened")
+			fallback
+				tree("FireOnSight")
+				tree("HideAndReload")
+				tree("ChaseEnemy")
+				tree("Idle")
+
+
+tree("FireOnSight")
+	//Shoot at the enemy while it is visible.
+	sequence
+		IsVisible_Enemy
+		Stop
+		while IsVisible_Enemy
+			repeat
+				sequence
+					SetTarget_Enemy
+					AimAt_Target
+					tree("Fire")
+
+					//When no more ammo, run for cover sometimes
+					random
+						Succeed
+						HasAmmo
+
+
+tree("HideAndReload")
+	while Ammo_LessThan(3)
+		tree("Hide")

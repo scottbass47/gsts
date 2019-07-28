@@ -15,12 +15,12 @@ public class Pathfinding : MonoBehaviour
         grid = GetComponent<LevelGrid>();
     }
 
-    public void StartFindPath(Vector3 startPos, Vector3 targetPos)
+    public void StartFindPath(Vector3 startPos, Vector3 targetPos, PathParameters parameters)
     {
-        StartCoroutine(FindPath(startPos, targetPos));
+        StartCoroutine(FindPath(startPos, targetPos, parameters));
     }
 
-    private IEnumerator FindPath(Vector3 start, Vector3 target)
+    private IEnumerator FindPath(Vector3 start, Vector3 target, PathParameters parameters)
     {
         Vector3[] waypoints = new Vector3[0];
         bool pathSuccess = false;
@@ -29,7 +29,7 @@ public class Pathfinding : MonoBehaviour
         var targetNode = grid.NodeFromWorldPoint(target);
         if (startNode == null || targetNode == null)
         {
-            requestManager.FinishedProcessingPath(waypoints, pathSuccess);
+            requestManager.FinishedProcessingPath(waypoints, pathSuccess, parameters);
             yield break;
         }
 
@@ -74,9 +74,9 @@ public class Pathfinding : MonoBehaviour
 		}
         if (pathSuccess)
         {
-            waypoints = RetracePath(start, startNode,targetNode); 
+            waypoints = RetracePath(start, startNode,targetNode, parameters.AllAngles); 
         }
-        requestManager.FinishedProcessingPath(waypoints, pathSuccess);
+        requestManager.FinishedProcessingPath(waypoints, pathSuccess, parameters);
 	}
 
     private bool Diagonal(Node one, Node two)
@@ -84,7 +84,7 @@ public class Pathfinding : MonoBehaviour
         return one.xGrid != two.xGrid && one.yGrid != two.yGrid;
     }
 
-	private Vector3[] RetracePath(Vector2 startPos, Node startNode, Node endNode) {
+	private Vector3[] RetracePath(Vector2 startPos, Node startNode, Node endNode, bool allAngles) {
 		List<Node> path = new List<Node>();
 		Node currentNode = endNode;
 
@@ -92,9 +92,34 @@ public class Pathfinding : MonoBehaviour
 			path.Add(currentNode);
 			currentNode = currentNode.parent;
 		}
-        Vector3[] waypoints = SimplifyPath(startPos, path);
+        Vector3[] waypoints = allAngles ? SimplifyPath(startPos, path) : SimplifyPath45(startPos, path);
         return waypoints;
 	}
+
+    private Vector3[] SimplifyPath45(Vector2 startPos, List<Node> path)
+    {
+        path.Reverse();
+		List<Vector3> waypoints = new List<Vector3>();
+		
+		for (int i = 0; i < path.Count - 2; i++)
+        {
+            var p1 = path[i];
+            var p2 = path[i + 1];
+            var p3 = path[i + 2];
+
+            int a = p1.xGrid * (p2.yGrid - p3.yGrid) +
+                p2.xGrid * (p3.yGrid - p1.yGrid) +
+                p3.xGrid * (p1.yGrid - p2.yGrid);
+
+            if(a == 0)
+            {
+                path.RemoveAt(i + 1);
+                i--;
+            }
+        }
+        path.ForEach((node) => waypoints.Add(node.WorldPosition));
+		return waypoints.ToArray();
+    }
 
     private Vector3[] SimplifyPath(Vector2 startPos, List<Node> path)
     {

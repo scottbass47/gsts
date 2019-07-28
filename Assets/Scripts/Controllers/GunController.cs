@@ -122,6 +122,7 @@ public class GunController : MonoBehaviour
     {
         var aimVec = target - center;
         Flipped = aimVec.x < 0;
+        transform.localPosition = Flipped ? flippedOffset : offset;
 
         Vector2 pivotToTarget = target - (Vector2)transform.position;
         float targetDist = pivotToTarget.magnitude;
@@ -160,7 +161,6 @@ public class GunController : MonoBehaviour
         ////getComponent<PixelRotate>().SetRotate(aimAngle);
         //if (Flipped) off.x = -off.x;
 
-        transform.localPosition = Flipped ? flippedOffset : offset;
         //transform.localPosition += off;
         spriteRenderer.flipX = Flipped;
         transform.eulerAngles = new Vector3(0, 0, Flipped ? 360 - aimAngle : aimAngle);

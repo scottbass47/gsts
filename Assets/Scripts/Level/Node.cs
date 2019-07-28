@@ -13,6 +13,7 @@ public class Node : IHeapItem<Node>
 	public int xGrid { get; private set; }
 	public int yGrid { get; private set; }
 	public int MovementPenalty { get; private set; }
+    public int BrushFireDist { get; set; }
 
     public int gCost { get; set; }
     public int hCost { get; set; }

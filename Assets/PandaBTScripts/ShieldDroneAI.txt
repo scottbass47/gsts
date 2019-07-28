@@ -1,0 +1,20 @@
+tree("Root")
+	repeat
+		fallback
+			tree("Idle")
+			tree("Chase")
+
+tree("Idle")
+	while TargetInRange 5.0
+		sequence
+			StopMoving
+			FaceTarget
+
+tree("Chase")
+	while not TargetInRange 3.0
+		repeat
+			sequence
+				GetPathToTarget
+				not
+					while TargetOnPath
+						MoveOnPath 

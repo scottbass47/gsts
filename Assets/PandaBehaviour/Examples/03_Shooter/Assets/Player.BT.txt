@@ -1,0 +1,43 @@
+//This Behaviour Tree controls a unit using the player inputs.
+
+tree("Root")
+	//Controll movement, aiming, firing and dying.
+	parallel
+		repeat mute tree("Move")
+		repeat mute tree("Aim")
+		repeat mute tree("Fire")
+		repeat mute tree("Die")
+
+tree("Move")
+	//Move to the destination.
+	//Set the mouse cursor as destination when right click,
+	//Or set the destination in the direction given by the WASD keys.
+	parallel
+		repeat MoveTo_Destination
+		repeat
+			fallback
+				SetDestination_WASD
+				sequence
+					IsMouseButtonPressed(1)
+					SetDestination_Mouse
+				Succeed
+
+
+tree("Fire")
+	//Fire when left click, and wait for cooldown.
+	Sequence
+		IsMouseButtonPressed(0)
+		Fire
+		Wait(0.2)
+
+tree("Aim")
+	//Aim at the mouse cursor.
+	Sequence
+		SetTarget_Mouse
+		AimAt_Target
+
+tree("Die")
+	//Die when there is nore more HP.
+	sequence
+		IsHealthLessThan(0.1)
+		Explode

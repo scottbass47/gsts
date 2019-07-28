@@ -1,0 +1,40 @@
+tree("PlayTag")
+	//Do whatever is appropriate:
+	//Chase the player, Avoid the player or just Idle.
+	fallback
+		tree("ChasePlayer")
+		tree("AvoidPlayer")
+		tree("Idle")
+
+
+tree("ChasePlayer")
+	//Chase the player while we are "it".
+	//Use the current player position as destination,
+	//Then move straight to that destination.
+	while IsIt
+		repeat
+			sequence
+				SetDestination_Player
+				MoveToDestination
+
+tree("AvoidPlayer")
+	//Avoid the player while we are not "it".
+	//If the player is near by, pick a destination at random.
+	//If that destination is safe  player is not in the way,
+	//move straight to it.
+	//Otherwise the tree fails.
+	while not IsIt
+		sequence
+			IsPlayerNear
+			SetDestination_Random
+			IsDirectionSafe
+			MoveToDestination
+
+tree("Idle")
+	//Idle while we are not "it" and the player
+	//is far away.
+	while
+		sequence
+			not IsIt
+			not IsPlayerNear
+		repeat Succeed //Just repeat doing nothing.

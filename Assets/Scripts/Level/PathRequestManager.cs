@@ -13,41 +13,25 @@ public class PathRequestManager : MonoBehaviour {
 	private bool isProcessingPath;
 
     private Vector3[] path;
-    public Transform seeker, target;
+    public delegate void PathCallback(Vector3[] waypoings, bool success, PathParameters parameters);
 
 	void Awake() {
 		pathfinding = GetComponent<Pathfinding>();
 	}
 
-    private void Update()
+    public void RequestPath(Vector3 pathStart, Vector3 pathEnd, PathCallback callback) 
     {
-        if (!isProcessingPath)
-        {
-            RequestPath(seeker.transform.position, target.transform.position, (path, success) =>
-            {
-                if (success)
-                {
-                    this.path = path;
-                }
-            });
-        }
+        RequestPath(pathStart, pathEnd, callback, PathParameters.Default);
     }
 
-    private void OnDrawGizmos()
-    {
-        if(path != null)
-        {
-            var lastPos = seeker.transform.position;
-            for(int i = 0; i < path.Length; i++)
-            {
-                Debug.DrawLine(lastPos, path[i], Color.cyan);
-                lastPos = path[i];
-            }
-        }
-    }
+    public void RequestPath(Vector3 pathStart, Vector3 pathEnd, PathCallback callback, PathParameters parameters) {
+		PathRequest newRequest = new PathRequest(
+            pathStart,
+            pathEnd,
+            callback,
+            parameters == null ? PathParameters.Default : parameters
+        );
 
-    public void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback) {
-		PathRequest newRequest = new PathRequest(pathStart,pathEnd,callback);
 		pathRequestQueue.Enqueue(newRequest);
 		TryProcessNext();
 	}
@@ -56,12 +40,12 @@ public class PathRequestManager : MonoBehaviour {
 		if (!isProcessingPath && pathRequestQueue.Count > 0) {
 			currentPathRequest = pathRequestQueue.Dequeue();
 			isProcessingPath = true;
-			pathfinding.StartFindPath(currentPathRequest.pathStart, currentPathRequest.pathEnd);
+			pathfinding.StartFindPath(currentPathRequest.pathStart, currentPathRequest.pathEnd, currentPathRequest.pathParameters);
 		}
 	}
 
-	public void FinishedProcessingPath(Vector3[] path, bool success) {
-		currentPathRequest.callback(path,success);
+	public void FinishedProcessingPath(Vector3[] path, bool success, PathParameters parameters) {
+		currentPathRequest.callback(path,success,parameters);
 		isProcessingPath = false;
 		TryProcessNext();
 	}
@@ -69,14 +53,30 @@ public class PathRequestManager : MonoBehaviour {
 	struct PathRequest {
 		public Vector3 pathStart;
 		public Vector3 pathEnd;
-		public Action<Vector3[], bool> callback;
+		public PathCallback callback;
+        public PathParameters pathParameters;
 
-		public PathRequest(Vector3 _start, Vector3 _end, Action<Vector3[], bool> _callback) {
+		public PathRequest(Vector3 _start, Vector3 _end, PathCallback _callback, PathParameters _pathParameters) {
 			pathStart = _start;
 			pathEnd = _end;
 			callback = _callback;
+            pathParameters = _pathParameters;
 		}
-
 	}
+}
+
+public class PathParameters
+{
+    public readonly bool AllAngles;
+    public readonly float TurningRadius;
+
+    private static PathParameters defaultParameters = new PathParameters(true, 1f);
+    public static PathParameters Default => defaultParameters;
+
+    public PathParameters(bool allAngles, float turningRadius)
+    {
+        this.AllAngles = allAngles;
+        this.TurningRadius = turningRadius;
+    }
 
 }

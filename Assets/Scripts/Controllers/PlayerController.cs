@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     
     private HandController handController;
     private GunController gunController;
-    private Movement physics;
+    private Physics physics;
     private Health health;
 
     private Vector2 movementVector;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         events = GameManager.Instance.Events;
         handController = GetComponentInChildren<HandController>();
-        physics = GetComponent<Movement>();
+        physics = GetComponent<Physics>();
 
         gunController = GetComponentInChildren<GunController>();
         gunController.OnReload += (duration) =>

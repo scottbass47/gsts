@@ -45,11 +45,13 @@ public class LevelScript : MonoBehaviour
     public CompositeCollider2D LevelBoundary => levelBoundary;
 
     public PathRequestManager PathRequestManager { get; private set; }
+    public LevelGrid Grid { get; private set; }
 
     private void Awake()
     {
         portals = new List<GameObject>();
         PathRequestManager = GetComponent<PathRequestManager>();
+        Grid = GetComponent<LevelGrid>();
     }
 
     private void Start()

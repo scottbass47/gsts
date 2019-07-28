@@ -1,0 +1,28 @@
+tree("Root")
+	//Play Tag, check for collision and Talk at the same time.
+	parallel
+		repeat mute tree("PlayTag")
+		repeat mute tree("CheckCollision")
+		repeat mute tree("Talk")
+
+tree("CheckCollision")
+	//Tag when we collide with the player.
+	//Leave 1 sec of cooldown between each "Tag".
+	sequence
+		IsColliding_Player
+		Tag
+		Wait(1.0)
+
+tree("Talk")
+	//Say something when changing.
+	fallback
+		while IsIt
+			sequence
+				Say("...I'm it.")
+				Running
+
+		while not IsIt
+			sequence
+				Say("Tag, you're it!")
+				Running
+

@@ -18,7 +18,13 @@ MonoBehaviour:
   attackCooldown: 1.5
   attackRange: 5
   attackAnticipation: 0.1
+  maxBullets: 4
   dashTime: 0.2
   dashDistance: 4
   shuffleDistance: 1
   shuffleSpeed: 2
+  patrolWaypoints: 1
+  patrolSpeed: 4
+  patrolRadius: 6
+  minIdleTime: 0.5
+  maxIdleTime: 2.5

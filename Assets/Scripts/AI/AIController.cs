@@ -5,14 +5,6 @@ using FluentBehaviourTree;
 
 public class AIController : MonoBehaviour
 {
-    private IBehaviourTreeNode tree;
-
-    public IBehaviourTreeNode Tree
-    {
-        get => tree;
-        set => tree = value;
-    }
-
     private Transform target;
 
     public Transform Target
@@ -32,8 +24,8 @@ public class AIController : MonoBehaviour
     //public LevelData Level => GameManager.Instance.level;
     public LevelScript Level => GameManager.Instance.LevelManager.LevelScript;
 
-    private Movement movement;
-    public Movement Movement => movement;
+    //private Physics physics;
+    //public Physics Physics => physics;
 
     private Path path;
     public Path Path
@@ -49,14 +41,11 @@ public class AIController : MonoBehaviour
         set => pendingPath = value;
     }
 
-    //private PathFinder pathFinder;
-    //public PathFinder PathFinder => pathFinder;
-
-    private Vector2 moveDir;
-    public Vector2 MoveDir
+    private bool pathFailed;
+    public bool PathFailed
     {
-        get => moveDir;
-        set => moveDir = value.normalized; 
+        get => pathFailed;
+        set => pathFailed = value;
     }
 
     private Coroutine flash;
@@ -64,28 +53,15 @@ public class AIController : MonoBehaviour
 
     [SerializeField] private DeathBehavior onDeath;
     [SerializeField] private bool drawPath = false;
-    
+
     private void Start()
     {
-        movement = GetComponent<Movement>();
-        //pathFinder = Level.GetPathFinder();
-
         var death = GetComponent<Death>();
         death.DestroyOnDeath = false;
         death.OnDeath += () =>
         {
             onDeath.OnDeath(death);
         };
-    }
-
-    private void Update()
-    {
-       Tree?.Tick(new TimeData(Time.deltaTime)); 
-    }
-
-    public void Move(float speed)
-    {
-        movement.AddForce(moveDir * speed);
     }
 
     public void Flash(float duration)

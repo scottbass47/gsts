@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Linq;
-using UnityEditor;
+
 
 [CustomGridBrush(false, true, false, "Inner Wall Brush")]
 [CreateAssetMenu(fileName = "Inner Wall Brush", menuName = "Brushes/Inner Wall Brush")]
-public class InnerWallsBrush : GridBrush
+public class InnerWallsBrush : UnityEditor.Tilemaps.GridBrush
 {
     [SerializeField] private TileBase tileWalls;
     [SerializeField] private TileBase tileCeiling;

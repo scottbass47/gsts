@@ -27,6 +27,7 @@ public class EnemyDeathBehavior : DeathBehavior
         {
             death.StartCoroutine(DeathFade(go));
         };
+        SoundManager.PlaySound(Sounds.EnemyFleshHitFatal);
     }
 
     private IEnumerator DeathFade(GameObject go)

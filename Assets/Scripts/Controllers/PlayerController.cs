@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public float AimAngle { get; private set; }
 
     private float elapsed;
+    private int footstepSoundHandle;
 
     [SerializeField] private Material flashMaterial;
 
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour
         {
             physics.AddForce(Vector2.zero);
             shouldIdle = true;
+            SoundManager.StopSoundLooping(footstepSoundHandle);
             events.FireEvent(new PlayerStopMoving());
             return;
         }
@@ -75,7 +77,11 @@ public class PlayerController : MonoBehaviour
 
         var vel = movementVector * adjustedSpeed;
 
-        if (shouldIdle) events.FireEvent(new PlayerStartMoving());
+        if (shouldIdle)
+        {
+            footstepSoundHandle = SoundManager.PlaySoundLooping(Sounds.PlayerFootsteps);
+            events.FireEvent(new PlayerStartMoving());
+        }
         physics.AddForce(vel);
         shouldIdle = false;
     }
@@ -90,6 +96,7 @@ public class PlayerController : MonoBehaviour
         {
             if (gunController.Shoot())
             {
+                SoundManager.PlaySound(Sounds.PlayerGunshot);
                 events.FireEvent(new WeaponFired());
             }
         }

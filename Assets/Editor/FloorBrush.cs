@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Linq;
-using UnityEditor;
+
 
 [CustomGridBrush(false, true, false, "Floor Brush")]
 [CreateAssetMenu(fileName = "Floor Brush", menuName = "Brushes/Floor Brush")]
-public class FloorBrush : GridBrush
+public class FloorBrush : UnityEditor.Tilemaps.GridBrush
 {
     [SerializeField] private WeightedTile[] floorTiles;
 

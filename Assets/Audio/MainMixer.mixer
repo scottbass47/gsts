@@ -41,6 +41,25 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!243 &-3855237039639706723
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Gameplay
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: d46f8412a23d53a44917ed0caed57839
+  m_Children: []
+  m_Volume: 8e4844aeb53b6b441b6b6f4d8ccc2267
+  m_Pitch: 12335c0cc1af31442ab9e362d61a921c
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -2518970172536970151}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &-3393362502576124572
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -51,6 +70,20 @@ AudioMixerEffectController:
   m_EffectID: c70be5459a73e38449019993e8016005
   m_EffectName: Attenuation
   m_MixLevel: f6e25e74a38e85b4d9fb834a66a8817c
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &-2518970172536970151
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 170663c8afabe0144abe63bfbca2866a
+  m_EffectName: Attenuation
+  m_MixLevel: a74e2d1a542a3964cae8ec72eca4c988
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
@@ -91,6 +124,7 @@ AudioMixerController:
     - 09eb347a0697d2840bcf759d9d55b43b
     - cca8e1ad92f018e438ef7aefac780023
     - 3146f9ea9c0055a449b8c6bb866de7d3
+    - d46f8412a23d53a44917ed0caed57839
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -107,6 +141,7 @@ AudioMixerGroupController:
   - {fileID: -4023698920574359097}
   - {fileID: 5895660765399156041}
   - {fileID: -6592475491496975906}
+  - {fileID: -3855237039639706723}
   m_Volume: 8fc70d4a460aa974bbc6ea8a26f40a88
   m_Pitch: 3d7c00fe24a871c449e59f09815cc84f
   m_Send: 00000000000000000000000000000000
@@ -145,9 +180,11 @@ AudioMixerSnapshotController:
     57809c910fc2f8c4aab000e344fdf2b9: -1994
     6ef300e1d2babb541af1db1db60762b6: 0.275
     fbb001b374aa4a640b614ce3a38c82c8: -0.102128565
+    1567ed9474b36b0429f759d2fd4f40b8: -0.3
     9ff9ae9458d3f3a4a90ff70a7a5b3d92: -157
+    37c815553bacdc643bbb1ae768c13eb8: -80
     c1716bc58946a5b45b2df23d26efa019: -4.9356413
-    1793e939fc409a348a184b3966143588: 0.025578512
+    1793e939fc409a348a184b3966143588: 0
     8fc70d4a460aa974bbc6ea8a26f40a88: -0.025776558
     0bd508dc3fbc0d844943979f616b62b3: 0
     e4d9650e9f7797a48824e2a55bcb2860: 13.3
@@ -237,7 +274,7 @@ AudioMixerEffectController:
     m_GUID: b0b28a63465513c4ebfbbe6db5413500
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
-  m_Bypass: 0
+  m_Bypass: 1
 --- !u!243 &5895660765399156041
 AudioMixerGroupController:
   m_ObjectHideFlags: 0

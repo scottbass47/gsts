@@ -94,8 +94,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -436,7 +436,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 134845590}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -456,6 +456,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &134845594
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -688,7 +689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7472497153947938650, guid: fbb9733d4b2bb774d9a29e35665d962d,
     type: 3}
-  enemyPrefab: {fileID: 8704914495930380701, guid: 4586394a74dd63f44a886b53a5d97c27,
+  enemyPrefab: {fileID: 2536418901072705457, guid: ccc46e423ca439844a36e23561285ff1,
     type: 3}
   levelManager: {fileID: 34515003}
   waveController: {fileID: 827452243}
@@ -1075,7 +1076,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 438203725}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -1095,6 +1096,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &438203729
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1508,7 +1510,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 576697652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -1528,6 +1530,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &576697655
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1639,7 +1642,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 656335238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
@@ -1656,7 +1659,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 656335238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
@@ -1863,7 +1866,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 732595454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -1883,6 +1886,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &732595457
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2143,7 +2147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 858921601}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
@@ -2162,7 +2166,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 858921601}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
@@ -7206,7 +7210,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7214,6 +7218,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -7315,18 +7320,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5f2ed28b5704b438eaf53e69521e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footsteps:
-    clips:
+  groups:
+  - Sound: 0
+    Group: {fileID: 5895660765399156041, guid: 2dedd40c26ada604e9ccade5e5a86b7f, type: 2}
+    Clips:
     - {fileID: 8300000, guid: cda18463c25746d49be1b6c74802af0f, type: 3}
     - {fileID: 8300000, guid: 3a587e70d6ea14c4a87924390328e014, type: 3}
     - {fileID: 8300000, guid: 7efc3965845d461419c3c897c0b55768, type: 3}
     - {fileID: 8300000, guid: 3ae729f9ebe35024895a04280ca7f473, type: 3}
     - {fileID: 8300000, guid: e0a26ae0b2144c34ea73d89a88f12cf2, type: 3}
-    group: {fileID: 5895660765399156041, guid: 2dedd40c26ada604e9ccade5e5a86b7f, type: 2}
-  weaponShot:
-    clip: {fileID: 8300000, guid: 673c88bad1770f641a6496ca0ee8220f, type: 3}
-    group: {fileID: -6592475491496975906, guid: 2dedd40c26ada604e9ccade5e5a86b7f,
+  - Sound: 2
+    Group: {fileID: -3855237039639706723, guid: 2dedd40c26ada604e9ccade5e5a86b7f,
       type: 2}
+    Clips:
+    - {fileID: 8300000, guid: 309589a24bac995439a261765c8bfe5f, type: 3}
+    - {fileID: 8300000, guid: 9b03b8a9b5d68e345a22328d5da4c326, type: 3}
+    - {fileID: 8300000, guid: 9f5d34f82ca330a48862418d49969da4, type: 3}
+    - {fileID: 8300000, guid: 4983a9447e0ab76428e14ff34ad44df4, type: 3}
+  - Sound: 3
+    Group: {fileID: -3855237039639706723, guid: 2dedd40c26ada604e9ccade5e5a86b7f,
+      type: 2}
+    Clips:
+    - {fileID: 8300000, guid: 02ee7772df9445349b5782a522bad8ce, type: 3}
+    - {fileID: 8300000, guid: 4380724c3f95c0f4eb2389ed3cf2e543, type: 3}
+  singles:
+  - Sound: 1
+    Group: {fileID: -6592475491496975906, guid: 2dedd40c26ada604e9ccade5e5a86b7f,
+      type: 2}
+    Clip: {fileID: 8300000, guid: 673c88bad1770f641a6496ca0ee8220f, type: 3}
 --- !u!4 &1669304548
 Transform:
   m_ObjectHideFlags: 0
@@ -7387,7 +7408,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1703807524}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -7407,6 +7428,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1703807527
 CanvasRenderer:
   m_ObjectHideFlags: 0

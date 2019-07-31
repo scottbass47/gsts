@@ -18,4 +18,4 @@ MonoBehaviour:
   attackRange: 1.5
   turningVelocity: 3
   speed: 3
-  health: 1
+  health: 50

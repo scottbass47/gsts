@@ -15,215 +15,25 @@ SpriteAtlas:
       compressionQuality: 50
       maxTextureSize: 2048
       textureCompression: 0
-      filterMode: 0
+      filterMode: 1
       generateMipMaps: 0
       readable: 0
       crunchedCompression: 0
       sRGB: 1
-    platformSettings:
-    - serializedVersion: 3
-      m_BuildTarget: DefaultTexturePlatform
-      m_MaxTextureSize: 2048
-      m_ResizeAlgorithm: 0
-      m_TextureFormat: -1
-      m_TextureCompression: 0
-      m_CompressionQuality: 50
-      m_CrunchedCompression: 0
-      m_AllowsAlphaSplitting: 0
-      m_Overridden: 0
-      m_AndroidETC2FallbackOverride: 0
-      m_ForceMaximumCompressionQuality_BC6H_BC7: 1
+    platformSettings: []
     packingSettings:
       serializedVersion: 2
       padding: 4
       blockOffset: 1
       allowAlphaSplitting: 0
       enableRotation: 1
-      enableTightPacking: 0
+      enableTightPacking: 1
     variantMultiplier: 1
-    packables:
-    - {fileID: 102900000, guid: 71b1cbe69b9819b449868a07cda12910, type: 3}
-    - {fileID: 102900000, guid: 4e460403ad83abd498f526fa9d7155af, type: 3}
-    - {fileID: 102900000, guid: b0d6c941e33f7f149a2baa31d9eeb53a, type: 3}
-    - {fileID: 102900000, guid: 7d0967f9dff32a14e8f37538d5f9f840, type: 3}
-    totalSpriteSurfaceArea: 49021
+    packables: []
+    totalSpriteSurfaceArea: 0
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: fd12a7f0b0483f84199851b7975bb4c7, type: 3}
-  - {fileID: 21300000, guid: 496167210d391e140b9b97569c36a521, type: 3}
-  - {fileID: 21300000, guid: 1b2c21417bf0f554da7063c48ffd7414, type: 3}
-  - {fileID: 21300000, guid: f36fa0619e1a3b043b61e1e0d314d156, type: 3}
-  - {fileID: 21300000, guid: 43667f718ce26774e99f196fe4a0b29c, type: 3}
-  - {fileID: 21300000, guid: f865a17235f27604d9bfb9a2ffa66291, type: 3}
-  - {fileID: 21300000, guid: 4f8a2213d9b9ba7439ba20f40603ca9a, type: 3}
-  - {fileID: 21300000, guid: fa9f54331a5b2ca449febde3242ce90c, type: 3}
-  - {fileID: 21300000, guid: 2b1f8093e995ecd4a9ba9af88d44811f, type: 3}
-  - {fileID: 21300000, guid: 4e407234d5e08224c8bdd34a79c3bcee, type: 3}
-  - {fileID: 21300000, guid: 5bbe8fe4a686b94428b66d5750e2f7d0, type: 3}
-  - {fileID: 21300000, guid: 8a057315c7c3e274facd35993dc82e3e, type: 3}
-  - {fileID: 21300000, guid: 9a0129255d67cee4ca21c5359214ef2e, type: 3}
-  - {fileID: 21300000, guid: 23d5ff25491cf2d45bc15cb27945aa9a, type: 3}
-  - {fileID: 21300000, guid: 1fc2294542f2ec349ab1c15ba08e6dca, type: 3}
-  - {fileID: 21300000, guid: 1cf4f065aef9f71499197eafbc03d267, type: 3}
-  - {fileID: 21300000, guid: 831cb585706963643a61aa113871635e, type: 3}
-  - {fileID: 21300000, guid: d138339592902df4385c299a7206302b, type: 3}
-  - {fileID: 2486660915761704726, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: 911881859052452035, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: -7994963395263852509, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: 414078030284958077, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: 7153525974244860219, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: -6812798382714016367, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: -4253028335022237997, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: -8384590935982494654, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: -1376865339905038310, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: -8108438390446734492, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: -3231492579343523708, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: -3351989875833439213, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: -3029504926045522119, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: -2782341204894616949, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: 6230911579049521198, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: 2731795287329381114, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: 3229708652140166120, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: 876784968147787122, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: 1961183383047197949, guid: 4fba37d58c0e98b41b45e177db57caa0, type: 3}
-  - {fileID: 21300000, guid: 085dc5e5151b75e4bb1ee7259de94277, type: 3}
-  - {fileID: 21300000, guid: a2bdd126a0f44bf46942cecc2df00af0, type: 3}
-  - {fileID: 21300000, guid: dfb6e646917d7214195c877af73de21e, type: 3}
-  - {fileID: 21300000, guid: 50c5db46864cdc147810b6881f3479c7, type: 3}
-  - {fileID: 21300000, guid: 1b8d94a61703c3048bef6e0847075671, type: 3}
-  - {fileID: 21300000, guid: 1c2676c672df98b4c95800d103cf1a92, type: 3}
-  - {fileID: 21300000, guid: 96707ac6933692143a70b570e702ccfa, type: 3}
-  - {fileID: 21300000, guid: 19b83e0741ecc964080d5a367efaaaa1, type: 3}
-  - {fileID: 21300000, guid: bfde54978385c7446b1821409cbf39d6, type: 3}
-  - {fileID: 21300000, guid: ef0ddec7f3e5729478c4289bcf362ad8, type: 3}
-  - {fileID: 21300000, guid: 70c367d709511de4c9287702aff5fc96, type: 3}
-  - {fileID: 21300000, guid: f6424ef77b8d5b544a2e0d2981f551c2, type: 3}
-  - {fileID: 21300000, guid: 29cf0558fac8ce946aba54c83b917334, type: 3}
-  - {fileID: 21300000, guid: a6f5c468002c5cb40b87dbc011945f90, type: 3}
-  - {fileID: 21300000, guid: 74cc2b8813f623a4c863776c6df5c985, type: 3}
-  - {fileID: 21300000, guid: cafccff8113596a4396a2324cf7e7052, type: 3}
-  - {fileID: 21300000, guid: 95286a69f4c3c8a43b006bab902997f2, type: 3}
-  - {fileID: 21300000, guid: b50fb6e995df3b64ea66d2f4addf969e, type: 3}
-  - {fileID: 21300000, guid: f512b34ab0c987f4f82f5801a02d7367, type: 3}
-  - {fileID: 21300000, guid: 2e9e819a069aad24ea74bfe134b38c02, type: 3}
-  - {fileID: 21300000, guid: 4a3a21ca4d3326048b91fdf340a00fd8, type: 3}
-  - {fileID: 21300000, guid: f4a818cad02c10641bdff1d18fc7d79b, type: 3}
-  - {fileID: 21300000, guid: 1eac19cae26f53f4da0a26c6ea67a981, type: 3}
-  - {fileID: 21300000, guid: 6dfc4e5bf3b06b843af9864991349a83, type: 3}
-  - {fileID: 21300000, guid: 1f3aec6b2ec37a542b6424ac506bf687, type: 3}
-  - {fileID: 21300000, guid: 5b0ff37bfa439de44bfc67209784c803, type: 3}
-  - {fileID: 21300000, guid: 3ce039cbe6b496a44ac4ad95918338e5, type: 3}
-  - {fileID: 21300000, guid: 17b3beebed839924db40c2ca928d6aa7, type: 3}
-  - {fileID: 21300000, guid: 87b0750c372d7364b94a8033f5a2f088, type: 3}
-  - {fileID: 21300000, guid: c3510b2ca18f4d244ada4aaa3e4731be, type: 3}
-  - {fileID: 21300000, guid: 0ddb246ce9d9eb84b9190f116c422ea2, type: 3}
-  - {fileID: 21300000, guid: 48521cacfafa4a147856df1c038698fb, type: 3}
-  - {fileID: 21300000, guid: d3c16aec3abffe24195a4a27e0f0c4d5, type: 3}
-  - {fileID: 21300000, guid: 4bc840fc935708c47b4267364faeaec4, type: 3}
-  - {fileID: 21300000, guid: ef9d710d46a007845b66a556a7720ca3, type: 3}
-  - {fileID: 21300000, guid: 8e7b926df89a58040938b1e6f918726f, type: 3}
-  - {fileID: 21300000, guid: 2f4a967d720bcd145a8d4fa1153b38f2, type: 3}
-  - {fileID: 21300000, guid: 514e5ded937e97d409e70fbaaafe2a17, type: 3}
-  - {fileID: 21300000, guid: 032b210e33bebee4181983690aa78184, type: 3}
-  - {fileID: 21300000, guid: 15b5c22ea062bce4c80b3b87d4e8c39d, type: 3}
-  - {fileID: 21300000, guid: 7fb71d6e9088f3f4a983dc2fa4487e70, type: 3}
-  - {fileID: 21300000, guid: 14d0238e3f5d124499dd837fd6aea5ad, type: 3}
-  - {fileID: 21300000, guid: e13de0ce6680d154b89ff25cad92b616, type: 3}
-  - {fileID: 21300000, guid: 60ec883f6847b8c4985c2dece0dee71f, type: 3}
-  - {fileID: 21300000, guid: ca45fb3f32d1cce449d8cb069cf910e9, type: 3}
-  - {fileID: 21300000, guid: 0cc0605f6e32ffb479209f8211c00040, type: 3}
-  - {fileID: 21300000, guid: 7562755fb607daa408ed48866a15bb5c, type: 3}
-  - {fileID: 21300000, guid: a2368d5f20cfe914583d8bd20a05ee24, type: 3}
-  - {fileID: 21300000, guid: 1b6ef0af87a267a4d939e915e892e4d0, type: 3}
-  - {fileID: 21300000, guid: 7c65d5ffd0f60954a864e89db520a88c, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - enemy_dasher_run_front_side_2
-  - player_run_front_4
-  - player_idle_front_side_1
-  - enemy_grunt_death_front_side_1
-  - player_run_back_side5
-  - enemy_dasher_anticipation_back_side_1
-  - player_run_front_side_5
-  - player_idle_back_1
-  - enemy_dasher_gun_bullet_4
-  - gun_base
-  - enemy_grunt_death_front_side_4
-  - enemy_dasher_anticipation_back_side_2
-  - Portal
-  - enemy_grunt_death_front_side_7
-  - enemy_dasher_anticipation_front_side_1
-  - enemy_dasher_run_back_side_4
-  - player_run_back_side3
-  - enemy_dasher_anticipation_front_side_2
-  - enemies_17
-  - enemies_16
-  - enemies_15
-  - enemies_14
-  - enemies_13
-  - enemies_12
-  - enemies_11
-  - enemies_10
-  - enemies_18
-  - enemies_8
-  - enemies_9
-  - enemies_4
-  - enemies_5
-  - enemies_6
-  - enemies_7
-  - enemies_0
-  - enemies_1
-  - enemies_2
-  - enemies_3
-  - enemy_dasher_run_front_side_1
-  - weapons_basic_pistol_bullet
-  - crosshair
-  - enemy_dasher_run_back_side_2
-  - player_run_front_side_2
-  - enemy_dasher_gun_idle_1
-  - player_run_back_side2
-  - player_run_front_2
-  - player_run_front_1
-  - player_run_front_side_3
-  - enemy_dasher_anticipation_front_side_3
-  - enemy_grunt_death_front_side_3
-  - enemy_dasher_anticipation_back_side_3
-  - enemy_dasher_run_front_side_6
-  - enemy_dasher_run_front_side_5
-  - player_run_front_6
-  - enemy_dasher_run_back_side_3
-  - enemy_dasher_run_back_side_6
-  - hand_skin
-  - enemy_dasher_run_front_side_4
-  - player_run_back_1
-  - player_run_back_6
-  - player_run_front_side_6
-  - enemy_dasher_run_back_side_5
-  - player_run_back_2
-  - player_run_front_side_4
-  - player_run_back_side1
-  - player_run_back_side4
-  - player_run_back_3
-  - enemy_grunt_death_front_side_8
-  - enemy_dasher_gun_bullet_3
-  - enemy_dasher_gun_bullet_2
-  - player_run_back_4
-  - enemy_dasher_run_back_side_1
-  - enemy_dasher_idle_back_side_1
-  - player_run_back_5
-  - enemy_dasher_run_front_side_3
-  - enemy_dasher_gun_bullet_1
-  - enemy_grunt_death_front_side_2
-  - enemy_grunt_death_front_side_6
-  - player_run_back_side6
-  - enemy_grunt_death_front_side_5
-  - player_run_front_side_1
-  - door
-  - player_run_front_5
-  - player_run_front_3
-  - player_idle_back_side_1
-  - hand_metal
-  - enemy_dasher_idle_front_side_1
-  - player_idle_front_1
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
   m_Tag: EntityAtlas
   m_IsVariant: 0

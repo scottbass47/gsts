@@ -7347,7 +7347,7 @@ MonoBehaviour:
   - Sound: 1
     Group: {fileID: -6592475491496975906, guid: 2dedd40c26ada604e9ccade5e5a86b7f,
       type: 2}
-    Clip: {fileID: 8300000, guid: 673c88bad1770f641a6496ca0ee8220f, type: 3}
+    Clip: {fileID: 8300000, guid: 1079d4c86ab6fce46aad57d21b6287a8, type: 3}
 --- !u!4 &1669304548
 Transform:
   m_ObjectHideFlags: 0

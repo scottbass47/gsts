@@ -199,7 +199,7 @@ public class DasherTasks : BasicTasks
     {
         var target = 5 * movement.MoveDir + (Vector2)ai.Pos.position; 
         gun.AimAt(target, ai.Pos.position);
-        gun.SetDrawOrder(!movement.FacingBack);
+        //gun.SetDrawOrder(!movement.FacingBack);
     }
 
     [Task]

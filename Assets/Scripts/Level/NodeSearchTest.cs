@@ -6,6 +6,7 @@ public class NodeSearchTest : MonoBehaviour
 {
     private List<Node> nodes;
     private LevelGrid grid;
+    [SerializeField] private bool drawTest = false;
 
     public int min = 0;
     public int max = 0;
@@ -18,6 +19,7 @@ public class NodeSearchTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!drawTest) return;
         var point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         var node = grid.NodeFromWorldPoint(point);
         nodes = grid.GetNodesInMinMaxRange(node, min, max);
@@ -25,7 +27,7 @@ public class NodeSearchTest : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (nodes == null) return;
+        if (nodes == null || !drawTest) return;
         foreach(var node in nodes)
         {
             Gizmos.color = Color.green;

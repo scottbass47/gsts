@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.FastRotSprite.Scripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +26,7 @@ public class Bullet : MonoBehaviour {
     public bool RotateTransform { get; set; } = true;
 
     private Rigidbody2D rb2d;
+    private SpriteRendererRotation rotator;
     private Vector2 dir;
 
     private float speed;
@@ -34,6 +36,7 @@ public class Bullet : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         rb2d = GetComponent<Rigidbody2D>();
+        rotator = GetComponent<SpriteRendererRotation>();
 	}
 
     // Angle in radians
@@ -43,7 +46,7 @@ public class Bullet : MonoBehaviour {
 
         dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
         rb2d.velocity = Speed * dir;
-        transform.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * angle);
+        if(RotateTransform)rotator.RotationRadians = angle;
     }
 
     public void Shoot(Vector2 dir)
@@ -51,7 +54,7 @@ public class Bullet : MonoBehaviour {
         this.dir = dir;
         dir.Normalize();
         rb2d.velocity = Speed * dir;
-        if(RotateTransform) transform.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * Mathf.Atan2(dir.y, dir.x));
+        if(RotateTransform)rotator.RotationRadians = Mathf.Atan2(dir.y, dir.x);
     }
   
     private void OnTriggerEnter2D(Collider2D collision)

@@ -52,8 +52,9 @@ public class GunController : MonoBehaviour
     public Vector3 BarrelOffset => barrelOffset.localPosition;
 
     [SerializeField] private float accurateShootingRange;
-    [SerializeField] private bool rotateBullet = true;
+    [SerializeField] private bool rotateBullet;
     [SerializeField] private bool drawDebug = false;
+    [SerializeField] private GameObject muzzleFlashPrefab;
 
     private Vector3 pivotPos => pivot.localPosition;   
 
@@ -105,6 +106,13 @@ public class GunController : MonoBehaviour
         bullet.GetComponent<SpriteRenderer>().sortingOrder = spriteRenderer.sortingOrder - 1;
         bulletComp.RotateTransform = rotateBullet;
         bulletComp.Shoot(radians);
+
+        if(muzzleFlashPrefab != null)
+        {
+            var obj = Instantiate(muzzleFlashPrefab);
+            var muzzle = obj.GetComponent<MuzzleFlash>();
+            muzzle.InitializeFlash(ShotOrigin, aimAngle, Flipped, spriteRenderer.sortingOrder);
+        }
 
         BulletsInClip--;
 

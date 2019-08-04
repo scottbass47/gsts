@@ -10,7 +10,16 @@ namespace Assets.FastRotSprite.Scripts
 	/// </summary>
 	public abstract class RotationBase : MonoBehaviour
 	{
-		public Texture2D Source;
+        private Texture2D source;
+		public Texture2D Source
+        {
+            set
+            {
+                source = value;
+				_rotator = new Rotator(source.GetPixels32(), source.width, source.height);
+            }
+            get => source;
+        }
 		[Header("Parameters")]
 		public ScaleMode ScaleMode = ScaleMode.X3;
 		public RotateMode RotateMode = RotateMode.Normal;
@@ -42,13 +51,7 @@ namespace Assets.FastRotSprite.Scripts
 		{
 			_rotation = radians;
 
-			if (_rotator == null)
-			{
-				_rotator = new Rotator(Source.GetPixels32(), Source.width, Source.height);
-			}
-
 			ScaleHelper.Threshold = Threshold;
-
 
 			var rotated = CreateTexture(_rotator.Rotate(radians), _rotator.WidthEx, _rotator.HeightEx);
             var sprite = Sprite.Create(rotated, new Rect(0f, 0f, rotated.width, rotated.height), Vector2.one * 0.5f, 16, 0, SpriteMeshType.FullRect);

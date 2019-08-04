@@ -539,6 +539,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6830177127560420659, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6830177127560420659, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.125
+      objectReference: {fileID: 0}
     - target: {fileID: 1279026653437961346, guid: db089f40546f3d646961ef2ac4a74701,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -549,16 +559,23 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.15
       objectReference: {fileID: 0}
-    - target: {fileID: 6830177127560420659, guid: db089f40546f3d646961ef2ac4a74701,
+    - target: {fileID: 417036213789464920, guid: db089f40546f3d646961ef2ac4a74701,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.2
+      propertyPath: rotateBullet
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6830177127560420659, guid: db089f40546f3d646961ef2ac4a74701,
+    - target: {fileID: 417036213789464920, guid: db089f40546f3d646961ef2ac4a74701,
         type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.125
-      objectReference: {fileID: 0}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 9170319638875291853, guid: a47b04d354a69f7429c85d5090e9421b,
+        type: 3}
+    - target: {fileID: 417036213789464920, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: muzzleFlashPrefab
+      value: 
+      objectReference: {fileID: 2026193734409971720, guid: b4428fc139ee27a4d99ec5d75ba53777,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db089f40546f3d646961ef2ac4a74701, type: 3}
 --- !u!4 &7472497154733947884 stripped

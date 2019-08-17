@@ -4411,6 +4411,16 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 7163213016746893018, guid: 344087d8f705cde4391e7a4ee1a33501,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6785990252610018465, guid: 344087d8f705cde4391e7a4ee1a33501,
+        type: 3}
+      propertyPath: portalCount
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 344087d8f705cde4391e7a4ee1a33501, type: 3}
 --- !u!1 &5244470879618392198 stripped

@@ -17183,7 +17183,7 @@ PrefabInstance:
     - target: {fileID: 6785990252202327229, guid: 344087d8f705cde4391e7a4ee1a33501,
         type: 3}
       propertyPath: m_Tiles.Array.data[31].second.m_TileSpriteIndex
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6785990252202327229, guid: 344087d8f705cde4391e7a4ee1a33501,
         type: 3}
@@ -25953,14 +25953,13 @@ PrefabInstance:
     - target: {fileID: 6785990252202327229, guid: 344087d8f705cde4391e7a4ee1a33501,
         type: 3}
       propertyPath: m_TileSpriteArray.Array.data[14].m_RefCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6785990252202327229, guid: 344087d8f705cde4391e7a4ee1a33501,
         type: 3}
       propertyPath: m_TileSpriteArray.Array.data[14].m_Data
       value: 
-      objectReference: {fileID: 5224892034047083157, guid: d906b57bf3371af46befdc9086ea1d94,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 6785990252202327229, guid: 344087d8f705cde4391e7a4ee1a33501,
         type: 3}
       propertyPath: m_TileSpriteArray.Array.data[16].m_RefCount
@@ -26404,6 +26403,17 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 39
       objectReference: {fileID: 0}
+    - target: {fileID: 6785990252202327229, guid: 344087d8f705cde4391e7a4ee1a33501,
+        type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[15].m_RefCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6785990252202327229, guid: 344087d8f705cde4391e7a4ee1a33501,
+        type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[15].m_Data
+      value: 
+      objectReference: {fileID: 5224892034047083157, guid: d906b57bf3371af46befdc9086ea1d94,
+        type: 3}
     - target: {fileID: 6785990252483210011, guid: 344087d8f705cde4391e7a4ee1a33501,
         type: 3}
       propertyPath: m_Tiles.Array.size
@@ -32058,6 +32068,11 @@ PrefabInstance:
         type: 3}
       propertyPath: portalSpawns.Array.data[1].y
       value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6785990252610018465, guid: 344087d8f705cde4391e7a4ee1a33501,
+        type: 3}
+      propertyPath: portalCount
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 344087d8f705cde4391e7a4ee1a33501, type: 3}

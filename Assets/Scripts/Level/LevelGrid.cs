@@ -7,11 +7,14 @@ using UnityEngine.Tilemaps;
 public class LevelGrid : MonoBehaviour
 {
     [SerializeField] private LayerMask wallMask;
+    public LayerMask WallMask => wallMask;
+
     private Tilemap floor;
     private Vector2 gridWorldSize;
     private LayerMask unwalkableMask;
     private float nodeRadius;
     private Node[,] grid;
+    public Node[,] Grid => grid;
 
     public int MaxSize => grid.Length;
     public int GridSizeX => grid.GetLength(0);

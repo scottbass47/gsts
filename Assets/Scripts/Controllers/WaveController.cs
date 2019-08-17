@@ -6,11 +6,10 @@ public class WaveController : MonoBehaviour
 {
     private int currentWave;
     public int CurrentWave => currentWave;
-    [SerializeField] private GameObject portalPrefab;
     [SerializeField] private LevelScript levelScript;
     [SerializeField] private EnemySpawner enemySpawner;
 
-    private List<GameObject> portals => levelScript.Portals;
+    private List<GameObject> portals => levelScript.PortalObjects;
     private int alive;
     private EventManager events;
     private GameObject door;
@@ -62,7 +61,13 @@ public class WaveController : MonoBehaviour
             totalEnemies += d.Amount;
         }
 
-        levelScript.OpenPortals();
+        bool portalsOpen = false;
+        levelScript.OpenPortals(() => 
+        {
+            portalsOpen = true;
+        });
+
+        yield return new WaitUntil(() => portalsOpen);
 
         events.FireEvent(new WaveEnemyChange { EnemiesLeft = totalEnemies });
 

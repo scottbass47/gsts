@@ -9588,12 +9588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a78b09cc9cee74fb67e96ac9d1b752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showSpawns: 0
-  portalSpawns:
-  - {x: -1, y: 4, z: 0}
-  - {x: 20, y: 4, z: 0}
-  - {x: -1, y: -17, z: 0}
-  - {x: 20, y: -17, z: 0}
+  showSpawns: 1
   door: {fileID: 6785990251671400973}
   floorTiles:
   - {fileID: 11400000, guid: 9f85f444b1bab8e4aaccb22dc1590807, type: 2}
@@ -9629,6 +9624,7 @@ MonoBehaviour:
   portalPrefab: {fileID: 906356675340603544, guid: 937a6557404db7d4d94d3a7bf756ddbb,
     type: 3}
   levelBoundary: {fileID: 7029452819487560172}
+  portalCount: 3
 --- !u!114 &8321879103681739125
 MonoBehaviour:
   m_ObjectHideFlags: 0

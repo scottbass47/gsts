@@ -1,13 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 public class LevelScript : MonoBehaviour
 {
     [SerializeField] private bool showSpawns;
-    [SerializeField] private Vector3[] portalSpawns;
-    public Vector3[] PortalSpawns => portalSpawns;
 
     [SerializeField] private GameObject door;
     public GameObject Door => door;
@@ -38,8 +38,8 @@ public class LevelScript : MonoBehaviour
     //public LevelData LevelData { get; set; }
 
     [SerializeField] private GameObject portalPrefab;
-    private List<GameObject> portals;
-    public List<GameObject> Portals => portals;
+    private List<GameObject> portalObjects;
+    public List<GameObject> PortalObjects => portalObjects;
 
     [SerializeField] private CompositeCollider2D levelBoundary;
     public CompositeCollider2D LevelBoundary => levelBoundary;
@@ -47,32 +47,133 @@ public class LevelScript : MonoBehaviour
     public PathRequestManager PathRequestManager { get; private set; }
     public LevelGrid Grid { get; private set; }
 
+    [SerializeField] private int portalCount = 3;
+    private float maxPortalDist;
+    private float portalDist
+    {
+        get
+        {
+            return maxPortalDist * 0.75f / (portalLocations.Count + 1);
+        }
+    }
+    private List<Vector3> potentialPortalSpawnLocations;
+    private List<Vector3> portalLocations;
+
     private void Awake()
     {
-        portals = new List<GameObject>();
+        portalObjects = new List<GameObject>();
         PathRequestManager = GetComponent<PathRequestManager>();
         Grid = GetComponent<LevelGrid>();
+        potentialPortalSpawnLocations = new List<Vector3>();
+        portalLocations = new List<Vector3>();
     }
 
     private void Start()
     {
-        foreach(var spawn in PortalSpawns)
+        for (int i = 0; i < portalCount; i++)
         {
             var portal = Instantiate(portalPrefab, transform, false);
-            portal.transform.localPosition = spawn;
             portal.SetActive(false);
-            portals.Add(portal);
+            portalObjects.Add(portal);
+        }
+        SetupPotentialPortalLocations();
+        //StartCoroutine(SpawnPortals());
+    }
+
+    private void SetupPotentialPortalLocations()
+    {
+        for (int x = floorDecor.cellBounds.xMin; x < floorDecor.cellBounds.xMax; x++)
+        {
+            for (int y = floorDecor.cellBounds.yMin; y < floorDecor.cellBounds.yMax; y++)
+            {
+                var pos = new Vector3Int(x, y, 0);
+                var worldPosition = floorDecor.CellToWorld(pos) + new Vector3(0.5f, 0.5f, 0);
+
+                if (floorDecor.GetTile(pos) == null || wallDecor.GetTile(pos) != null) continue;
+
+                var result = Physics2D.OverlapCircle(worldPosition, 1f, LayerMask.GetMask("Wall"));
+                if (result == null)
+                {
+                    potentialPortalSpawnLocations.Add(worldPosition);
+                }
+            }
+        }
+
+        // The max distance between portals is roughly the distance between the first and last portal
+        // since we're traversing the nodes from corner to corner
+        maxPortalDist = (potentialPortalSpawnLocations[0] - potentialPortalSpawnLocations[potentialPortalSpawnLocations.Count - 1]).magnitude;
+    }
+
+    public void GetPortalLocations()
+    {
+        portalLocations.Clear();
+        var potentialSpawns = new List<Vector3>(potentialPortalSpawnLocations);
+        while(portalLocations.Count < portalCount)
+        {
+            var index = Random.Range(0, potentialSpawns.Count);
+            var spawn = potentialSpawns[index];
+            potentialSpawns.RemoveAt(index);
+
+            bool valid = true;
+            foreach(var s in portalLocations)
+            {
+                var sqrDist = (s - spawn).sqrMagnitude;
+                if(sqrDist < portalDist * portalDist)
+                {
+                    valid = false;
+                    break;
+                }
+            }
+
+            if (valid)
+            {
+                portalLocations.Add(spawn);
+            }
         }
     }
 
-    public void OpenPortals()
+    private IEnumerator SpawnPortals()
     {
-        foreach (var portal in portals) portal.SetActive(true);
+        while (true)
+        {
+            bool opened = false;
+            OpenPortals(() => { opened = true; });
+            yield return new WaitUntil(() => opened);
+            ClosePortals();
+            yield return new WaitForSeconds(1.5f);
+        }
+    }
+
+    public void OpenPortals(Action portalsOpenedCallback)
+    {
+        GetPortalLocations();
+        StartCoroutine(OpenPortalsRoutine(portalsOpenedCallback));
+    }
+
+    private IEnumerator OpenPortalsRoutine(Action callback)
+    {
+        for (int i = 0; i < portalCount; i++)
+        {
+            var portalObj = portalObjects[i];
+            portalObj.transform.localPosition = portalLocations[i];
+            portalObj.SetActive(true);
+
+            // Only care about the callback of the last portal to be opened
+            // because that determines when all portals are ready to spawn enemies
+            portalObj.GetComponent<Portal>().Open(i == portalCount - 1 ? callback : null);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     public void ClosePortals()
     {
-        foreach (var portal in portals) portal.SetActive(false);
+        foreach (var portal in portalObjects)
+        {
+            portal.GetComponent<Portal>().Close(() =>
+            {
+                portal.SetActive(false);
+            });
+        }
     }
 
     public void SetupLevelChange()
@@ -161,11 +262,21 @@ public class LevelScript : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (!showSpawns) return;
-        foreach(var spawn in portalSpawns)
+        //foreach(var spawn in portalSpawns)
+        //{
+        //    Gizmos.color = Color.cyan;
+        //    Gizmos.DrawSphere(transform.position + spawn, 0.5f);
+        //} 
+        foreach (var spawn in potentialPortalSpawnLocations)
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawSphere(transform.position + spawn, 0.5f);
-        } 
+            Gizmos.DrawSphere(transform.position + spawn, 0.3f);
+        }
+        foreach (var location in portalLocations)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(transform.position + location, 1f);
+        }
     }
 }
 

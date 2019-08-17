@@ -53,7 +53,6 @@ public class LevelScriptEditor : Editor
         }
     }
 
-
     private void SetupCollision()
     {
         var walls = levelScript.wallDecor;

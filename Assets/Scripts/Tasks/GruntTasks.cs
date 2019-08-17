@@ -7,6 +7,7 @@ public class GruntTasks : BasicTasks
 {
     [SerializeField] private GruntStats stats;
     [SerializeField] private Transform feet;
+    [SerializeField] private Rigidbody2D rb2d;
 
     [Task]
     public bool IsAttacking { get; set; }
@@ -28,6 +29,8 @@ public class GruntTasks : BasicTasks
 
         var health = GetComponent<Health>();
         health.Amount = stats.Health;
+
+        rb2d = GetComponent<Rigidbody2D>();
     }
 
     [Task]
@@ -53,6 +56,20 @@ public class GruntTasks : BasicTasks
     public void SetAttacking (bool attacking)
     {
         IsAttacking = attacking;
+        Task.current.Succeed();
+    }
+
+    [Task]
+    public void FreezePosition()
+    {
+        rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+        Task.current.Succeed();
+    }
+
+    [Task]
+    public void UnfreezePosition()
+    {
+        rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
         Task.current.Succeed();
     }
 }

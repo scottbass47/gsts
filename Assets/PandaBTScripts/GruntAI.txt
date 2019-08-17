@@ -10,11 +10,13 @@ tree("Attack")
 			mute
 				sequence
 					Idle
+					FreezePosition
 					Wait 0.2 // Attack anticipation
 					PlayAnimation "attack"
 					Wait 0.3 // Wait until attack frame
 					Bite
 					Wait 0.4 // Attack cooldown
+					UnfreezePosition
 			SetAttacking false
 
 tree("Chase")

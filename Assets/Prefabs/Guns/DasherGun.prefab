@@ -1,5 +1,61 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!95 &3906346680232268106
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604619524074514303}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9dfbb2793ca73184ca1b45a267fb61c9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6350411062863251995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604619524074514303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97aa4fda187d7394ca98ae3a0aa4699f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScaleMode: 3
+  RotateMode: 0
+  DownscaleMode: 0
+  Threshold: 0.05
+  clips:
+  - Clip: {fileID: 7400000, guid: e044164c22d7c1446a9491cc003ca80c, type: 2}
+    Sprites:
+    - {fileID: 21300000, guid: 21e18394504de1b4fa1e5597e2f2ed00, type: 3}
+  - Clip: {fileID: 7400000, guid: 17551a9dc6bc7de4190730edd375f5e8, type: 2}
+    Sprites:
+    - {fileID: 21300000, guid: 31632b82331205649b91a148f2d390f2, type: 3}
+    - {fileID: 21300000, guid: f16a1eeb0fbceaa40a2ba9511f697d50, type: 3}
+    - {fileID: 21300000, guid: 3802fb28ae4b777449521ae4395406b2, type: 3}
+--- !u!114 &8892560338056642846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604619524074514303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b3614ea0c7bdce4186a7bc4ca772c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1408884300576407082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -141,5 +197,12 @@ PrefabInstance:
       propertyPath: Source
       value: 
       objectReference: {fileID: 2800000, guid: c06d775552087cf41b194272753d0fa8, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1567119541704151609, guid: db089f40546f3d646961ef2ac4a74701, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: db089f40546f3d646961ef2ac4a74701, type: 3}
+--- !u!1 &1604619524074514303 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 417036213789464917, guid: db089f40546f3d646961ef2ac4a74701,
+    type: 3}
+  m_PrefabInstance: {fileID: 1408884300576407082}
+  m_PrefabAsset: {fileID: 0}

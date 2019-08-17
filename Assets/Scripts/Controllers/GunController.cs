@@ -12,7 +12,7 @@ public class GunController : MonoBehaviour
     private Vector2 offset;
     private Vector2 flippedOffset;
     private SpriteRenderer spriteRenderer;
-    private SpriteRendererRotation rotator;
+    private RotationBase rotator;
 
     private float elapsedTime = 0f;
     private bool reloading;
@@ -60,6 +60,7 @@ public class GunController : MonoBehaviour
 
     public event Action<float> OnReload;
     public event Action<int> OnClipChange;
+    public event Action OnFire;
 
     // Returns the location in world space where the bullet originates in the shot
     public Vector2 ShotOrigin
@@ -76,7 +77,7 @@ public class GunController : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        rotator = GetComponent<SpriteRendererRotation>();
+        rotator = GetComponent<RotationBase>();
         offset = transform.localPosition;
         flippedOffset = new Vector2(-offset.x, offset.y);
         BulletsInClip = stats.MagSize;
@@ -113,6 +114,8 @@ public class GunController : MonoBehaviour
             var muzzle = obj.GetComponent<MuzzleFlash>();
             muzzle.InitializeFlash(ShotOrigin, aimAngle, Flipped, spriteRenderer.sortingOrder);
         }
+
+        OnFire?.Invoke();
 
         BulletsInClip--;
 

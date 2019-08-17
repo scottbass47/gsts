@@ -43,6 +43,11 @@ namespace Assets.FastRotSprite.Scripts
 
 		private float _rotation;
 		private Rotator _rotator;
+        public Rotator Rotator
+        {
+            get => _rotator;
+            set => _rotator = value;
+        }
 		private Texture2D _texture;
 
 		#endregion

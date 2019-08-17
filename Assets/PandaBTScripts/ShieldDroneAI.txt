@@ -1,20 +1,37 @@
 tree("Root")
 	repeat
 		fallback
-			tree("Idle")
+			tree("Attack")
 			tree("Chase")
 
-tree("Idle")
-	while TargetInRange 5.0
-		sequence
-			StopMoving
-			FaceTarget
 
 tree("Chase")
-	while not TargetInRange 3.0
+	while not tree("ShouldAttack")
 		repeat
 			sequence
+				CastShield
 				GetPathToTarget
 				not
 					while TargetOnPath
 						MoveOnPath 
+
+tree("Attack")
+	while tree("ShouldAttack")
+		sequence
+			StartAttack
+			StopMoving
+			DropShield
+			WaitShield
+			FaceTarget
+			PlayAnimation "shoot"
+			Wait 1
+			Shoot
+			Wait 2.5
+			EndAttack
+
+tree("ShouldAttack")
+	fallback
+		IsAttacking
+		sequence
+			TargetInRange 5.0
+			TargetInLOS

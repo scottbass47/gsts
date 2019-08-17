@@ -150,6 +150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onDeath: {fileID: 11400000, guid: 11f215fc21dcee24b9f9536bd1976df9, type: 2}
+  deathPrefab: {fileID: 764918477067273216, guid: 26c2c68f94435094db45c902df7bb039,
+    type: 3}
   drawPath: 0
 --- !u!114 &145992946864281199
 MonoBehaviour:

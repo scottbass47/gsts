@@ -172,5 +172,5 @@ public class BasicTasks : MonoBehaviour
     {
         movement.SetMoveDir(ai.Target.position - ai.Pos.position);
         Task.current.Succeed();
-    }
+   }
 }

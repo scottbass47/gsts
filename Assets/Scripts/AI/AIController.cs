@@ -52,6 +52,7 @@ public class AIController : MonoBehaviour
     private bool flashing = false;
 
     [SerializeField] private DeathBehavior onDeath;
+    [SerializeField] private GameObject deathPrefab;
     [SerializeField] private bool drawPath = false;
 
     private void Start()
@@ -60,7 +61,12 @@ public class AIController : MonoBehaviour
         death.DestroyOnDeath = false;
         death.OnDeath += () =>
         {
-            onDeath.OnDeath(death);
+            var deathObj = Instantiate(deathPrefab);
+            var enemyDeath = deathObj.GetComponent<EnemyDeath>();
+            enemyDeath.Initialize(gameObject);
+            SoundManager.PlaySound(Sounds.EnemyFleshHitFatal);
+            Destroy(gameObject);
+            //onDeath.OnDeath(death);
         };
     }
 

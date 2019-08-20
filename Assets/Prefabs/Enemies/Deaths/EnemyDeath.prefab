@@ -114,3 +114,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flippable: 0
+  flashOnDeath: 1
+  fadeOnDeath: 1

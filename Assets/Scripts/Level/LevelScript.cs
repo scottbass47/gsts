@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
@@ -66,6 +67,7 @@ public class LevelScript : MonoBehaviour
         Grid = GetComponent<LevelGrid>();
         potentialPortalSpawnLocations = new List<Vector3>();
         portalLocations = new List<Vector3>();
+        CreateWallSortingGroups();
     }
 
     private void Start()
@@ -80,6 +82,95 @@ public class LevelScript : MonoBehaviour
         //StartCoroutine(SpawnPortals());
     }
 
+    private Tilemap CreateTilemap(Transform parent, string name, Vector3 origin)
+    {
+        var sortingGroupObj = new GameObject($"Sorting{name}");
+        var sortingGroup = sortingGroupObj.AddComponent<SortingGroup>();
+
+        var tilemapObj = new GameObject(name);
+        var tilemap = tilemapObj.AddComponent<Tilemap>();
+        tilemap.tileAnchor = new Vector3(0.5f, 0, 0);
+        tilemapObj.AddComponent<TilemapRenderer>().mode = TilemapRenderer.Mode.Chunk;
+
+        sortingGroupObj.transform.parent = parent;
+        sortingGroupObj.transform.localPosition = origin;
+        tilemapObj.transform.parent = sortingGroupObj.transform;
+        tilemapObj.transform.localPosition = -origin;
+        return tilemap;
+    }
+
+    private void CreateWallSortingGroups()
+    {
+        var parent = wallDecor.transform.parent;
+        wallDecor.CompressBounds();
+        var bounds = wallDecor.cellBounds;
+        var outerWalls = CreateTilemap(parent, "OuterWalls", bounds.min);
+
+        Tilemap currTilemap = null;
+        var lastPoint = Vector3Int.zero;
+        bool started = false;
+        int wallNum = 0;
+
+        var tilemaps = new List<Tilemap>();
+    
+        for (int x = bounds.xMin; x < bounds.xMax; x++)
+        {
+            started = false;
+            for (int y = bounds.yMin; y < bounds.yMax; y++)
+            { 
+                var pos = new Vector3Int(x, y, 0);
+
+                // On the outside
+                if (pos.x == bounds.xMin || pos.x == bounds.xMax - 1 || pos.y == bounds.yMin || pos.y == bounds.yMax - 1)
+                {
+                    outerWalls.SetTile(pos, wallDecor.GetTile(pos));
+                    continue;
+                }
+
+                var tile = wallDecor.GetTile(pos);
+                if (tile == null)
+                {
+                    started = false;
+                    continue;
+                }
+
+                if (!started)
+                {
+                    started = true;
+                    lastPoint = pos;
+                    bool found = false;
+                    foreach(var tilemap in tilemaps)
+                    {
+                        var bottomRight = new Vector3Int(tilemap.cellBounds.xMax, tilemap.cellBounds.yMin, 0);
+                        if(bottomRight == pos)
+                        {
+                            currTilemap = tilemap;
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found)
+                    {
+                        currTilemap = CreateTilemap(parent, $"Wall{wallNum++}", pos);
+                        currTilemap.origin = pos;
+                        tilemaps.Add(currTilemap);
+                    }
+                }
+
+                if(pos.y - lastPoint.y <= 1)
+                {
+                    currTilemap.SetTile(pos, tile);
+                    lastPoint = pos;
+                }
+                else
+                {
+                    started = false;
+                }
+            }
+        }
+        wallDecor.gameObject.SetActive(false);
+    }
+
     private void SetupPotentialPortalLocations()
     {
         for (int x = floorDecor.cellBounds.xMin; x < floorDecor.cellBounds.xMax; x++)
@@ -87,14 +178,14 @@ public class LevelScript : MonoBehaviour
             for (int y = floorDecor.cellBounds.yMin; y < floorDecor.cellBounds.yMax; y++)
             {
                 var pos = new Vector3Int(x, y, 0);
-                var worldPosition = floorDecor.CellToWorld(pos) + new Vector3(0.5f, 0.5f, 0);
+                var localPosition = floorDecor.CellToLocal(pos) + new Vector3(0.5f, 0.5f, 0);
 
                 if (floorDecor.GetTile(pos) == null || wallDecor.GetTile(pos) != null) continue;
 
-                var result = Physics2D.OverlapCircle(worldPosition, 1f, LayerMask.GetMask("Wall"));
+                var result = Physics2D.OverlapCircle(localPosition, 1f, LayerMask.GetMask("Wall"));
                 if (result == null)
                 {
-                    potentialPortalSpawnLocations.Add(worldPosition);
+                    potentialPortalSpawnLocations.Add(localPosition);
                 }
             }
         }

@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         rb2d = GetComponent<Rigidbody2D>();
-        rotator = GetComponent<SpriteRendererRotation>();
+        rotator = GetComponentInChildren<SpriteRendererRotation>();
 	}
 
     // Angle in radians

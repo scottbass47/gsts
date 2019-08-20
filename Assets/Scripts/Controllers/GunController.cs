@@ -104,7 +104,7 @@ public class GunController : MonoBehaviour
         bulletComp.Speed = stats.Speed; 
         bulletComp.KnockbackAmount = stats.KnockbackAmount; 
         bullet.transform.position = ShotOrigin; 
-        bullet.GetComponent<SpriteRenderer>().sortingOrder = spriteRenderer.sortingOrder - 1;
+        //bullet.GetComponent<SpriteRenderer>().sortingOrder = spriteRenderer.sortingOrder - 1;
         bulletComp.RotateTransform = rotateBullet;
         bulletComp.Shoot(radians);
 

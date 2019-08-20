@@ -13,6 +13,8 @@ public class EnemyDeath : MonoBehaviour
     }
 
     [SerializeField] private bool flippable;
+    [SerializeField] private bool flashOnDeath;
+    [SerializeField] private bool fadeOnDeath;
 
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -27,12 +29,19 @@ public class EnemyDeath : MonoBehaviour
     {
         transform.position = enemy.transform.position;
         FacingRight = enemy.GetComponent<IMovement>().FacingRight;
-
+        if(flashOnDeath) StartCoroutine(DrawUtils.Flash(gameObject, 0.2f));
     }
 
     public void AnimationFinished()
     {
-        StartCoroutine(DeathFade(gameObject));
+        if (fadeOnDeath)
+        {
+            StartCoroutine(DeathFade(gameObject));
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator DeathFade(GameObject go)

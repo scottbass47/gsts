@@ -16,7 +16,7 @@ MonoBehaviour:
   - subWaves:
     - data:
       - type: {fileID: 11400000, guid: e695c7b8e6cb96f49badd3880dae74cf, type: 2}
-        amount: 1
+        amount: 5
   - subWaves:
     - data:
       - type: {fileID: 11400000, guid: e695c7b8e6cb96f49badd3880dae74cf, type: 2}

@@ -15,7 +15,8 @@ MonoBehaviour:
   speed: 15
   damage: 5
   knockbackAmount: 0
-  fireRate: 200
+  fireRate: 15
   reloadRate: 1
-  magSize: 6
-  semiAuto: 1
+  magSize: 600
+  semiAuto: 0
+  enemyGun: 0

@@ -223,6 +223,7 @@ public class LevelScript : MonoBehaviour
         }
     }
 
+    // Debug method
     private IEnumerator SpawnPortals()
     {
         while (true)
@@ -290,7 +291,12 @@ public class LevelScript : MonoBehaviour
         }
 
         door.SetActive(false);
-        FixShadows();
+
+        // Toggle shadows under door
+        var xMin = (int)(doorPos.x - 1);
+        var yMin = (int)(doorPos.y - 1);
+        var shadowBounds = new BoundsInt(xMin, yMin, 0, 3, 1, 1);
+        ToggleShadows(shadowBounds);
     }
 
     private TileGroup bottomTiles;
@@ -318,6 +324,35 @@ public class LevelScript : MonoBehaviour
         tilemap.SetTile(tilemap.WorldToCell(pos), null);
     }
 
+    private void ToggleShadow(Vector3Int worldPos)
+    {
+        var cellPos = floorDecor.WorldToCell(worldPos);
+        var floor = floorDecor.GetTile(cellPos);
+        for (int i = 0; i < shadowTiles.Length; i++)
+        {
+            var shadowTile = shadowTiles[i];
+            var floorTile = floorTiles[i];
+            if (shadowTile == floor)
+            {
+                floorDecor.SetTile(cellPos, floorTiles[i]);
+                break;
+            }
+            else if (floorTile == floor)
+            {
+                floorDecor.SetTile(cellPos, shadowTiles[i]);
+                break;
+            }
+        }
+    }
+
+    private void ToggleShadows(BoundsInt bounds)
+    {
+        foreach(var pos in bounds.allPositionsWithin)
+        {
+            ToggleShadow(pos);
+        }
+    }
+
     public void FixShadows()
     {
         for(int x = floorDecor.cellBounds.xMin; x < floorDecor.cellBounds.xMax; x++)
@@ -327,8 +362,8 @@ public class LevelScript : MonoBehaviour
                 var pos = new Vector3Int(x, y, 0);
                 if (wallDecor.GetTile(pos) != null) continue;
 
-                var wall = wallDecor.GetTile(pos + new Vector3Int(0,1,0));
-                var floor = floorDecor.GetTile(new Vector3Int(x, y, 0));
+                var wall = wallDecor.GetTile(pos + Vector3Int.up);
+                var floor = floorDecor.GetTile(pos);
                 if(wall == null)
                 {
                     for (int i = 0; i < shadowTiles.Length; i++)
@@ -344,7 +379,6 @@ public class LevelScript : MonoBehaviour
                         var floorTile = floorTiles[i];
                         if (floorTile == floor) floorDecor.SetTile(pos, shadowTiles[i]);
                     }
-
                 }
             }
         }

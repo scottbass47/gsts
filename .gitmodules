@@ -1,0 +1,3 @@
+[submodule "Assets/Art"]
+	path = Assets/Art
+	url = https://github.com/henryjeff/gsts_assets.git

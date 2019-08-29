@@ -26,12 +26,12 @@ tree("Attack")
 			PlayAnimation "shoot"
 			Wait 1
 			Shoot
-			Wait 2.5
+			WaitStats "AttackCooldown"
 			EndAttack
 
 tree("ShouldAttack")
 	fallback
 		IsAttacking
 		sequence
-			TargetInRange 5.0
+			TargetInRange "AttackRange"
 			TargetInLOS

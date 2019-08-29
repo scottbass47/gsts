@@ -4,22 +4,22 @@ using UnityEngine;
 
 public static class DamageManager 
 {
-    public static void DealDamage(GameObject to)
+    public static bool DealDamage(GameObject to)
     {
-        DealDamage(to, 1);
+        return DealDamage(to, 1);
     }
 
-    public static void DealDamage(GameObject to, float amount)
+    public static bool DealDamage(GameObject to, float amount)
     {
-        if (amount == 0) return;
+        if (amount == 0) return false;
 
         var health = to.GetComponentInParent<Health>();
-        if (health == null) return;
+        if (health == null) return false;
 
         var damageFilter = to.GetComponentInParent<DamageFilter>();
         if(damageFilter)
         {
-            if (damageFilter.IsInvulnerable) return;
+            if (damageFilter.IsInvulnerable) return false;
         }
 
         health.Amount -= amount;
@@ -28,5 +28,6 @@ public static class DamageManager
         {
             damageFilter.DamageEvent?.OnDamage(damageFilter, amount);
         }
+        return true;
     }
 }

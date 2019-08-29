@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Enemy/Shield Drone")]
-public class ShieldDroneStats : ScriptableObject
+public class ShieldDroneStats : EnemyStats
 {
     [SerializeField] private float speed;
     [SerializeField] private float health;
@@ -13,6 +13,8 @@ public class ShieldDroneStats : ScriptableObject
     [SerializeField] private float spreadAngle;
     [SerializeField] private float minBulletSpeed;
     [SerializeField] private float maxBulletSpeed;
+    [SerializeField] private float attackCooldown;
+    [SerializeField] private float attackRange;
 
     public float Speed => speed;
     public float Health => health;
@@ -20,4 +22,6 @@ public class ShieldDroneStats : ScriptableObject
     public float SpreadAngle => spreadAngle;
     public float MinBulletSpeed => minBulletSpeed;
     public float MaxBulletSpeed => maxBulletSpeed;
+    public float AttackCooldown => attackCooldown;
+    public float AttackRange => attackRange;
 }

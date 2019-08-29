@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 6785990252046260449}
   m_Layer: 15
   m_Name: ProjectileCollision
-  m_TagString: Untagged
+  m_TagString: WallsCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

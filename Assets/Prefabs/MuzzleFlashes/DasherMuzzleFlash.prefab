@@ -46,7 +46,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.881
-  m_Color: {r: 0.44279727, g: 1, b: 0.28773582, a: 1}
+  m_Color: {r: 1, g: 0.34616914, b: 0.28627455, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
@@ -143,6 +143,27 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: c118f64ab2329644fa16e2733049a04c,
         type: 2}
+    - target: {fileID: 2885676473343430699, guid: 2665b1978b7264c4e8845fa598cf72b1,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ac9c501d9b594b040821cc140a146681,
+        type: 3}
+    - target: {fileID: 2885676473343430699, guid: 2665b1978b7264c4e8845fa598cf72b1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2885676473343430699, guid: 2665b1978b7264c4e8845fa598cf72b1,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2885676473343430699, guid: 2665b1978b7264c4e8845fa598cf72b1,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2665b1978b7264c4e8845fa598cf72b1, type: 3}
 --- !u!4 &6169745040994658562 stripped

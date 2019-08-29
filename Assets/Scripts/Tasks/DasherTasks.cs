@@ -62,6 +62,7 @@ public class DasherTasks : BasicTasks
 
         var health = GetComponent<Health>();
         health.Amount = stats.Health;
+        enemyStats = stats;
     }
 
     [Task]
@@ -155,12 +156,6 @@ public class DasherTasks : BasicTasks
         {
             Task.current.Succeed();
         }
-    }
-
-    public class WaitTime
-    {
-        public float Elapsed { get; set; }
-        public float Duration { get; set; }
     }
 
     [Task]

@@ -10,6 +10,7 @@ public class BasicTasks : MonoBehaviour
     protected AIController ai;
     protected IMovement movement;
     protected PathParameters pathParameters;
+    protected EnemyStats enemyStats;
 
     // Variables used if not specified in tasks
     protected float Speed { get; set; }
@@ -109,6 +110,13 @@ public class BasicTasks : MonoBehaviour
     }
 
     [Task]
+    public void TargetInRange(string rangeStat)
+    {
+        TargetInRange(enemyStats.GetStat<float>(rangeStat));
+    }
+
+
+    [Task]
     public void TargetOnPath()
     {
         var task = Task.current;
@@ -120,6 +128,24 @@ public class BasicTasks : MonoBehaviour
         else
         {
             task.Fail();
+        }
+    }
+
+    [Task]
+    public void WaitStats(string stat)
+    {
+        var task = Task.current;
+        if (task.isStarting)
+        {
+            task.item = new WaitTime { Elapsed = 0, Duration = enemyStats.GetStat<float>(stat) };
+        }
+        
+        var waitTime = task.item as WaitTime;
+        waitTime.Elapsed += Time.deltaTime;
+
+        if(waitTime.Elapsed >= waitTime.Duration)
+        {
+            task.Succeed();
         }
     }
 

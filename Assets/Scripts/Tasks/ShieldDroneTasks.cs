@@ -10,6 +10,7 @@ public class ShieldDroneTasks : BasicTasks
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private BarrelPosition[] barrelPositions;
     [SerializeField] private GameObject shieldObject;
+    [SerializeField] private GameObject muzzleFlashPrefab;
     private Dictionary<Direction, Vector3> barrelPosDict;
 
     [Task] public bool IsAttacking { get; set; }
@@ -48,6 +49,7 @@ public class ShieldDroneTasks : BasicTasks
         shield = shieldObject.GetComponent<Shield>();
         shield.ShieldTime = 0.5f;
 
+        enemyStats = stats;
         Speed = stats.Speed;
         TurningVelocity = float.MaxValue;
         pathParameters = new PathParameters(false, 0.05f);
@@ -135,6 +137,9 @@ public class ShieldDroneTasks : BasicTasks
             bullet.RotateTransform = false;
             bullet.Shoot(angle * Mathf.Deg2Rad);
         }
+        var muzzleFlashObj = Instantiate(muzzleFlashPrefab);
+        var muzzleFlash = muzzleFlashObj.GetComponent<MuzzleFlash>();
+        muzzleFlash.InitializeFlash(transform.position + barrelPos, centerAngle, false, 0);
         Task.current.Succeed();
     }
 

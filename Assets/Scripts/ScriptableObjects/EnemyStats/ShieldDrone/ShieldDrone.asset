@@ -16,5 +16,6 @@ MonoBehaviour:
   health: 10
   numBullets: 5
   spreadAngle: 90
-  minBulletSpeed: 2
-  maxBulletSpeed: 5
+  minBulletSpeed: 3
+  maxBulletSpeed: 6
+  attackCooldown: 0

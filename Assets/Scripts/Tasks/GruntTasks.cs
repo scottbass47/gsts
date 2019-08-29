@@ -31,6 +31,7 @@ public class GruntTasks : BasicTasks
         health.Amount = stats.Health;
 
         rb2d = GetComponent<Rigidbody2D>();
+        enemyStats = stats;
     }
 
     [Task]

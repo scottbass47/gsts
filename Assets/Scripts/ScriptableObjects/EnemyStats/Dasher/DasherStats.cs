@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Enemy/Dasher")]
-public class DasherStats : ScriptableObject
+public class DasherStats : EnemyStats
 {
     [Header("Basic Attributes")]
     [SerializeField] private float speed;
@@ -19,10 +19,6 @@ public class DasherStats : ScriptableObject
     [Header("Dash")]
     [SerializeField] private float dashTime;
     [SerializeField] private float dashDistance;
-
-    [Header("Shuffle")]
-    [SerializeField] private float shuffleDistance;
-    [SerializeField] private float shuffleSpeed;
 
     [Header("Idle/Patrol")]
     [SerializeField] private int patrolWaypoints;
@@ -43,9 +39,6 @@ public class DasherStats : ScriptableObject
     public float DashTime => dashTime;
     public float DashDistance => dashDistance;
 
-    public float ShuffleDistance => shuffleDistance;
-    public float ShuffleSpeed => shuffleSpeed;
-    
     public int PatrolWaypoints => patrolWaypoints;
     public float PatrolSpeed => patrolSpeed;
     public float PatrolRadius => patrolRadius;

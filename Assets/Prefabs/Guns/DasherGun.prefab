@@ -38,12 +38,12 @@ MonoBehaviour:
   clips:
   - Clip: {fileID: 7400000, guid: e044164c22d7c1446a9491cc003ca80c, type: 2}
     Sprites:
-    - {fileID: 21300000, guid: 21e18394504de1b4fa1e5597e2f2ed00, type: 3}
+    - {fileID: 21300000, guid: d26456c69aa3dc543923f336cdb14307, type: 3}
   - Clip: {fileID: 7400000, guid: 17551a9dc6bc7de4190730edd375f5e8, type: 2}
     Sprites:
-    - {fileID: 21300000, guid: 31632b82331205649b91a148f2d390f2, type: 3}
-    - {fileID: 21300000, guid: f16a1eeb0fbceaa40a2ba9511f697d50, type: 3}
-    - {fileID: 21300000, guid: 3802fb28ae4b777449521ae4395406b2, type: 3}
+    - {fileID: 21300000, guid: 71bf01ca37615b548b475296c0043530, type: 3}
+    - {fileID: 21300000, guid: a506f15017e153e4c9c00ff3a1d81d98, type: 3}
+    - {fileID: 21300000, guid: 5fc87c84172ca9946b9fe3b00549ebb8, type: 3}
 --- !u!114 &8892560338056642846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,6 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3614ea0c7bdce4186a7bc4ca772c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireTrigger: fire
 --- !u!1001 &1408884300576407082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -185,12 +186,27 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 21e18394504de1b4fa1e5597e2f2ed00,
+      objectReference: {fileID: 21300000, guid: d26456c69aa3dc543923f336cdb14307,
         type: 3}
     - target: {fileID: 417036213789464919, guid: db089f40546f3d646961ef2ac4a74701,
         type: 3}
       propertyPath: m_SortingOrder
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 417036213789464919, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.4375
+      objectReference: {fileID: 0}
+    - target: {fileID: 417036213789464919, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.4375
+      objectReference: {fileID: 0}
+    - target: {fileID: 417036213789464919, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1567119541704151609, guid: db089f40546f3d646961ef2ac4a74701,
         type: 3}

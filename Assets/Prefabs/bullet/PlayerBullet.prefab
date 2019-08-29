@@ -277,6 +277,61 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8799963583245665956, guid: 00396e336f5b4db45bba7178b38f46bc,
+        type: 3}
+      propertyPath: bulletImpactAnimation.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8799963583245665956, guid: 00396e336f5b4db45bba7178b38f46bc,
+        type: 3}
+      propertyPath: useImpact
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8799963583245665956, guid: 00396e336f5b4db45bba7178b38f46bc,
+        type: 3}
+      propertyPath: bulletImpactAnimation.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 21aaeb7c10c7e6042a6c3696c3fce361,
+        type: 3}
+    - target: {fileID: 8799963583245665956, guid: 00396e336f5b4db45bba7178b38f46bc,
+        type: 3}
+      propertyPath: bulletImpactAnimation.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: b5030ada5b7514443be396903baf6cf2,
+        type: 3}
+    - target: {fileID: 8799963583245665956, guid: 00396e336f5b4db45bba7178b38f46bc,
+        type: 3}
+      propertyPath: bulletImpactAnimation.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 0c23c4d2213fe6946af7fc2d0c08ee7f,
+        type: 3}
+    - target: {fileID: 8799963583245665956, guid: 00396e336f5b4db45bba7178b38f46bc,
+        type: 3}
+      propertyPath: bulletImpactAnimation.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6663e8c2f22ce2e42bfdd83b042c4588,
+        type: 3}
+    - target: {fileID: 8799963583245665956, guid: 00396e336f5b4db45bba7178b38f46bc,
+        type: 3}
+      propertyPath: bulletImpactAnimation.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: 1f88ad95c67f8524bae86b7ca5cc1f87,
+        type: 3}
+    - target: {fileID: 8799963583245665956, guid: 00396e336f5b4db45bba7178b38f46bc,
+        type: 3}
+      propertyPath: hitMask.m_Bits
+      value: 49152
+      objectReference: {fileID: 0}
+    - target: {fileID: 8799963583245665956, guid: 00396e336f5b4db45bba7178b38f46bc,
+        type: 3}
+      propertyPath: impactOffset.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170621794796296216, guid: 00396e336f5b4db45bba7178b38f46bc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00396e336f5b4db45bba7178b38f46bc, type: 3}
 --- !u!4 &2273652208220112278 stripped

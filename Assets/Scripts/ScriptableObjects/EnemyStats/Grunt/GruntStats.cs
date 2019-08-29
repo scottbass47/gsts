@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Enemy/Grunt")]
-public class GruntStats : ScriptableObject
+public class GruntStats : EnemyStats
 {
     [SerializeField] private float attackDelay;
     [SerializeField] private float attackFrame;

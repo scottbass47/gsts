@@ -107,6 +107,7 @@ public class LevelScript : MonoBehaviour
         var outerWalls = CreateTilemap(parent, "OuterWalls", bounds.min);
 
         Tilemap currTilemap = null;
+        Tilemap highestTilemap = null;
         var lastPoint = Vector3Int.zero;
         bool started = false;
         int wallNum = 0;
@@ -149,10 +150,11 @@ public class LevelScript : MonoBehaviour
                             break;
                         }
                     }
-                    if(!found)
+                    if (!found)
                     {
                         currTilemap = CreateTilemap(parent, $"Wall{wallNum++}", pos);
                         currTilemap.origin = pos;
+                        highestTilemap = (highestTilemap == null || highestTilemap.origin.y < pos.y) ? currTilemap : highestTilemap;
                         tilemaps.Add(currTilemap);
                     }
                 }
@@ -168,6 +170,9 @@ public class LevelScript : MonoBehaviour
                 }
             }
         }
+        var backwallParent = highestTilemap.transform.parent;
+        computers.transform.parent = backwallParent;
+        door.transform.parent = backwallParent;
         wallDecor.gameObject.SetActive(false);
     }
 

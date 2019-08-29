@@ -689,12 +689,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7472497153947938650, guid: fbb9733d4b2bb774d9a29e35665d962d,
     type: 3}
-  enemyPrefab: {fileID: 8704914495930380701, guid: 4586394a74dd63f44a886b53a5d97c27,
+  enemyPrefab: {fileID: 2392959800455960250, guid: a49db8f21be004b489b05431cc86a3f5,
     type: 3}
   levelManager: {fileID: 34515003}
   waveController: {fileID: 827452243}
   waveConfig: {fileID: 11400000, guid: 01b8995afd5f95844917a157d49fd033, type: 2}
-  enemySpawnDebug: 0
+  enemySpawnDebug: 1
   vcam: {fileID: 451779892}
 --- !u!4 &407591157
 Transform:

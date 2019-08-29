@@ -25,7 +25,6 @@ public class Bullet : MonoBehaviour {
 
     public bool RotateTransform { get; set; } = true;
 
-    private Rigidbody2D rb2d;
     private SpriteRendererRotation rotator;
     private Vector2 dir;
 
@@ -33,9 +32,18 @@ public class Bullet : MonoBehaviour {
     private float damage;
     private float knockbackAmount;
 
+    [Header("Collision")]
+    [SerializeField] private LayerMask hitMask;
+    [SerializeField] private float radius;
+
+    [Header("Bullet Impact")]
+    [SerializeField] private GameObject bulletImpactPrefab;
+    [SerializeField] private Sprite[] bulletImpactAnimation;
+    [SerializeField] private bool useImpact;
+    [SerializeField] private Vector2 impactOffset;
+
 	// Use this for initialization
 	void Awake () {
-        rb2d = GetComponent<Rigidbody2D>();
         rotator = GetComponentInChildren<SpriteRendererRotation>();
 	}
 
@@ -45,7 +53,6 @@ public class Bullet : MonoBehaviour {
         this.Angle = angle;
 
         dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-        rb2d.velocity = Speed * dir;
         if(RotateTransform)rotator.RotationRadians = angle;
     }
 
@@ -53,18 +60,39 @@ public class Bullet : MonoBehaviour {
     {
         this.dir = dir;
         dir.Normalize();
-        rb2d.velocity = Speed * dir;
-        if(RotateTransform)rotator.RotationRadians = Mathf.Atan2(dir.y, dir.x);
+        if(RotateTransform) rotator.RotationRadians = Mathf.Atan2(dir.y, dir.x);
     }
-  
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void Update()
     {
-        GameObject other = collision.gameObject;
-        DamageManager.DealDamage(other, Damage);
+        var dist = Speed * Time.deltaTime;
+        transform.Translate(dir * dist);
+        var hits = Physics2D.CircleCastAll(transform.position, radius, dir, dist, hitMask);
+        if(hits.Length > 0)
+        {
+            var first = hits[0];
+            OnCollide(first.collider, first.point, first.normal);
+        }
+    }
+
+    private void OnCollide(Collider2D collider, Vector2 collisionPoint, Vector2 normal)
+    {
+        GameObject other = collider.gameObject;
+        bool damageDealt = DamageManager.DealDamage(other, Damage);
 
         var physics = other.GetComponentInParent<Physics>();
         physics?.ApplyKnockback(dir, 0.2f, KnockbackAmount);
-
+        
+        if(useImpact && collider.tag == "WallsCollision")
+        {
+            var obj = Instantiate(bulletImpactPrefab);
+            obj.transform.position = collisionPoint;
+            obj.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(normal.y, normal.x) * Mathf.Rad2Deg);
+            obj.transform.position += obj.transform.rotation * impactOffset;
+            var anim = obj.GetComponent<AnimationOnceThenDestroy>();
+            anim.Animation = bulletImpactAnimation;
+            anim.StartAnimation();
+        }
         Destroy(gameObject);
     }
 }

@@ -13,6 +13,8 @@ public class DasherTasks : BasicTasks
     [SerializeField] private DasherStats stats;
     [SerializeField] private Transform target;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Texture2D dashForward;
+    [SerializeField] private Texture2D dashBackward;
 
     private Physics physics;
     private GunController gun;
@@ -120,6 +122,8 @@ public class DasherTasks : BasicTasks
     {
         particles.Clear();
         particles.Play();
+        particles.GetComponent<ParticleSystemRenderer>().material.mainTexture = movement.FacingBack ? dashBackward : dashForward;
+        particles.GetComponent<ParticleSystemRenderer>().flip = movement.FacingRight ? Vector3.zero : Vector3.right;
         Task.current.Succeed();
     }
 

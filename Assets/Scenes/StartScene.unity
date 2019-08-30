@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelPrefabs:
-  - {fileID: 3454807749919054082, guid: a978311067ce5d24d9f2a8f1bb9db0d2, type: 3}
+  - {fileID: 6785990252610018464, guid: 344087d8f705cde4391e7a4ee1a33501, type: 3}
   - {fileID: 3454807749919054082, guid: a978311067ce5d24d9f2a8f1bb9db0d2, type: 3}
   - {fileID: 3454807749919054082, guid: a978311067ce5d24d9f2a8f1bb9db0d2, type: 3}
   - {fileID: 3454807749919054082, guid: a978311067ce5d24d9f2a8f1bb9db0d2, type: 3}
@@ -7675,6 +7675,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1158464108486916399, guid: 4586394a74dd63f44a886b53a5d97c27,
+        type: 3}
+      propertyPath: muzzleFlashPrefab
+      value: 
+      objectReference: {fileID: 7079389871774475887, guid: 9807bde863011c346a2b987eebc1c2c8,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4586394a74dd63f44a886b53a5d97c27, type: 3}
 --- !u!1001 &6785990251755309702
@@ -9351,6 +9357,11 @@ PrefabInstance:
     - target: {fileID: 825730250306090470, guid: a49db8f21be004b489b05431cc86a3f5,
         type: 3}
       propertyPath: sourceInfos.Array.data[0].isFoldout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4603546452357618611, guid: a49db8f21be004b489b05431cc86a3f5,
+        type: 3}
+      propertyPath: m_Flip.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

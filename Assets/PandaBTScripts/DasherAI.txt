@@ -43,9 +43,9 @@ tree("Dash")
 		mute
 			sequence
 				Idle
-				Wait 0.5 // Dash anticipation
 				PickDashDirection
 				PlayAnimation "dash"
+				Wait 0.3 // Wait dash anticipation
 				StartParticles
 				Dash
 				EndDash

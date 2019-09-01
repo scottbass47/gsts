@@ -8,3 +8,5 @@ Quick Dev Links:
 [Animation Status Spreadsheet](https://docs.google.com/spreadsheets/d/1GVULI5Fp8GoqyMWM_JXcgYurhCP2UMDy_ay353T1sBs/edit#gid=0)
 
 [Sound Status Spreadsheet](https://docs.google.com/spreadsheets/d/16bo5svPqaJIRR5XNufVKFmItl1uqfrv9j5F5D26kawg/edit?usp=drive_web&ouid=112367646419684065549)
+
+[Assets Repo)(https://github.com/henryjeff/gsts_assets)

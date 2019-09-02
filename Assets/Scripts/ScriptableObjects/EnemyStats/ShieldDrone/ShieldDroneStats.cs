@@ -17,7 +17,7 @@ public class ShieldDroneStats : EnemyStats
     [SerializeField] private float attackRange;
 
     public float Speed => speed;
-    public float Health => health;
+    public override float Health => health;
     public int NumBullets => numBullets;
     public float SpreadAngle => spreadAngle;
     public float MinBulletSpeed => minBulletSpeed;

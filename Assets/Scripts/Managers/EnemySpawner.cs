@@ -6,13 +6,22 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private EnemyPrefab[] prefabs;
 
-    public GameObject Spawn(EnemyType type)
+    private Dictionary<EnemyType, GameObject> prefabTable;
+
+    private void Awake()
     {
+        prefabTable = new Dictionary<EnemyType, GameObject>();
         foreach(var pref in prefabs)
         {
-            if (pref.Type == type) return Instantiate(pref.Prefab);
+            prefabTable.Add(pref.Type, pref.Prefab);
         }
-        return null;
+    }
+
+    public GameObject Spawn(EnemyType type)
+    {
+        var obj = Instantiate(prefabTable[type]);
+        obj.GetComponent<AIController>().Target = GameManager.Instance.Player.GetComponent<Body>().CenterFeet;
+        return obj;
     }
 }
 

@@ -10,7 +10,6 @@ using Panda;
 public class DasherTasks : BasicTasks
 {
     [SerializeField] private Transform feet;
-    [SerializeField] private DasherStats stats;
     [SerializeField] private Transform target;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Texture2D dashForward;
@@ -30,6 +29,7 @@ public class DasherTasks : BasicTasks
     private int currPatrolWaypoint;
     private int bulletsToShoot;
     private Vector2 dashDir;
+    private DasherStats dasherStats => (DasherStats)stats;
 
     [Task]
     public bool MoreWaypoints => currPatrolWaypoint < patrolWaypoints.Count;
@@ -40,13 +40,13 @@ public class DasherTasks : BasicTasks
     [Task]
     public bool StillShooting => bulletsToShoot > 0;
 
+    protected override float PathSpeed => dasherStats.Speed;
+    protected override float PathTurningVelocity => dasherStats.TurningVelocity;
+
     public override void Awake()
     {
         base.Awake();
         patrolWaypoints = new List<Vector3>();
-
-        Speed = stats.Speed;
-        TurningVelocity = stats.TurningVelocity;
     }
 
     public override void Start()
@@ -56,21 +56,15 @@ public class DasherTasks : BasicTasks
         movement = GetComponent<BasicMovement>();
         gun = GetComponentInChildren<GunController>();
         particles = GetComponent<ParticleSystem>();
-        ai.Pos = feet;
 
         var playerBody = GameManager.Instance.Player.GetComponent<Body>();
-        ai.Target = playerBody.CenterFeet;
         targetBody = playerBody.CenterBody;
-
-        var health = GetComponent<Health>();
-        health.Amount = stats.Health;
-        enemyStats = stats;
     }
 
     [Task]
     public void TargetInAttackRange()
     {
-        TargetInRange(stats.AttackRange);
+        TargetInRange(dasherStats.AttackRange);
     }
 
     [Task]
@@ -91,7 +85,7 @@ public class DasherTasks : BasicTasks
     public void PickNumberOfShots()
     {
         var task = Task.current;
-        bulletsToShoot = Random.Range(1, stats.MaxBullets);
+        bulletsToShoot = Random.Range(1, dasherStats.MaxBullets);
         task.debugInfo = $"{bulletsToShoot}";
         task.Succeed();
     }
@@ -144,7 +138,7 @@ public class DasherTasks : BasicTasks
             rotation = Random.Range(0f, 1f) > 0.5f ? -rotation : rotation;
             dashDir = Quaternion.Euler(0, 0, rotation) * dir;
             dashDir.Normalize();
-            var result = Physics2D.CircleCast(ai.Pos.position, circleRadius, dashDir, stats.DashDistance + dashPadding, LayerMask.GetMask("Wall"));
+            var result = Physics2D.CircleCast(ai.Pos.position, circleRadius, dashDir, dasherStats.DashDistance + dashPadding, LayerMask.GetMask("Wall"));
             colliding = result.rigidbody != null;
             attemptNum++;
         } while (colliding && attemptNum < maxAttempts);
@@ -165,8 +159,8 @@ public class DasherTasks : BasicTasks
     [Task]
     public void Dash()
     {
-        float dashTime = stats.DashTime;
-        float dashSpeed = stats.DashDistance / dashTime;
+        float dashTime = dasherStats.DashTime;
+        float dashSpeed = dasherStats.DashDistance / dashTime;
 
         var task = Task.current;
 
@@ -209,9 +203,9 @@ public class DasherTasks : BasicTasks
         var grid = ai.Level.Grid;
         patrolWaypoints.Clear();
 
-        for (int i = 0; i < stats.PatrolWaypoints; i++)
+        for (int i = 0; i < dasherStats.PatrolWaypoints; i++)
         {
-            var nodes = grid.GetNodesInMinMaxRange(grid.NodeFromWorldPoint(currPatrolPos), 3, stats.PatrolRadius);
+            var nodes = grid.GetNodesInMinMaxRange(grid.NodeFromWorldPoint(currPatrolPos), 3, dasherStats.PatrolRadius);
             var randomNode = nodes[Random.Range(0, nodes.Count)];
             patrolWaypoints.Add(randomNode.WorldPosition);
             currPatrolPos = randomNode.WorldPosition;

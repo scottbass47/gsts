@@ -804,6 +804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940ec4eecb9a71e48968cdacc4ad6e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pos: {fileID: 7055276166770888384}
   onDeath: {fileID: 11400000, guid: 11f215fc21dcee24b9f9536bd1976df9, type: 2}
   deathPrefab: {fileID: 5592017619078036722, guid: 8ca745e862d45d94889dd8c2c797ab5c,
     type: 3}
@@ -821,8 +822,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4190959119475458467}
-  feet: {fileID: 7055276166770888384}
   stats: {fileID: 11400000, guid: 0ca79db8c3dd46247ae312135e684c69, type: 2}
+  feet: {fileID: 7055276166770888384}
   bulletPrefab: {fileID: 8612871962655403228, guid: 8758ce33d7d11d8429a83283a4011a57,
     type: 3}
   barrelPositions:

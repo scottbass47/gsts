@@ -34,7 +34,7 @@ public class DasherStats : EnemyStats
 
     public float TurningVelocity => turningVelocity;
     public float Speed => speed;
-    public float Health => health;
+    public override float Health => health;
 
     public float DashTime => dashTime;
     public float DashDistance => dashDistance;

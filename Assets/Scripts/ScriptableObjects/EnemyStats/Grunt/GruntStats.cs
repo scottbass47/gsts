@@ -19,6 +19,6 @@ public class GruntStats : EnemyStats
     public float AttackRange => attackRange;
     public float TurningVelocity => turningVelocity;
     public float Speed => speed;
-    public float Health => health;
+    public override float Health => health;
     
 }

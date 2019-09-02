@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShieldDroneTasks : BasicTasks
 {
     [SerializeField] private Transform feet;
-    [SerializeField] private ShieldDroneStats stats;
+    private ShieldDroneStats shieldDroneStats => (ShieldDroneStats)shieldDroneStats;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private BarrelPosition[] barrelPositions;
     [SerializeField] private GameObject shieldObject;
@@ -19,6 +19,9 @@ public class ShieldDroneTasks : BasicTasks
     private DamageFilter damageFilter;
     private Shield shield;
     private bool shieldTransitioning;
+
+    protected override float PathSpeed => shieldDroneStats.Speed;
+    protected override float PathTurningVelocity => float.MaxValue;
 
     public override void Awake()
     {
@@ -34,13 +37,6 @@ public class ShieldDroneTasks : BasicTasks
     public override void Start()
     {
         base.Start();
-        ai.Pos = feet;
-
-        var playerBody = GameManager.Instance.Player.GetComponent<Body>();
-        ai.Target = playerBody.CenterFeet;
-
-        var health = GetComponent<Health>();
-        health.Amount = stats.Health;
 
         attackDirection = GetComponentInChildren<ShieldDroneAttackDirection>();
         damageFilter = GetComponent<DamageFilter>();
@@ -48,10 +44,6 @@ public class ShieldDroneTasks : BasicTasks
 
         shield = shieldObject.GetComponent<Shield>();
         shield.ShieldTime = 0.5f;
-
-        enemyStats = stats;
-        Speed = stats.Speed;
-        TurningVelocity = float.MaxValue;
         pathParameters = new PathParameters(false, 0.05f);
     }
 
@@ -120,10 +112,10 @@ public class ShieldDroneTasks : BasicTasks
         var barrelPos = barrelPosDict[attackDirection.Direction];
         barrelPos.x = movement.FacingRight ? barrelPos.x : -barrelPos.x;
 
-        var bullets = stats.NumBullets;
+        var bullets = shieldDroneStats.NumBullets;
         var centerAngle = GetAngle(attackDirection.Direction, movement.FacingRight);
-        var deltaAngle = stats.SpreadAngle / (float)bullets;
-        var startAngle = centerAngle - stats.SpreadAngle * 0.5f;
+        var deltaAngle = shieldDroneStats.SpreadAngle / (float)bullets;
+        var startAngle = centerAngle - shieldDroneStats.SpreadAngle * 0.5f;
 
         for(int i = 0; i < bullets; i++)
         {
@@ -133,7 +125,7 @@ public class ShieldDroneTasks : BasicTasks
             var obj = Instantiate(bulletPrefab);
             obj.transform.position = transform.position + barrelPos;
             var bullet = obj.GetComponent<Bullet>();
-            bullet.Speed = Random.Range(stats.MinBulletSpeed, stats.MaxBulletSpeed);
+            bullet.Speed = Random.Range(shieldDroneStats.MinBulletSpeed, shieldDroneStats.MaxBulletSpeed);
             bullet.RotateTransform = false;
             bullet.Shoot(angle * Mathf.Deg2Rad);
         }

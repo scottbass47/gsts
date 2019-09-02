@@ -12,8 +12,9 @@ public class GameManager : MonoBehaviour {
 
     // Prefabs and References
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private EnemyType enemyType;
     [SerializeField] private LevelManager levelManager;
+    [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private WaveController waveController;
     [SerializeField] private WaveConfig waveConfig;
 
@@ -56,7 +57,11 @@ public class GameManager : MonoBehaviour {
         door.GetComponent<DoorController>().OnDoorInteract += OnDoorOpen;
 
         player = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
-        if(EnemySpawnDebug) Instantiate(enemyPrefab, new Vector3(10, -10, 0), Quaternion.identity);
+        if (EnemySpawnDebug)
+        {
+            var enemy = enemySpawner.Spawn(enemyType);
+            enemy.transform.position = new Vector3(10, -10, 0); 
+        }
         Events.FireEvent(new PlayerSpawn { Player = player });
 
         Events.AddListener<LevelChange>(this.gameObject, OnLevelChange);

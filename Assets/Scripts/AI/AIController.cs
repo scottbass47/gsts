@@ -2,7 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FluentBehaviourTree;
+using Panda;
 
+[RequireComponent(typeof(IMovement))]
+[RequireComponent(typeof(Death))]
+[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(Physics))]
+[RequireComponent(typeof(BasicTasks))]
+[RequireComponent(typeof(PandaBehaviour))]
+[RequireComponent(typeof(DamageFilter))]
 public class AIController : MonoBehaviour
 {
     private Transform target;
@@ -13,12 +21,11 @@ public class AIController : MonoBehaviour
         set => target = value;
     }
 
-    private Transform feet;
+    [SerializeField] private Transform pos;
 
     public Transform Pos
     {
-        get => feet;
-        set => feet = value;
+        get => pos;
     }
 
     //public LevelData Level => GameManager.Instance.level;

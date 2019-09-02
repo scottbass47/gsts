@@ -1,0 +1,74 @@
+tree("Root")
+	fallback
+		tree("SprintCooldown")
+		tree("Attack")
+		tree("Chase")
+		tree("Sprint")
+
+tree("SprintCooldown")
+	while IsCoolingDown
+		sequence
+			StopMoving
+			PlayAnimation "sprintCooldown"
+			WaitStats "SprintCooldown"
+			SetSprintCooldown false
+
+tree("Attack")
+	while tree("ShouldAttack") 
+		sequence
+			SetAttacking true
+			mute
+				sequence
+					Idle
+					//FreezePosition
+					Wait 0.2 // Attack anticipation
+					PlayAnimation "attack"
+					Wait 0.3 // Wait until attack frame
+					MeleeAttack "AttackRadius"
+					Wait 0.4 // Attack cooldown
+					//UnfreezePosition
+			SetAttacking false
+
+tree("Chase")
+	while 
+		not 
+			fallback
+				tree("ShouldAttack") 
+				tree("ShouldSprint")
+		tree("FollowPath")
+
+tree("FollowPath")
+	repeat
+		sequence
+			GetPathToTarget
+			not
+				while TargetOnPath
+					MoveOnPath 
+
+tree("Sprint")
+	while not tree("ShouldAttack")
+		sequence
+			SetSprinting true
+			FaceTarget
+			//PlayAnimation "sprint"
+			race
+				tree("FollowPath")
+				WaitStats "SprintDuration"
+			SetSprinting false
+			SetSprintCooldown true
+
+tree("ShouldSprint")
+	sequence
+		TargetInCircleLOS 0.3
+		TargetInRange "SprintRange"
+
+tree("ShouldAttack")
+	sequence
+		not IsCoolingDown
+		fallback
+			IsAttacking
+			sequence // Target spotted but too far away to fire
+				TargetInLOS		
+				TargetInRange "AttackRange"
+
+

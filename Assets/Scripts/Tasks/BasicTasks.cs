@@ -3,18 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicTasks : MonoBehaviour
+public abstract class BasicTasks : MonoBehaviour
 {
     [SerializeField] protected Animator animator;
+    [SerializeField] protected EnemyStats stats;
 
     protected AIController ai;
     protected IMovement movement;
     protected PathParameters pathParameters;
-    protected EnemyStats enemyStats;
 
     // Variables used if not specified in tasks
-    protected float Speed { get; set; }
-    protected float TurningVelocity { get; set; }
+    protected abstract float PathSpeed { get; }
+    protected abstract float PathTurningVelocity { get; }
 
     public virtual void Awake()
     {
@@ -23,7 +23,10 @@ public class BasicTasks : MonoBehaviour
         movement.SetAnimator(animator);
     }
 
-    public virtual void Start() { }
+    public virtual void Start()
+    {
+        GetComponent<Health>().Amount = stats.Health;
+    }
 
     [Task]
     public void PlayAnimation(string animation)
@@ -93,6 +96,31 @@ public class BasicTasks : MonoBehaviour
     }
 
     [Task]
+    public void TargetInCircleLOS(float radius)
+    {
+        var task = Task.current;
+        if (ai.Target == null)
+        {
+            task.Fail();
+            return; 
+        }
+        Vector2 diff = ai.Target.position - ai.Pos.position;
+
+        var ray = Physics2D.CircleCast(ai.Pos.position, radius, diff, diff.magnitude, LayerMask.GetMask("Wall", "Player Feet"));
+
+        Debug.DrawLine(ai.Pos.position, ray.point, Color.red, 0.1f);
+        var InLOS = ray.rigidbody != null && ray.rigidbody.gameObject.tag == "Player";
+        if (InLOS)
+        {
+            task.Succeed();
+        }
+        else
+        {
+            task.Fail();
+        }
+    }
+
+    [Task]
     public void TargetInRange(float range)
     {
         var task = Task.current;
@@ -112,7 +140,7 @@ public class BasicTasks : MonoBehaviour
     [Task]
     public void TargetInRange(string rangeStat)
     {
-        TargetInRange(enemyStats.GetStat<float>(rangeStat));
+        TargetInRange(stats.GetStat<float>(rangeStat));
     }
 
 
@@ -137,7 +165,7 @@ public class BasicTasks : MonoBehaviour
         var task = Task.current;
         if (task.isStarting)
         {
-            task.item = new WaitTime { Elapsed = 0, Duration = enemyStats.GetStat<float>(stat) };
+            task.item = new WaitTime { Elapsed = 0, Duration = stats.GetStat<float>(stat) };
         }
         
         var waitTime = task.item as WaitTime;
@@ -152,7 +180,7 @@ public class BasicTasks : MonoBehaviour
     [Task]
     public void MoveOnPath()
     {
-        MoveOnPath(Speed, TurningVelocity);
+        MoveOnPath(PathSpeed, PathTurningVelocity);
     }
 
     [Task]
@@ -198,5 +226,30 @@ public class BasicTasks : MonoBehaviour
     {
         movement.SetMoveDir(ai.Target.position - ai.Pos.position);
         Task.current.Succeed();
-   }
+    }
+    
+    [Task]
+    public void MeleeAttack(string rangeStat)
+    {
+        MeleeAttack(stats.GetStat<float>(rangeStat));
+    }
+
+    [Task]
+    public void MeleeAttack(float range)
+    {
+        var dir = ai.Target.position - ai.Pos.position;
+        var hit = Physics2D.Raycast(
+            ai.Pos.position,
+            dir,
+            range,
+            LayerMask.GetMask("Player Feet")
+        );
+
+        if (hit.collider != null)
+        {
+            var player = hit.collider.gameObject;
+            DamageManager.DealDamage(player);
+        }
+        Task.current.Succeed();
+    }
 }

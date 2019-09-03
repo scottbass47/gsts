@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2881b7876a6d14d4688271dfe19ae6eb, type: 3}
   m_Name: Sprinter
   m_EditorClassIdentifier: 
-  runSpeed: 3
+  runSpeed: 4.5
   health: 1
   turningVelocity: 5
-  sprintSpeed: 6
-  sprintDuration: 0.5
+  sprintSpeed: 8
+  sprintDuration: 1
   sprintCooldown: 2
-  sprintRange: 0
+  sprintRange: 8
   attackRange: 1.5
   attackRadius: 2

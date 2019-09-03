@@ -689,9 +689,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7472497153947938650, guid: fbb9733d4b2bb774d9a29e35665d962d,
     type: 3}
-  enemyPrefab: {fileID: 2823987987990382106, guid: 8f1face05595c92498cc4ec890069a9c,
-    type: 3}
+  enemyType: {fileID: 11400000, guid: 898bff99aeaddf644927b20f4e9708ed, type: 2}
   levelManager: {fileID: 34515003}
+  enemySpawner: {fileID: 1311382667}
   waveController: {fileID: 827452243}
   waveConfig: {fileID: 11400000, guid: 01b8995afd5f95844917a157d49fd033, type: 2}
   enemySpawnDebug: 1
@@ -1428,7 +1428,7 @@ MonoBehaviour:
   m_RefResolutionX: 480
   m_RefResolutionY: 270
   m_UpscaleRT: 0
-  m_PixelSnapping: 0
+  m_PixelSnapping: 1
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
@@ -7218,13 +7218,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - type: {fileID: 11400000, guid: e695c7b8e6cb96f49badd3880dae74cf, type: 2}
-    prefab: {fileID: 2536418901072705457, guid: ccc46e423ca439844a36e23561285ff1,
+    prefab: {fileID: 2536418901072705457, guid: 437bb6cc376f4ca47a92716eed35d8f7,
       type: 3}
   - type: {fileID: 11400000, guid: 45aa93c76e6972f4b84998c69520a7bb, type: 2}
     prefab: {fileID: 2392959800455960250, guid: a49db8f21be004b489b05431cc86a3f5,
       type: 3}
   - type: {fileID: 11400000, guid: 5c08c3635e7018d4b9a6a9a324cc0b97, type: 2}
     prefab: {fileID: 8704914495930380701, guid: 4586394a74dd63f44a886b53a5d97c27,
+      type: 3}
+  - type: {fileID: 11400000, guid: 898bff99aeaddf644927b20f4e9708ed, type: 2}
+    prefab: {fileID: 2823987987990382106, guid: 8f1face05595c92498cc4ec890069a9c,
       type: 3}
 --- !u!4 &1311382668
 Transform:

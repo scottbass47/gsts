@@ -10,5 +10,11 @@ public class CameraController : MonoBehaviour {
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 playerPos = player.transform.position;
         transform.position = (mouse + playerPos * 2) / 3;
+        //var pos = transform.position;
+        //pos *= 16;
+        //pos.x = Mathf.Floor(pos.x);
+        //pos.y = Mathf.Floor(pos.y);
+        //pos /= 16;
+        //transform.position = pos;
 	}
 }

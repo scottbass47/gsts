@@ -4,54 +4,38 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    [SerializeField] private GameObject laserChunkPrefab;
-
     [SerializeField] private float rotation;
     [SerializeField] private float rotationSpeed;
-    [SerializeField] private float laserLength;
 
-    private readonly int MAX_CHUNKS = 16;
-    private GameObject[] laserChunks;
-    private float laserChunkSize = 0.5f;
-    private float negativeSpacing = -0.05f;
-    private int numChunks;
+    [SerializeField] private GameObject beginning;
+    [SerializeField] private GameObject middle;
+    [SerializeField] private GameObject end;
 
-    private float LaserDist => laserChunkSize + negativeSpacing;
+    [SerializeField] private float beginningLength;
+    [SerializeField] private float endLength;
 
-    private void Start()
+    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private Transform pivot;
+
+    private Vector3 middleOff;
+    private Vector3 endOff;
+
+    private void Awake()
     {
-        laserChunks = new GameObject[MAX_CHUNKS];
-
-        for(int i = 0; i < laserChunks.Length; i++)
-        {
-            laserChunks[i] = Instantiate(laserChunkPrefab, transform);
-            laserChunks[i].SetActive(false);
-        }
-
-        numChunks = (int)(laserLength / LaserDist);
-
-        for (int i = 0; i < numChunks; i++)
-        {
-            laserChunks[i].SetActive(true);
-            laserChunks[i].transform.localPosition = new Vector3(i * LaserDist, 0, 0);
-        }
+        middleOff = middle.transform.localPosition;
+        endOff = end.transform.localPosition;
     }
 
-    public void Update()
+    private void Update()
     {
         rotation += rotationSpeed * Time.deltaTime;
-        RotateChunks();
-    }
+        transform.rotation = Quaternion.Euler(0, 0, rotation);
 
-    private void RotateChunks()
-    {
-        for (int i = 0; i < numChunks; i++)
-        {
-            var chunk = laserChunks[i]; 
-            var quaternion = Quaternion.Euler(0, 0, rotation);
-            var pos = new Vector3(i * LaserDist, 0, 0);
-            chunk.transform.localPosition = quaternion * pos;
-            chunk.GetComponent<LaserChunk>().Rotate(rotation);
-        }
+        var ray = Physics2D.Raycast(pivot.position, transform.rotation * Vector3.right, 100, layerMask);
+
+        var middleScale = (ray.distance - beginningLength - endLength) * 2;
+        middle.transform.localScale = new Vector3(middleScale, 1, 1);
+        middle.transform.localPosition = new Vector3(middleOff.x + (middleScale - 1) * 0.25f, 0, 0);
+        end.transform.localPosition = new Vector3(endOff.x + (middleScale - 1) * 0.5f, 0, 0);
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine;
 public class ShieldDroneTasks : BasicTasks
 {
     [SerializeField] private Transform feet;
-    private ShieldDroneStats shieldDroneStats => (ShieldDroneStats)shieldDroneStats;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private BarrelPosition[] barrelPositions;
     [SerializeField] private GameObject shieldObject;
@@ -22,6 +21,8 @@ public class ShieldDroneTasks : BasicTasks
 
     protected override float PathSpeed => shieldDroneStats.Speed;
     protected override float PathTurningVelocity => float.MaxValue;
+
+    private ShieldDroneStats shieldDroneStats => (ShieldDroneStats)stats;
 
     public override void Awake()
     {

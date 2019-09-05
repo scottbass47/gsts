@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelPrefabs:
-  - {fileID: 6785990252610018464, guid: 344087d8f705cde4391e7a4ee1a33501, type: 3}
+  - {fileID: 3454807749919054082, guid: a978311067ce5d24d9f2a8f1bb9db0d2, type: 3}
   - {fileID: 3454807749919054082, guid: a978311067ce5d24d9f2a8f1bb9db0d2, type: 3}
   - {fileID: 3454807749919054082, guid: a978311067ce5d24d9f2a8f1bb9db0d2, type: 3}
   - {fileID: 3454807749919054082, guid: a978311067ce5d24d9f2a8f1bb9db0d2, type: 3}
@@ -668,6 +668,7 @@ GameObject:
   - component: {fileID: 407591157}
   - component: {fileID: 407591156}
   - component: {fileID: 407591158}
+  - component: {fileID: 407591159}
   m_Layer: 0
   m_Name: Setup
   m_TagString: Untagged
@@ -689,7 +690,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7472497153947938650, guid: fbb9733d4b2bb774d9a29e35665d962d,
     type: 3}
-  enemyType: {fileID: 11400000, guid: 898bff99aeaddf644927b20f4e9708ed, type: 2}
+  enemyType: {fileID: 11400000, guid: 5c08c3635e7018d4b9a6a9a324cc0b97, type: 2}
   levelManager: {fileID: 34515003}
   enemySpawner: {fileID: 1311382667}
   waveController: {fileID: 827452243}
@@ -722,6 +723,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231ff1bf0150bd6469679712a63694f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &407591159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407591155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f79debbd45d61c41b00b3202eb0becf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 384
+  height: 216
+  material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1001 &426943533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1145,7 +1161,7 @@ MonoBehaviour:
   m_Follow: {fileID: 2052379191}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 10
+    OrthographicSize: 6.75
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -1256,9 +1272,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 1
   m_FollowOffset: {x: 0, y: 0, z: -10}
-  m_XDamping: 0.25
-  m_YDamping: 0.25
-  m_ZDamping: 0.25
+  m_XDamping: 0
+  m_YDamping: 0
+  m_ZDamping: 0
   m_AngularDampingMode: 0
   m_PitchDamping: 0
   m_YawDamping: 0
@@ -1394,9 +1410,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
-  - component: {fileID: 519420030}
   - component: {fileID: 519420033}
-  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1412,26 +1426,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
---- !u!114 &519420030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AssetsPPU: 16
-  m_RefResolutionX: 480
-  m_RefResolutionY: 270
-  m_UpscaleRT: 0
-  m_PixelSnapping: 1
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1459,13 +1453,13 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 6.75
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 130839
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: 78088e4849663594d8aca03a71c361e6, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 0
   m_HDR: 1
@@ -1526,18 +1520,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &519420034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4f34e173f1281842a33eaffcd477541, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &576697652
 GameObject:
   m_ObjectHideFlags: 0
@@ -2151,7 +2133,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 858921601}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Script: {fileID: 11500000, guid: eaeab927ec28f054a82aa52fb18c0346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
@@ -2161,6 +2143,7 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
+  mousePosition: {x: 0, y: 0}
 --- !u!114 &858921603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7601,6 +7584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2052379191}
   - component: {fileID: 2052379192}
+  - component: {fileID: 2052379193}
   m_Layer: 0
   m_Name: Camera Follow
   m_TagString: Untagged
@@ -7634,6 +7618,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7afbb6d7a55d5d4418c7a3ddb08e3e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lerpSpeed: 7
+--- !u!114 &2052379193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052379190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d0370350100b1943b81c20f6b6039f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform: {fileID: 2052379191}
 --- !u!1 &2070356697
 GameObject:
   m_ObjectHideFlags: 0

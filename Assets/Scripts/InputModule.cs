@@ -1,131 +1,137 @@
-//using UnityEngine;
-//using UnityEngine.EventSystems;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
-//public class InputModule : StandaloneInputModule
-//{
-//    private static InputModule instance;
+public class InputModule : StandaloneInputModule
+{
+    private static InputModule instance;
 
-//    public static bool Enabled
-//    {
-//        get
-//        {
-//            if (!instance)
-//            {
-//                instance = FindObjectOfType<InputModule>();
-//            }
+    public static bool Enabled
+    {
+        get
+        {
+            if (!instance)
+            {
+                instance = FindObjectOfType<InputModule>();
+            }
 
-//            return instance.enabled;
-//        }
-//        set
-//        {
-//            if (!instance)
-//            {
-//                instance = FindObjectOfType<InputModule>();
-//            }
+            return instance.enabled;
+        }
+        set
+        {
+            if (!instance)
+            {
+                instance = FindObjectOfType<InputModule>();
+            }
 
-//            instance.enabled = value;
-//        }
-//    }
+            instance.enabled = value;
+        }
+    }
 
-//    [SerializeField]
-//    private Vector2 mousePosition;
+    [SerializeField]
+    private Vector2 mousePosition;
 
-//    [SerializeField]
-//    private MouseState mouseState = new MouseState();
+    [SerializeField]
+    private MouseState mouseState = new MouseState();
 
-//    /// <summary>
-//    /// Returns the position of the mouse in world space.
-//    /// </summary>
-//    /// <returns></returns>
-//    private Vector2 GetCursorPosition()
-//    {
-//        Vector2 mousePosition = Input.mousePosition;
+    /// <summary>
+    /// Returns the position of the mouse in world space.
+    /// </summary>
+    /// <returns></returns>
+    private Vector2 GetCursorPosition()
+    {
+        Vector2 mousePosition = Input.mousePosition;
+        //Debug.Log($"Unscaled Screen Space: {mousePosition}");
+        bool scaleToFit = true;
 
-//        //if in scale to fit, honor the ratio
-//        if (GameSettings.ScaleMode == ScaleMode.ScaleToFit)
-//        {
-//            Vector2 multiplier = Vector3.one;
-//            float gameRatio = CameraManager.Width / CameraManager.Height;
-//            float screenRatio = Screen.width / (float)Screen.height;
+        //if in scale to fit, honor the ratio
+        //if (GameSettings.ScaleMode == ScaleMode.ScaleToFit)
+        if(scaleToFit)
+        {
+            Vector2 multiplier = Vector3.one;
+            float gameRatio = ScreenRenderer.RATIO;
+            float screenRatio = Screen.width / (float)Screen.height;
 
-//            if (screenRatio > gameRatio)
-//            {
-//                //width is greater than height
-//                float width = Screen.height * gameRatio;
-//                multiplier.x = Screen.width / width;
-//                mousePosition.x -= (Screen.width - width) * 0.5f;
-//            }
-//            else
-//            {
-//                //height is greater than width
-//                float height = Screen.width / gameRatio;
-//                multiplier.y = Screen.height / height;
-//                mousePosition.y -= (Screen.height - height) * 0.5f;
-//            }
+            if (screenRatio > gameRatio)
+            {
+                //width is greater than height
+                float width = Screen.height * gameRatio;
+                multiplier.x = Screen.width / width;
+                mousePosition.x -= (Screen.width - width) * 0.5f;
+            }
+            else
+            {
+                //height is greater than width
+                float height = Screen.width / gameRatio;
+                multiplier.y = Screen.height / height;
+                mousePosition.y -= (Screen.height - height) * 0.5f;
+            }
 
-//            //multiply the mouse positions
-//            mousePosition.x *= CameraManager.Width / Screen.width * 1f;
-//            mousePosition.y *= CameraManager.Height / Screen.height * 1f;
-//            mousePosition.x *= multiplier.x;
-//            mousePosition.y *= multiplier.y;
-//        }
-//        else
-//        {
-//            //otherwise assume the actual screen position
-//            mousePosition.x *= CameraManager.Width / Screen.width * 1f;
-//            mousePosition.y *= CameraManager.Height / Screen.height * 1f;
-//        }
+            //multiply the mouse positions
+            mousePosition.x *= ScreenRenderer.GAME_WIDTH / (float)Screen.width * 1f;
+            mousePosition.y *= ScreenRenderer.GAME_HEIGHT / (float) Screen.height * 1f;
+            mousePosition.x *= multiplier.x;
+            mousePosition.y *= multiplier.y;
+        }
+        else
+        {
+            //otherwise assume the actual screen position
+            mousePosition.x *= ScreenRenderer.GAME_WIDTH / (float)Screen.width * 1f;
+            mousePosition.y *= ScreenRenderer.GAME_HEIGHT / (float)Screen.height * 1f;
+        }
+        //Debug.Log($"Scaled Screen Space: {mousePosition}");
 
-//        Vector2 cursor = CameraManager.ScreenToWorldPoint(mousePosition);
-//        return cursor;
-//    }
+        Vector2 cursor = Camera.main.ScreenToWorldPoint(mousePosition);
+        return cursor;
+    }
 
-//    public override void UpdateModule()
-//    {
-//        mousePosition = GetCursorPosition();
+    public override void UpdateModule()
+    {
+        mousePosition = GetCursorPosition();
+        Mouse.WorldPos = mousePosition;
 
-//        //subtract camera position to make it screen position
-//        mousePosition.x -= CameraManager.Position.x;
-//        mousePosition.y -= CameraManager.Position.y;
+        //subtract camera position to make it screen position
+        mousePosition.x -= Camera.main.transform.position.x;
+        mousePosition.y -= Camera.main.transform.position.y;
 
-//        //add half of base to compensate for the center offset
-//        mousePosition += new Vector2(CameraManager.Width, CameraManager.Height) * 0.5f;
-//    }
+        //add half of base to compensate for the center offset
+        mousePosition += new Vector2(ScreenRenderer.GAME_WIDTH, ScreenRenderer.GAME_HEIGHT) * 0.5f;
 
-//    protected override MouseState GetMousePointerEventData(int id = 0)
-//    {
-//        bool created = GetPointerData(kMouseLeftId, out PointerEventData leftData, true);
-//        leftData.Reset();
+    }
 
-//        if (created)
-//        {
-//            //override the mouse position with our custom position
-//            leftData.position = mousePosition;
-//        }
+    protected override MouseState GetMousePointerEventData(int id = 0)
+    {
+        bool created = GetPointerData(kMouseLeftId, out PointerEventData leftData, true);
+        leftData.Reset();
 
-//        //replicate the original method functions
-//        Vector2 pos = mousePosition;
-//        leftData.delta = pos - leftData.position;
-//        leftData.position = pos;
-//        leftData.scrollDelta = Input.mouseScrollDelta;
-//        leftData.button = PointerEventData.InputButton.Left;
-//        eventSystem.RaycastAll(leftData, m_RaycastResultCache);
-//        RaycastResult raycast = FindFirstRaycast(m_RaycastResultCache);
-//        leftData.pointerCurrentRaycast = raycast;
-//        m_RaycastResultCache.Clear();
+        if (created)
+        {
+            //override the mouse position with our custom position
+            leftData.position = mousePosition;
+        }
 
-//        GetPointerData(kMouseRightId, out PointerEventData rightData, true);
-//        CopyFromTo(leftData, rightData);
-//        rightData.button = PointerEventData.InputButton.Right;
+        //replicate the original method functions
+        Vector2 pos = mousePosition;
+        leftData.delta = pos - leftData.position;
+        leftData.position = pos;
+        leftData.scrollDelta = Input.mouseScrollDelta;
+        leftData.button = PointerEventData.InputButton.Left;
+        eventSystem.RaycastAll(leftData, m_RaycastResultCache);
+        RaycastResult raycast = FindFirstRaycast(m_RaycastResultCache);
+        leftData.pointerCurrentRaycast = raycast;
+        m_RaycastResultCache.Clear();
 
-//        GetPointerData(kMouseMiddleId, out PointerEventData middleData, true);
-//        CopyFromTo(leftData, middleData);
-//        middleData.button = PointerEventData.InputButton.Middle;
+        GetPointerData(kMouseRightId, out PointerEventData rightData, true);
+        CopyFromTo(leftData, rightData);
+        rightData.button = PointerEventData.InputButton.Right;
 
-//        mouseState.SetButtonState(PointerEventData.InputButton.Left, StateForMouseButton(0), leftData);
-//        mouseState.SetButtonState(PointerEventData.InputButton.Right, StateForMouseButton(1), rightData);
-//        mouseState.SetButtonState(PointerEventData.InputButton.Middle, StateForMouseButton(2), middleData);
+        GetPointerData(kMouseMiddleId, out PointerEventData middleData, true);
+        CopyFromTo(leftData, middleData);
+        middleData.button = PointerEventData.InputButton.Middle;
 
-//        return mouseState;
-//    }
-//}
+        mouseState.SetButtonState(PointerEventData.InputButton.Left, StateForMouseButton(0), leftData);
+        mouseState.SetButtonState(PointerEventData.InputButton.Right, StateForMouseButton(1), rightData);
+        mouseState.SetButtonState(PointerEventData.InputButton.Middle, StateForMouseButton(2), middleData);
+
+        return mouseState;
+    }
+}

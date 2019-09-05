@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
     void HandleRotation()
     {
         Vector2 player = transform.position;
-        Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mouse = Mouse.WorldPos;
         Vector2 aimVector = (mouse - player).normalized;
 
         float angle = Mathf.Atan2(aimVector.y, aimVector.x);

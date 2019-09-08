@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 417036213789464918}
   - component: {fileID: 417036213789464919}
   - component: {fileID: 417036213789464920}
-  - component: {fileID: 1567119541704151609}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -107,22 +106,6 @@ MonoBehaviour:
   drawDebug: 0
   muzzleFlashPrefab: {fileID: 1198963700889164077, guid: 2665b1978b7264c4e8845fa598cf72b1,
     type: 3}
---- !u!114 &1567119541704151609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 417036213789464917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8461ea3c7e99ca74b89499eeea9d85b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScaleMode: 3
-  RotateMode: 0
-  DownscaleMode: 0
-  Threshold: 0.05
 --- !u!1 &4421015038831943784
 GameObject:
   m_ObjectHideFlags: 0

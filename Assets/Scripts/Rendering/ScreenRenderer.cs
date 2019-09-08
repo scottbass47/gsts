@@ -27,22 +27,24 @@ public class ScreenRenderer : MonoBehaviour
 
         GL.Clear(true, true, Color.black);
 
-        var rect = GetRect(true);
+        var rect = GetRect();
 
-        rect.width = Mathf.FloorToInt(rect.width / settings.GameWidth) * settings.GameWidth;
-        rect.height = Mathf.FloorToInt(rect.height / settings.GameHeight) * settings.GameHeight;
+        if(settings.ScaleMode == ScaleMode.PerfectFit)
+        {
+            rect.width = Mathf.FloorToInt(rect.width / settings.GameWidth) * settings.GameWidth;
+            rect.height = Mathf.FloorToInt(rect.height / settings.GameHeight) * settings.GameHeight;
 
-        rect.x = (Screen.width - rect.width) * 0.5f;
-        rect.y = (Screen.height - rect.height) * 0.5f;
-
+            rect.x = (Screen.width - rect.width) * 0.5f;
+            rect.y = (Screen.height - rect.height) * 0.5f;
+        }
         Graphics.DrawTexture(rect, Camera.main.targetTexture, new Rect(0f, 0f, 1f, 1f), 0, 0, 0, 0, Color.white, material);
     } 
 
-    private Rect GetRect(bool scaleToFit)
+    private Rect GetRect()
     {
         var rect = new Rect(0, 0, Screen.width, Screen.height);
 
-        if (scaleToFit)
+        if (settings.ScaleMode != ScaleMode.Stretch)
         {
             float ratio = Screen.width / (float)Screen.height;
 

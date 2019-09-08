@@ -41,14 +41,13 @@ public class InputModule : StandaloneInputModule
     {
         Vector2 mousePosition = Input.mousePosition;
         //Debug.Log($"Unscaled Screen Space: {mousePosition}");
-        bool scaleToFit = true;
 
         var gameWidth = GameSettings.Settings.GameWidth;
         var gameHeight = GameSettings.Settings.GameHeight;
 
         //if in scale to fit, honor the ratio
         //if (GameSettings.ScaleMode == ScaleMode.ScaleToFit)
-        if(scaleToFit)
+        if(GameSettings.Settings.ScaleMode != ScaleMode.Stretch)
         {
             Vector2 multiplier = Vector3.one;
             float gameRatio = GameSettings.Settings.ResolutionRatio;
@@ -99,7 +98,6 @@ public class InputModule : StandaloneInputModule
 
         //add half of base to compensate for the center offset
         mousePosition += new Vector2(GameSettings.Settings.GameWidth, GameSettings.Settings.GameHeight) * 0.5f;
-
     }
 
     protected override MouseState GetMousePointerEventData(int id = 0)

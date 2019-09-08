@@ -53,7 +53,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7066243221770944469}
   - component: {fileID: 2667662443588316866}
-  - component: {fileID: 1539873496116024587}
   m_Layer: 9
   m_Name: BulletSprite
   m_TagString: Untagged
@@ -121,25 +120,9 @@ SpriteRenderer:
   m_Size: {x: 0.5625, y: 0.5625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1539873496116024587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7681888401615094320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8461ea3c7e99ca74b89499eeea9d85b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScaleMode: 3
-  RotateMode: 0
-  DownscaleMode: 0
-  Threshold: 0.05
 --- !u!1 &8799963583245665955
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,3 +175,4 @@ MonoBehaviour:
     type: 3}
   bulletImpactAnimation: []
   useImpact: 0
+  impactOffset: {x: 0, y: 0}

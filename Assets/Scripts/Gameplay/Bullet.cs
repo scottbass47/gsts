@@ -1,5 +1,4 @@
-﻿using Assets.FastRotSprite.Scripts;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,7 +24,6 @@ public class Bullet : MonoBehaviour {
 
     public bool RotateTransform { get; set; } = true;
 
-    private SpriteRendererRotation rotator;
     private Vector2 dir;
 
     private float speed;
@@ -42,25 +40,20 @@ public class Bullet : MonoBehaviour {
     [SerializeField] private bool useImpact;
     [SerializeField] private Vector2 impactOffset;
 
-	// Use this for initialization
-	void Awake () {
-        rotator = GetComponentInChildren<SpriteRendererRotation>();
-	}
-
     // Angle in radians
     public void Shoot(float angle)
     {
         this.Angle = angle;
 
         dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-        if(RotateTransform)rotator.RotationRadians = angle;
+        if(RotateTransform) transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     public void Shoot(Vector2 dir)
     {
         this.dir = dir;
         dir.Normalize();
-        if(RotateTransform) rotator.RotationRadians = Mathf.Atan2(dir.y, dir.x);
+        if(RotateTransform) transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
     }
 
     private void Update()

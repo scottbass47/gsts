@@ -1,5 +1,4 @@
-﻿using Assets.FastRotSprite.Scripts;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +11,6 @@ public class GunController : MonoBehaviour
     private Vector2 offset;
     private Vector2 flippedOffset;
     private SpriteRenderer spriteRenderer;
-    private RotationBase rotator;
 
     private float elapsedTime = 0f;
     private bool reloading;
@@ -77,7 +75,6 @@ public class GunController : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        rotator = GetComponent<RotationBase>();
         offset = transform.localPosition;
         flippedOffset = new Vector2(-offset.x, offset.y);
         BulletsInClip = stats.MagSize;
@@ -177,7 +174,7 @@ public class GunController : MonoBehaviour
         transform.localPosition -= rotatedPivot;
 
         spriteRenderer.flipX = Flipped;
-        rotator.RotationDegrees = aimAngle;
+        transform.rotation = Quaternion.Euler(0, 0, Flipped ? -aimAngle : aimAngle);
 
         if(inAccurateShootingRange && drawDebug)
         {

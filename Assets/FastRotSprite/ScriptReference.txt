@@ -1,8 +1,0 @@
-ImageRotation - Performs pixel-by-pixel sprite rotation for Image (UI). Pixels outside the bounds will be ignored.
-SpriteRendererRotation - Performs pixel-by-pixel sprite rotation for SpriteRenterer.
-RotationBase - base class for ImageRotation and SpriteRendererRotation.
-RotateOnStart - Rotates sprite on Start by specified degree.
-RotateWithArrows - Rotates sprite with arrows (Input).
-ScaleHelper - Performs pixel art scaling.
-
-For more details please refer to XML comments.

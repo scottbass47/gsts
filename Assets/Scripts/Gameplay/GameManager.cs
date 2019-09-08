@@ -11,12 +11,24 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance = null;
 
     // Prefabs and References
+    [Header("Prefabs")]
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private EnemyType enemyType;
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private EnemySpawner enemySpawner;
+
+    [Header("Wave")]
     [SerializeField] private WaveController waveController;
     [SerializeField] private WaveConfig waveConfig;
+
+    [Header("Debug Enemy")]
+    [SerializeField] private EnemyType enemyType;
+    [SerializeField] private bool enemySpawnDebug;
+
+    [Header("Other")]
+    [SerializeField] private Settings settings;
+    [SerializeField] private CinemachineVirtualCamera vcam;
+    public CinemachineVirtualCamera Vcam => vcam;
+
 
     public LevelManager LevelManager => levelManager;
     //public LevelData level => levelManager.LevelData;
@@ -25,11 +37,7 @@ public class GameManager : MonoBehaviour {
     private GameObject player;
     public GameObject Player => player;
 
-    [SerializeField] private bool enemySpawnDebug;
     public bool EnemySpawnDebug => enemySpawnDebug;
-
-    [SerializeField] private CinemachineVirtualCamera vcam;
-    public CinemachineVirtualCamera Vcam => vcam;
 
 	// Use this for initialization
 	void Awake () {
@@ -42,6 +50,7 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         }
         Events = GetComponent<EventManager>();
+        GameSettings.Settings = settings;
 
         DontDestroyOnLoad(gameObject);
 	}

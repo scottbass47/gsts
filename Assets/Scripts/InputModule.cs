@@ -43,12 +43,15 @@ public class InputModule : StandaloneInputModule
         //Debug.Log($"Unscaled Screen Space: {mousePosition}");
         bool scaleToFit = true;
 
+        var gameWidth = GameSettings.Settings.GameWidth;
+        var gameHeight = GameSettings.Settings.GameHeight;
+
         //if in scale to fit, honor the ratio
         //if (GameSettings.ScaleMode == ScaleMode.ScaleToFit)
         if(scaleToFit)
         {
             Vector2 multiplier = Vector3.one;
-            float gameRatio = ScreenRenderer.RATIO;
+            float gameRatio = GameSettings.Settings.ResolutionRatio;
             float screenRatio = Screen.width / (float)Screen.height;
 
             if (screenRatio > gameRatio)
@@ -66,17 +69,18 @@ public class InputModule : StandaloneInputModule
                 mousePosition.y -= (Screen.height - height) * 0.5f;
             }
 
+
             //multiply the mouse positions
-            mousePosition.x *= ScreenRenderer.GAME_WIDTH / (float)Screen.width * 1f;
-            mousePosition.y *= ScreenRenderer.GAME_HEIGHT / (float) Screen.height * 1f;
+            mousePosition.x *= gameWidth / (float)Screen.width * 1f;
+            mousePosition.y *= gameHeight / (float) Screen.height * 1f;
             mousePosition.x *= multiplier.x;
             mousePosition.y *= multiplier.y;
         }
         else
         {
             //otherwise assume the actual screen position
-            mousePosition.x *= ScreenRenderer.GAME_WIDTH / (float)Screen.width * 1f;
-            mousePosition.y *= ScreenRenderer.GAME_HEIGHT / (float)Screen.height * 1f;
+            mousePosition.x *= gameWidth / (float)Screen.width * 1f;
+            mousePosition.y *= gameHeight / (float)Screen.height * 1f;
         }
         //Debug.Log($"Scaled Screen Space: {mousePosition}");
 
@@ -94,7 +98,7 @@ public class InputModule : StandaloneInputModule
         mousePosition.y -= Camera.main.transform.position.y;
 
         //add half of base to compensate for the center offset
-        mousePosition += new Vector2(ScreenRenderer.GAME_WIDTH, ScreenRenderer.GAME_HEIGHT) * 0.5f;
+        mousePosition += new Vector2(GameSettings.Settings.GameWidth, GameSettings.Settings.GameHeight) * 0.5f;
 
     }
 

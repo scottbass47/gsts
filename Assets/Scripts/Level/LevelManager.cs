@@ -45,6 +45,7 @@ public class LevelManager : MonoBehaviour
         //levelScript.LevelData = GenerateLevelData(levelScript);
 
         levelCam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = levelScript.LevelBoundary;
+        levelCam.m_Lens.OrthographicSize = GameSettings.Settings.OrthographicZoom;
     }
 
     //private LevelData GenerateLevelData(LevelScript levelScript)
@@ -91,15 +92,19 @@ public class LevelManager : MonoBehaviour
 
         var levelBranch = branch.GetComponent<LevelBranch>();
         levelBranch.BranchCamera.gameObject.SetActive(false);
+        levelBranch.BranchCamera.m_Lens.OrthographicSize = GameSettings.Settings.OrthographicZoom;
         levelBranch.OldLevel = LevelScript;
         levelBranch.NewLevel = nextLevel;
+
+        //levelCam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = null;
+        StartCoroutine(CheckCameraBounds(nextLevel, branchLevel.LevelExit.position.y, levelCam));
 
         this.nextLevel = next;
         this.levelBranch = branch;
     }
 
     private void OnBranchEnter(LevelBranchEnter enter)
-    { 
+    {
         enter.LevelBranch.BranchCamera.gameObject.SetActive(true);
         levelCam.gameObject.SetActive(false);
         enter.LevelBranch.BranchCamera.Follow = GameManager.Instance.Player.transform;
@@ -109,20 +114,35 @@ public class LevelManager : MonoBehaviour
     {
         exit.LevelBranch.BranchCamera.gameObject.SetActive(false);
         levelCam.gameObject.SetActive(true);
-        levelCam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = exit.Level.LevelBoundary;
+        levelCam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = null;
 
         var nextLevelScript = nextLevel.GetComponent<LevelScript>();
+    }
 
-        if(exit.Level == nextLevelScript)
+    private IEnumerator CheckCameraBounds(LevelScript nextLevelScript, float levelBranchExitY, CinemachineVirtualCamera cam)
+    {
+        while(true)
         {
-            Destroy(currentLevel);
-            Destroy(levelBranch);
-            currentLevel = nextLevel;
-            currentLevelScript = nextLevelScript;
-            //currentLevelScript.LevelData = GenerateLevelData(currentLevelScript);
-            currentLevelScript.CloseBottom();
+            if(cam.transform.position.y - cam.m_Lens.OrthographicSize > levelBranchExitY + 2)
+            {
+                Destroy(currentLevel);
+                Destroy(levelBranch);
+                currentLevel = nextLevel;
+                currentLevelScript = nextLevelScript;
+                currentLevelScript.CloseBottom();
+                levelCam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = nextLevelScript.LevelBoundary;
 
-            events.FireEvent(new LevelChange());
+                events.FireEvent(new LevelChange());
+                yield break;
+            }
+            yield return null;
         }
     }
+
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    var pos = levelCam.transform.position;
+    //    Gizmos.DrawSphere(new Vector3(pos.x, pos.y - levelCam.m_Lens.OrthographicSize, 0), 1f);
+    //}
 }

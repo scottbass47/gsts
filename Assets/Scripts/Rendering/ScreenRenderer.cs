@@ -4,31 +4,21 @@ using UnityEngine;
 
 public class ScreenRenderer : MonoBehaviour
 {
-    [SerializeField] private int width = 384;
-    [SerializeField] private int height = 216;
-
-    public static int GAME_WIDTH = 384;
-    public static int GAME_HEIGHT = 216;
-    public static float RATIO => GAME_WIDTH / (float)GAME_HEIGHT;
-
     [SerializeField]
     private Material material;
 
-    private void Awake()
-    {
-        GAME_WIDTH = width;
-        GAME_HEIGHT = height;
+    private Settings settings;
 
-        Camera.main.targetTexture = new RenderTexture(GAME_WIDTH, GAME_HEIGHT, 24)
+    private void Start()
+    {
+        settings = GameSettings.Settings;
+        material.SetFloat("PixelSnap", 1.0f);
+
+        Camera.main.targetTexture = new RenderTexture(settings.GameWidth, settings.GameHeight, 24)
         {
             filterMode = FilterMode.Point,
             hideFlags = HideFlags.DontSave
         };
-    }
-
-    private void Start()
-    {
-        material.SetFloat("PixelSnap", 1.0f);
     }
 
     private void OnGUI()
@@ -39,8 +29,8 @@ public class ScreenRenderer : MonoBehaviour
 
         var rect = GetRect(true);
 
-        rect.width = Mathf.FloorToInt(rect.width / GAME_WIDTH) * GAME_WIDTH;
-        rect.height = Mathf.FloorToInt(rect.height / GAME_HEIGHT) * GAME_HEIGHT;
+        rect.width = Mathf.FloorToInt(rect.width / settings.GameWidth) * settings.GameWidth;
+        rect.height = Mathf.FloorToInt(rect.height / settings.GameHeight) * settings.GameHeight;
 
         rect.x = (Screen.width - rect.width) * 0.5f;
         rect.y = (Screen.height - rect.height) * 0.5f;
@@ -56,13 +46,13 @@ public class ScreenRenderer : MonoBehaviour
         {
             float ratio = Screen.width / (float)Screen.height;
 
-            if (ratio > RATIO)
+            if (ratio > settings.ResolutionRatio)
             {
-                rect.width = rect.height * RATIO;
+                rect.width = rect.height * settings.ResolutionRatio;
             }
             else
             {
-                rect.height = rect.width / RATIO;
+                rect.height = rect.width / settings.ResolutionRatio;
             }
             rect.x = (Screen.width - rect.width) * 0.5f;
             rect.y = (Screen.height - rect.height) * 0.5f;

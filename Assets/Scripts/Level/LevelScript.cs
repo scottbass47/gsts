@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 public class LevelScript : MonoBehaviour
 {
     [SerializeField] private bool showSpawns;
+    [SerializeField] private bool createWallSortingGroups = true;
 
     [SerializeField] private GameObject door;
     public GameObject Door => door;
@@ -67,7 +68,7 @@ public class LevelScript : MonoBehaviour
         Grid = GetComponent<LevelGrid>();
         potentialPortalSpawnLocations = new List<Vector3>();
         portalLocations = new List<Vector3>();
-        CreateWallSortingGroups();
+        if(createWallSortingGroups) CreateWallSortingGroups();
     }
 
     private void Start()
@@ -78,7 +79,8 @@ public class LevelScript : MonoBehaviour
             portal.SetActive(false);
             portalObjects.Add(portal);
         }
-        SetupPotentialPortalLocations();
+        StartCoroutine(DelayPortalSetup());
+        //SetupPotentialPortalLocations();
         //StartCoroutine(SpawnPortals());
     }
 
@@ -95,8 +97,14 @@ public class LevelScript : MonoBehaviour
         sortingGroupObj.transform.parent = parent;
         sortingGroupObj.transform.localPosition = origin;
         tilemapObj.transform.parent = sortingGroupObj.transform;
-        tilemapObj.transform.localPosition = -origin;
+        tilemapObj.transform.localPosition = Vector3.zero;// -origin;
         return tilemap;
+    }
+
+    private Vector3Int GetTilemapBottomLeft(Tilemap tilemap)
+    {
+        var parentPos = tilemap.transform.parent.localPosition;
+        return new Vector3Int(Mathf.FloorToInt(parentPos.x), Mathf.FloorToInt(parentPos.y), 0);
     }
 
     private void CreateWallSortingGroups()
@@ -124,7 +132,7 @@ public class LevelScript : MonoBehaviour
                 // On the outside
                 if (pos.x == bounds.xMin || pos.x == bounds.xMax - 1 || pos.y == bounds.yMin || pos.y == bounds.yMax - 1)
                 {
-                    outerWalls.SetTile(pos, wallDecor.GetTile(pos));
+                    outerWalls.SetTile(pos - GetTilemapBottomLeft(outerWalls), wallDecor.GetTile(pos));
                     continue;
                 }
 
@@ -143,7 +151,7 @@ public class LevelScript : MonoBehaviour
                     foreach(var tilemap in tilemaps)
                     {
                         var bottomRight = new Vector3Int(tilemap.cellBounds.xMax, tilemap.cellBounds.yMin, 0);
-                        if(bottomRight == pos)
+                        if(bottomRight + GetTilemapBottomLeft(tilemap) == pos)
                         {
                             currTilemap = tilemap;
                             found = true;
@@ -153,7 +161,7 @@ public class LevelScript : MonoBehaviour
                     if (!found)
                     {
                         currTilemap = CreateTilemap(parent, $"Wall{wallNum++}", pos);
-                        currTilemap.origin = pos;
+                        currTilemap.origin = Vector3Int.zero;
                         highestTilemap = (highestTilemap == null || highestTilemap.origin.y < pos.y) ? currTilemap : highestTilemap;
                         tilemaps.Add(currTilemap);
                     }
@@ -161,7 +169,7 @@ public class LevelScript : MonoBehaviour
 
                 if(pos.y - lastPoint.y <= 1)
                 {
-                    currTilemap.SetTile(pos, tile);
+                    currTilemap.SetTile(pos - GetTilemapBottomLeft(currTilemap), tile);
                     lastPoint = pos;
                 }
                 else
@@ -176,6 +184,14 @@ public class LevelScript : MonoBehaviour
         wallDecor.gameObject.SetActive(false);
     }
 
+    private List<Vector3> failedPortalLocations = new List<Vector3>();
+
+    private IEnumerator DelayPortalSetup()
+    {
+        yield return null;
+        SetupPotentialPortalLocations();
+    }
+
     private void SetupPotentialPortalLocations()
     {
         for (int x = floorDecor.cellBounds.xMin; x < floorDecor.cellBounds.xMax; x++)
@@ -187,11 +203,21 @@ public class LevelScript : MonoBehaviour
 
                 if (floorDecor.GetTile(pos) == null || wallDecor.GetTile(pos) != null) continue;
 
-                var result = Physics2D.OverlapCircle(localPosition, 1f, LayerMask.GetMask("Wall"));
-                if (result == null)
+                var worldPosition = floorDecor.LocalToWorld(localPosition);
+                var result = Physics2D.OverlapCircle(worldPosition, 1f, LayerMask.GetMask("Wall"));
+
+                if(result != null)
+                {
+                    failedPortalLocations.Add(worldPosition);
+                }
+                else
                 {
                     potentialPortalSpawnLocations.Add(localPosition);
                 }
+                //if (result == null)
+                //{
+                //    potentialPortalSpawnLocations.Add(localPosition);
+                //}
             }
         }
 
@@ -391,7 +417,7 @@ public class LevelScript : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (!showSpawns) return;
+        if (!showSpawns || potentialPortalSpawnLocations == null) return;
         //foreach(var spawn in portalSpawns)
         //{
         //    Gizmos.color = Color.cyan;
@@ -401,6 +427,11 @@ public class LevelScript : MonoBehaviour
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawSphere(transform.position + spawn, 0.3f);
+        }
+        foreach (var location in failedPortalLocations)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(location, 1f);
         }
         foreach (var location in portalLocations)
         {

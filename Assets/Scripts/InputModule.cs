@@ -83,7 +83,7 @@ public class InputModule : StandaloneInputModule
         }
         //Debug.Log($"Scaled Screen Space: {mousePosition}");
 
-        Vector2 cursor = Camera.main.ScreenToWorldPoint(mousePosition);
+        Vector2 cursor = CameraManager.Instance.HudCam.ScreenToWorldPoint(mousePosition);
         return cursor;
     }
 

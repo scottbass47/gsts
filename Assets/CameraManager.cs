@@ -19,6 +19,11 @@ public class CameraManager : MonoBehaviour
         instance = this;
     }
 
+    private void Start()
+    {
+        hudCamera.orthographicSize = GameSettings.Settings.HudOrthographicZoom;
+    }
+
     public Vector2 GameCameraPosFloored { get; set; }
     public Vector2 GameCameraPos { get; set; }
 

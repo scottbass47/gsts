@@ -13,6 +13,7 @@ public class Settings : ScriptableObject
     public readonly int PPU = 16;
     public bool SubpixelMovement = true;
 
+    public float HudOrthographicZoom => GameHeight / (float)PPU * 0.5f;
     public float OrthographicZoom => ExtendedHeight / (float)PPU * 0.5f;
     public float ResolutionRatio => ExtendedWidth / (float)ExtendedHeight;
 }

@@ -23,6 +23,7 @@ public class HeartsUI : MonoBehaviour
             var obj = Instantiate(healthUnit, Vector3.zero, Quaternion.identity, transform);
             var rect = obj.GetComponent<RectTransform>();
             rect.anchoredPosition = Vector2.zero + Vector2.right * i * 20;
+            rect.anchoredPosition3D = rect.anchoredPosition;
             healthUnits[i] = obj;
         }
 

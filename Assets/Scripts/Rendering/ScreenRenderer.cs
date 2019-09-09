@@ -14,7 +14,19 @@ public class ScreenRenderer : MonoBehaviour
         settings = GameSettings.Settings;
         material.SetFloat("PixelSnap", 1.0f);
 
-        Camera.main.targetTexture = new RenderTexture(settings.GameWidth, settings.GameHeight, 24)
+        var gameTexture = CreateRenderTexture(settings.ExtendedWidth, settings.ExtendedHeight);
+        var hudTexture = CreateRenderTexture(settings.GameWidth, settings.GameHeight);
+        material.SetTexture("_GameTex", gameTexture);
+        material.SetTexture("_HudTex", hudTexture);
+
+        var camMan = CameraManager.Instance; 
+        camMan.GameCam.targetTexture = gameTexture;
+        camMan.HudCam.targetTexture = hudTexture;
+    }
+
+    private RenderTexture CreateRenderTexture(int width, int height)
+    {
+        return new RenderTexture(width, height, 24)
         {
             filterMode = FilterMode.Point,
             hideFlags = HideFlags.DontSave
@@ -24,6 +36,8 @@ public class ScreenRenderer : MonoBehaviour
     private void OnGUI()
     {
         if (!Event.current.type.Equals(EventType.Repaint)) return;
+
+        var camMan = CameraManager.Instance;
 
         GL.Clear(true, true, Color.black);
 
@@ -37,7 +51,21 @@ public class ScreenRenderer : MonoBehaviour
             rect.x = (Screen.width - rect.width) * 0.5f;
             rect.y = (Screen.height - rect.height) * 0.5f;
         }
-        Graphics.DrawTexture(rect, Camera.main.targetTexture, new Rect(0f, 0f, 1f, 1f), 0, 0, 0, 0, Color.white, material);
+        var xOff = (settings.ExtendedWidth - settings.GameWidth) / (float)settings.ExtendedWidth * 0.5f;
+        var yOff = (settings.ExtendedHeight - settings.GameHeight) / (float)settings.ExtendedHeight * 0.5f;
+        var sourceRect = new Vector4(xOff, yOff, 1 - xOff, 1 - yOff);
+        var gameTexture = camMan.GameCam.targetTexture;
+
+        var shift = Vector2.zero;
+        if(settings.SubpixelMovement)
+        {
+            shift = (camMan.GameCameraPos - camMan.GameCameraPosFloored) * settings.PPU / (float)settings.ExtendedWidth;
+        }
+
+        material.SetVector("_GameRect", sourceRect);
+        material.SetVector("_GameShift", shift);
+
+        Graphics.DrawTexture(rect, gameTexture, new Rect(0,0,1,1), 0, 0, 0, 0, Color.white, material);
     } 
 
     private Rect GetRect()

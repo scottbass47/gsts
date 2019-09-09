@@ -15,3 +15,4 @@ MonoBehaviour:
   GameWidth: 384
   GameHeight: 216
   ScaleMode: 2
+  SubpixelMovement: 1

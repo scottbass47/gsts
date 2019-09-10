@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 006134cdeae90624d80ff1ead4ae7dce, type: 3}
-  m_Name: Settings
+  m_Script: {fileID: 11500000, guid: 978237ac541918747b826d233869a88e, type: 3}
+  m_Name: LaserDomeType
   m_EditorClassIdentifier: 
-  GameWidth: 384
-  GameHeight: 216
-  ScaleMode: 1
-  SubpixelMovement: 1

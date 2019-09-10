@@ -14,6 +14,12 @@ public class PixelSnap : MonoBehaviour
 
     private void LateUpdate()
     {
+        var pos = transform.position;
+
+        pos.x = Mathf.Floor(pos.x * PPU) / PPU;
+        pos.y = Mathf.Floor(pos.y * PPU) / PPU;
+
+        transform.position = pos;
     }
 
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class AnimationOnceThenDestroy : MonoBehaviour
 {
     private Sprite[] animation;
@@ -15,14 +14,10 @@ public class AnimationOnceThenDestroy : MonoBehaviour
         }
     }
 
-    private SpriteRenderer spriteRenderer;
     private float elapsed;
-    [SerializeField] private int frameRate = 10;
 
-    private void Awake()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private int frameRate = 10;
 
     public void StartAnimation()
     {

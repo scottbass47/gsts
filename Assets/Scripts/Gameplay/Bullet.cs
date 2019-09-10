@@ -79,9 +79,10 @@ public class Bullet : MonoBehaviour {
         if(useImpact && collider.tag == "WallsCollision")
         {
             var obj = Instantiate(bulletImpactPrefab);
+            var transform = obj.GetComponent<BulletImpact>().BulletRotate;
             obj.transform.position = collisionPoint;
-            obj.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(normal.y, normal.x) * Mathf.Rad2Deg);
-            obj.transform.position += obj.transform.rotation * impactOffset;
+            transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(normal.y, normal.x) * Mathf.Rad2Deg);
+            obj.transform.position += transform.rotation * impactOffset;
             var anim = obj.GetComponent<AnimationOnceThenDestroy>();
             anim.Animation = bulletImpactAnimation;
             anim.StartAnimation();

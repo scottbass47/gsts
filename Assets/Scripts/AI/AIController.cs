@@ -58,7 +58,6 @@ public class AIController : MonoBehaviour
     private Coroutine flash;
     private bool flashing = false;
 
-    [SerializeField] private DeathBehavior onDeath;
     [SerializeField] private GameObject deathPrefab;
     [SerializeField] private bool drawPath = false;
 
@@ -73,7 +72,6 @@ public class AIController : MonoBehaviour
             enemyDeath.Initialize(gameObject);
             SoundManager.PlaySound(Sounds.EnemyFleshHitFatal);
             Destroy(gameObject);
-            //onDeath.OnDeath(death);
         };
     }
 

@@ -1,0 +1,9 @@
+tree("Root")
+	sequence
+		StartHopping
+		repeat
+			sequence
+				GetPathToTarget
+				not
+					while TargetOnPath
+						MoveOnPath

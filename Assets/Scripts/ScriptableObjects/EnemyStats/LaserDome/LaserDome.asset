@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 20
   speed: 4
-  hopGravity: -40
+  turningVelocity: 2
   hopScale: 12
   attackRange: 8
-  attackTime: 0

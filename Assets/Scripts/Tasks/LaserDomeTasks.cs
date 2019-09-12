@@ -39,8 +39,7 @@ public class LaserDomeTasks : BasicTasks
 
         animationHelper = GetComponentInChildren<LaserDomeAnimationHelper>();
 
-        laserObj = Instantiate(laserPrefab, transform);
-        laserObj.transform.parent = laserSortingGroup.transform;
+        laserObj = Instantiate(laserPrefab, laserSortingGroup.transform);
         laserObj.SetActive(false);
         laser = laserObj.GetComponent<Laser>();
     }

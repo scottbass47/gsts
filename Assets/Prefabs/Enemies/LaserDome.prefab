@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 361749366382011511}
   - component: {fileID: 3354341516961408138}
   - component: {fileID: 2974879154107649410}
+  - component: {fileID: 6620743221643041830}
   m_Layer: 0
   m_Name: LaserDome
   m_TagString: LaserDome
@@ -320,7 +321,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 8095855487202359872}
   stats: {fileID: 11400000, guid: 7a747eb7b28249546a24f726c3cf08f8, type: 2}
-  hopStarted: 0
   hopTransform: {fileID: 4714745118782142168}
   laserPrefab: {fileID: 7183226897718582101, guid: f26a3a4629387124d97cc3a9811d2258,
     type: 3}
@@ -447,6 +447,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76735395850e0a546a60264800d05cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6620743221643041830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5244550963068466689}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 0
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeOpacity: 0
+  m_ApplyToSortingLayers: 00000000
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 0
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
 --- !u!1 &7781038731962864362
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +531,7 @@ GameObject:
   m_Layer: 0
   m_Name: LaserSortingGroup
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -504,7 +543,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8150526625952284684}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1278133248915457054}

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class CrosshairController : MonoBehaviour {
 
+    private void Awake()
+    {
+        gameObject.SetActive(true);
+    }
+
     // Update is called once per frame
     void Update () {
         transform.position = Mouse.WorldPos;

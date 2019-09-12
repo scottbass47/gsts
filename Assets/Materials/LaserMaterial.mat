@@ -8,7 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LaserMaterial
-  m_Shader: {fileID: 4800000, guid: e260cfa7296ee7642b167f1eb5be5023, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: a8a4480999cee9e46a57926edd505f11,
+    type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -21,6 +22,10 @@ Material:
     m_TexEnvs:
     - Texture2D_4E1C3CBC:
         m_Texture: {fileID: 2800000, guid: 23d0f9e054bee71438153d8c053ef6d3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_CA95347D:
+        m_Texture: {fileID: 2800000, guid: 3f9686f8023db86478033bc1afab963d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -38,6 +43,10 @@ Material:
     m_Floats:
     - Vector1_529CD30D: 45.15
     - Vector1_8F8060C4: 8
+    - Vector1_908ED7E0: 0
+    - Vector1_FED9D8F3: 0
     - _Rotation: 0
+    - _ShakeAmplitude: 2
+    - _ShakeSpeed: 5
     m_Colors:
     - _Pivot: {r: 0, g: 0, b: 0, a: 0}

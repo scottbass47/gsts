@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: laser_dome_hop
+  m_Name: laser_dome_open
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -57,19 +57,25 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 21edd96e67b9d3c49a1b901c7d62d54e, type: 3}
+      value: {fileID: 21300000, guid: d26d8af88c52a46468193020fe84ec4a, type: 3}
     - time: 0.1
-      value: {fileID: 21300000, guid: 55e42d7da6184fa42b4af6e0d7569c68, type: 3}
+      value: {fileID: 21300000, guid: 53770e83102e1214f955bb8c0fef105c, type: 3}
     - time: 0.2
-      value: {fileID: 21300000, guid: 1efc97e6f7ef9ef42bf020722c4fecef, type: 3}
+      value: {fileID: 21300000, guid: 7d91c4cc8b3921349a2d2ac30e854b9e, type: 3}
     - time: 0.3
-      value: {fileID: 21300000, guid: ced58c7906121a949be240e4d3b33014, type: 3}
+      value: {fileID: 21300000, guid: 2a553b147de4c9b4d8f6d399a8e6b1a1, type: 3}
     - time: 0.4
-      value: {fileID: 21300000, guid: 7091f780048ec9148b8c6e977cf7f523, type: 3}
+      value: {fileID: 21300000, guid: f58fd71f4b063294f81590149fa5e03d, type: 3}
     - time: 0.5
-      value: {fileID: 21300000, guid: af695e6e8cc0b584ea6ca71ff6ee1311, type: 3}
+      value: {fileID: 21300000, guid: 952d93d5543ee164ea3a329e5405d8c2, type: 3}
     - time: 0.6
-      value: {fileID: 21300000, guid: 4965a63813ab1c64589a08b3a55555f2, type: 3}
+      value: {fileID: 21300000, guid: 930f702c5d1e1d14da2fc38ef7ebc2cc, type: 3}
+    - time: 0.7
+      value: {fileID: 21300000, guid: 8688473a1f3f2e549932f31985c69808, type: 3}
+    - time: 0.8
+      value: {fileID: 21300000, guid: c4ee22c5f5717a343ae70b3616400bca, type: 3}
+    - time: 0.9
+      value: {fileID: 21300000, guid: 4aaa992decc69a84c90a6d3c6d95ec35, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -96,19 +102,22 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 21edd96e67b9d3c49a1b901c7d62d54e, type: 3}
-    - {fileID: 21300000, guid: 55e42d7da6184fa42b4af6e0d7569c68, type: 3}
-    - {fileID: 21300000, guid: 1efc97e6f7ef9ef42bf020722c4fecef, type: 3}
-    - {fileID: 21300000, guid: ced58c7906121a949be240e4d3b33014, type: 3}
-    - {fileID: 21300000, guid: 7091f780048ec9148b8c6e977cf7f523, type: 3}
-    - {fileID: 21300000, guid: af695e6e8cc0b584ea6ca71ff6ee1311, type: 3}
-    - {fileID: 21300000, guid: 4965a63813ab1c64589a08b3a55555f2, type: 3}
+    - {fileID: 21300000, guid: d26d8af88c52a46468193020fe84ec4a, type: 3}
+    - {fileID: 21300000, guid: 53770e83102e1214f955bb8c0fef105c, type: 3}
+    - {fileID: 21300000, guid: 7d91c4cc8b3921349a2d2ac30e854b9e, type: 3}
+    - {fileID: 21300000, guid: 2a553b147de4c9b4d8f6d399a8e6b1a1, type: 3}
+    - {fileID: 21300000, guid: f58fd71f4b063294f81590149fa5e03d, type: 3}
+    - {fileID: 21300000, guid: 952d93d5543ee164ea3a329e5405d8c2, type: 3}
+    - {fileID: 21300000, guid: 930f702c5d1e1d14da2fc38ef7ebc2cc, type: 3}
+    - {fileID: 21300000, guid: 8688473a1f3f2e549932f31985c69808, type: 3}
+    - {fileID: 21300000, guid: c4ee22c5f5717a343ae70b3616400bca, type: 3}
+    - {fileID: 21300000, guid: 4aaa992decc69a84c90a6d3c6d95ec35, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.70000005
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -164,25 +173,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0
-    functionName: OnHopBegin
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.2
-    functionName: OnHopBeginAir
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.6
-    functionName: OnHopEnd
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

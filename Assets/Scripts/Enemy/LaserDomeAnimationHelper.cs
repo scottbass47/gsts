@@ -5,6 +5,9 @@ using UnityEngine;
 public class LaserDomeAnimationHelper : MonoBehaviour
 {
     public HopState HopState;
+    public float yOff;
+    public float RotationPercent;
+    public bool LaserAttackFinished;
 
     public void OnHopBegin()
     {
@@ -19,6 +22,16 @@ public class LaserDomeAnimationHelper : MonoBehaviour
     public void OnHopBeginAir()
     {
         HopState = HopState.InAir;
+    }
+
+    public void OnAttackStart()
+    {
+        LaserAttackFinished = false;
+    }
+
+    public void OnAttackEnd()
+    {
+        LaserAttackFinished = true;
     }
 }
 

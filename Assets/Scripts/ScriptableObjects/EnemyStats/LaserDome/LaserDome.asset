@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b5ae2492f97c88499cd60993666c66c, type: 3}
   m_Name: LaserDome
   m_EditorClassIdentifier: 
-  health: 0
-  hopGravity: 0
+  health: 20
+  speed: 4
+  hopGravity: -40
+  hopScale: 12
+  attackRange: 8
+  attackTime: 0

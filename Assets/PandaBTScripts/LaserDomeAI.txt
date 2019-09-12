@@ -1,9 +1,39 @@
 tree("Root")
+	repeat
+		fallback
+			tree("Attack")
+			tree("Chase")
+
+tree("Chase")
 	sequence
 		StartHopping
-		repeat
-			sequence
-				GetPathToTarget
-				not
-					while TargetOnPath
-						MoveOnPath
+		mute
+			while not tree("ShouldAttack")
+				sequence
+					StartHopping
+					repeat
+						sequence
+							GetPathToTarget
+							not
+								while TargetOnPath
+									MoveOnPath
+		StopHopping
+
+tree("Attack")
+	while tree("ShouldAttack")
+		sequence
+			StopMoving
+			StartAttacking
+			PlayAnimation "attack"
+			Wait 1.0
+			ShootLaser
+			Wait 1.5
+			StopAttacking
+
+tree("ShouldAttack")
+	fallback
+		IsAttacking
+		sequence
+			Grounded
+			TargetInRange "AttackRange"
+			TargetInLOS

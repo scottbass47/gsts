@@ -40,20 +40,23 @@ public class Bullet : MonoBehaviour {
     [SerializeField] private bool useImpact;
     [SerializeField] private Vector2 impactOffset;
 
+    [Header("Rotation")]
+    [SerializeField] private Transform rotate;
+
     // Angle in radians
     public void Shoot(float angle)
     {
         this.Angle = angle;
 
         dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-        if(RotateTransform) transform.rotation = Quaternion.Euler(0, 0, angle);
+        if (RotateTransform) rotate.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * angle);
     }
 
     public void Shoot(Vector2 dir)
     {
         this.dir = dir;
         dir.Normalize();
-        if(RotateTransform) transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+        if(RotateTransform) rotate.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
     }
 
     private void Update()

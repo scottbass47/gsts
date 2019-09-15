@@ -176,3 +176,4 @@ MonoBehaviour:
   bulletImpactAnimation: []
   useImpact: 0
   impactOffset: {x: 0, y: 0}
+  rotate: {fileID: 7066243221770944469}

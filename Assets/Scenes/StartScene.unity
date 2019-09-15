@@ -690,7 +690,7 @@ MonoBehaviour:
   enemySpawner: {fileID: 1311382667}
   waveController: {fileID: 827452243}
   waveConfig: {fileID: 11400000, guid: 01b8995afd5f95844917a157d49fd033, type: 2}
-  enemyType: {fileID: 11400000, guid: dbc6ff24f10312c4089be0d5598a5314, type: 2}
+  enemyType: {fileID: 11400000, guid: 45aa93c76e6972f4b84998c69520a7bb, type: 2}
   enemySpawnDebug: 1
   settings: {fileID: 11400000, guid: 95dca59a8b1f84245a7b298c2e5a519f, type: 2}
   vcam: {fileID: 451779892}

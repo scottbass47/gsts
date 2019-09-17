@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3515970910893642364}
+  - component: {fileID: 2809841662823874073}
   - component: {fileID: 3123964509206399997}
   m_Layer: 0
-  m_Name: Point Light 2D (1)
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,6 +32,27 @@ Transform:
   m_Father: {fileID: 3155301029471093033}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2809841662823874073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2380515864370026701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73abfc9e6f51b0c428314e6746862e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lights:
+  - {fileID: 3123964509206399997}
+  settings: {fileID: 11400000, guid: 738cb86788e36084fb4a33a69d4b8950, type: 2}
+  AnimateIntensity: 0
+  AnimateColor: {r: 0, g: 0, b: 0, a: 0}
+  AnimateInnerRadius: 0
+  AnimateOuterRadius: 0
+  IsAnimating: 0
+  AnimationMask: 0
 --- !u!114 &3123964509206399997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,9 +101,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6934433058358740038}
+  - component: {fileID: 6887232163584485447}
   - component: {fileID: 9068655726344556162}
   m_Layer: 0
-  m_Name: Point Light 2D
+  m_Name: Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,6 +124,27 @@ Transform:
   m_Father: {fileID: 3155301029471093033}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6887232163584485447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6755203742183492383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73abfc9e6f51b0c428314e6746862e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lights:
+  - {fileID: 9068655726344556162}
+  settings: {fileID: 11400000, guid: e60a97c00e2ca4b4da7f7a1350ae5dcd, type: 2}
+  AnimateIntensity: 0
+  AnimateColor: {r: 0, g: 0, b: 0, a: 0}
+  AnimateInnerRadius: 0
+  AnimateOuterRadius: 0
+  IsAnimating: 0
+  AnimationMask: 0
 --- !u!114 &9068655726344556162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +231,7 @@ PrefabInstance:
     - target: {fileID: 2550452250601713861, guid: 918746f6481a80d4b8714d76c90fb2c6,
         type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2901034405693349098, guid: 918746f6481a80d4b8714d76c90fb2c6,
         type: 3}

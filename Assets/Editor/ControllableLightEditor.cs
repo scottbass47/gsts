@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(AnimatedLight))]
-public class AnimatedLightEditor : Editor
+[CustomEditor(typeof(ControllableLight))]
+public class ControllableLightEditor : Editor
 {
     private readonly string[] options = new string[] { "Intensity", "Color", "Inner Radius", "Outer Radius" };
 

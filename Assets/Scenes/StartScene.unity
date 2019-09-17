@@ -9911,6 +9911,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5432453006812800388, guid: f26a3a4629387124d97cc3a9811d2258,
+        type: 3}
+      propertyPath: AnimationMask
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432453006812800388, guid: f26a3a4629387124d97cc3a9811d2258,
+        type: 3}
+      propertyPath: AnimateIntensity
+      value: 0.43
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f26a3a4629387124d97cc3a9811d2258, type: 3}
 --- !u!1001 &7781220889775124648

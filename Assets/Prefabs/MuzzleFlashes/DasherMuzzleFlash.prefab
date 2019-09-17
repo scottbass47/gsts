@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7950128418907495181}
+  - component: {fileID: 1606300362092855010}
   - component: {fileID: 6213551062658410773}
   m_Layer: 0
-  m_Name: Point Light 2D
+  m_Name: Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,6 +32,27 @@ Transform:
   m_Father: {fileID: 6169745040994658562}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1606300362092855010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406148457549728437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73abfc9e6f51b0c428314e6746862e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lights:
+  - {fileID: 6213551062658410773}
+  settings: {fileID: 11400000, guid: 762ee931829ec5e419a0dfffdeaa2a37, type: 2}
+  AnimateIntensity: 0
+  AnimateColor: {r: 0, g: 0, b: 0, a: 0}
+  AnimateInnerRadius: 0
+  AnimateOuterRadius: 0
+  IsAnimating: 0
+  AnimationMask: 0
 --- !u!114 &6213551062658410773
 MonoBehaviour:
   m_ObjectHideFlags: 0

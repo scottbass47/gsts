@@ -30,9 +30,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6901746700563215724}
   - {fileID: 3846937141060238416}
   - {fileID: 6644778689470057261}
+  - {fileID: 6901746700563215724}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -125,9 +125,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6644778689470057261}
+  - component: {fileID: 2312914441225176250}
   - component: {fileID: 9099155313171774211}
   m_Layer: 0
-  m_Name: Point Light 2D (2)
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,8 +146,29 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2337929669860387457}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2312914441225176250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273228683468539401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73abfc9e6f51b0c428314e6746862e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lights:
+  - {fileID: 9099155313171774211}
+  settings: {fileID: 11400000, guid: 582859c720636dc418ec8faf30a30465, type: 2}
+  AnimateIntensity: 0
+  AnimateColor: {r: 0, g: 0, b: 0, a: 0}
+  AnimateInnerRadius: 0
+  AnimateOuterRadius: 0
+  IsAnimating: 0
+  AnimationMask: 0
 --- !u!114 &9099155313171774211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,9 +217,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3846937141060238416}
+  - component: {fileID: 8240091770476666376}
   - component: {fileID: 1602305912688985532}
   m_Layer: 0
-  m_Name: Point Light 2D
+  m_Name: Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,8 +238,29 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2337929669860387457}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8240091770476666376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6808838876000201484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73abfc9e6f51b0c428314e6746862e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lights:
+  - {fileID: 1602305912688985532}
+  settings: {fileID: 11400000, guid: bb62aabc03d47df47bc9fcbc418a29bf, type: 2}
+  AnimateIntensity: 0
+  AnimateColor: {r: 0, g: 0, b: 0, a: 0}
+  AnimateInnerRadius: 0
+  AnimateOuterRadius: 0
+  IsAnimating: 0
+  AnimationMask: 0
 --- !u!114 &1602305912688985532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,9 +309,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6901746700563215724}
+  - component: {fileID: 2185889966359839621}
   - component: {fileID: 7336194857093879309}
   m_Layer: 0
-  m_Name: Point Light 2D (1)
+  m_Name: Hotspot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,8 +330,29 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2337929669860387457}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2185889966359839621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8193893704664357460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73abfc9e6f51b0c428314e6746862e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lights:
+  - {fileID: 7336194857093879309}
+  settings: {fileID: 11400000, guid: 09ad038d45200744a895546ed0b7fa35, type: 2}
+  AnimateIntensity: 0
+  AnimateColor: {r: 0, g: 0, b: 0, a: 0}
+  AnimateInnerRadius: 0
+  AnimateOuterRadius: 0
+  IsAnimating: 0
+  AnimationMask: 0
 --- !u!114 &7336194857093879309
 MonoBehaviour:
   m_ObjectHideFlags: 0

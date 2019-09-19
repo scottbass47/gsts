@@ -80,6 +80,8 @@ public class LaserDomeTasks : BasicTasks
         Task.current.Succeed();
     }
 
+    private float lastAngle;
+
     [Task]
     public void ShootLaser()
     {
@@ -89,17 +91,25 @@ public class LaserDomeTasks : BasicTasks
         {
             shootingLaser = true;
             laserObj.SetActive(true);
+            lastAngle = -90;
         }
+        var toTarget = ai.Target.position - ai.Pos.position;
+        var targetAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
 
-        var hitObj = laser.Shoot(laserAngle);
+        GameObject hitObj = null;
 
-
-        laserSortingGroup.sortingOrder = -(int)Mathf.Sign(Mathf.Sin(laserAngle * Mathf.Deg2Rad));
-
-        if (hitObj.CompareTag("Player"))
+        if(AngleBetween(lastAngle, laserAngle, targetAngle))
         {
-            DamageManager.DealDamage(hitObj);
+            hitObj = laser.Shoot(targetAngle);
+            if (hitObj.CompareTag("Player"))
+            {
+                DamageManager.DealDamage(hitObj);
+            }
         }
+        hitObj = laser.Shoot(laserAngle);
+
+        lastAngle = laserAngle;
+        laserSortingGroup.sortingOrder = -(int)Mathf.Sign(Mathf.Sin(laserAngle * Mathf.Deg2Rad));
 
         if (animationHelper.LaserAttackFinished && !task.isStarting)
         {
@@ -107,6 +117,13 @@ public class LaserDomeTasks : BasicTasks
             shootingLaser = false;
             Task.current.Succeed();
         }
+    }
+
+    private bool AngleBetween(float start, float end, float mid)
+    {
+        end = (end - start) < 0.0f ? end - start + 360.0f : end - start;
+        mid = (mid - start) < 0.0f ? mid - start + 360.0f : mid - start;
+        return mid < end;
     }
 
     private void Update()

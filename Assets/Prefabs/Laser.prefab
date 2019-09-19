@@ -233,7 +233,6 @@ GameObject:
   - component: {fileID: 7183226897718582103}
   - component: {fileID: 7183226897718582100}
   - component: {fileID: 5432453006812800388}
-  - component: {fileID: 7912483293306706986}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -304,26 +303,7 @@ MonoBehaviour:
   AnimateInnerRadius: 0
   AnimateOuterRadius: 0
   IsAnimating: 0
-  AnimationMask: 1
---- !u!95 &7912483293306706986
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7183226897718582101}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bcb733f826a5da348a202645b82fd1b6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  AnimationMask: 0
 --- !u!1 &7183226897897597675
 GameObject:
   m_ObjectHideFlags: 0

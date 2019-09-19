@@ -15,26 +15,24 @@ MonoBehaviour:
   waves:
   - subWaves:
     - data:
-      - type: {fileID: 11400000, guid: 45aa93c76e6972f4b84998c69520a7bb, type: 2}
-        amount: 4
-      - type: {fileID: 11400000, guid: 898bff99aeaddf644927b20f4e9708ed, type: 2}
+      - type: 0
+        amount: 1
+  - subWaves:
+    - data:
+      - type: 0
         amount: 4
   - subWaves:
     - data:
-      - type: {fileID: 11400000, guid: e695c7b8e6cb96f49badd3880dae74cf, type: 2}
+      - type: 0
         amount: 4
   - subWaves:
     - data:
-      - type: {fileID: 11400000, guid: 45aa93c76e6972f4b84998c69520a7bb, type: 2}
-        amount: 4
-  - subWaves:
-    - data:
-      - type: {fileID: 11400000, guid: 5c08c3635e7018d4b9a6a9a324cc0b97, type: 2}
+      - type: 0
         amount: 2
   - subWaves:
     - data:
-      - type: {fileID: 11400000, guid: e695c7b8e6cb96f49badd3880dae74cf, type: 2}
+      - type: 0
         amount: 4
-      - type: {fileID: 11400000, guid: 45aa93c76e6972f4b84998c69520a7bb, type: 2}
+      - type: 0
         amount: 4
-  levelChanges: 0000000002000000
+  levelChanges: 0100000002000000

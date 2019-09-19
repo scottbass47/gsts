@@ -1,0 +1,13 @@
+tree("Root")
+	fallback
+		tree("Teleport")
+
+tree("Teleport")
+	sequence
+		StartTeleporting
+		PickEnemies
+		PlayAnimation "attack"
+		WaitStats "AnimationDelay" 
+		TeleportEnemies
+		WaitRandom "Cooldown"
+		EndTeleporting

@@ -21,12 +21,22 @@ public class AIController : MonoBehaviour
         set => target = value;
     }
 
-    [SerializeField] private Transform pos;
+    [SerializeField] private EnemyType enemyType;
 
+    public EnemyType EnemyType => enemyType;
+
+    [SerializeField] private Transform pos;
     public Transform Pos
     {
         get => pos;
     }
+
+    [SerializeField] private CircleCollider2D feetHitbox;
+    public CircleCollider2D FeetHitbox
+    {
+        get => feetHitbox;
+    }
+
 
     //public LevelData Level => GameManager.Instance.level;
     public LevelScript Level => GameManager.Instance.LevelManager.LevelScript;
@@ -60,6 +70,12 @@ public class AIController : MonoBehaviour
 
     [SerializeField] private GameObject deathPrefab;
     [SerializeField] private bool drawPath = false;
+
+    private void Awake()
+    {
+        // Add myself to be tracked
+        GameManager.Instance.GameState.AddEnemy(gameObject);
+    }
 
     private void Start()
     {

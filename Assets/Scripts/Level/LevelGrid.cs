@@ -20,6 +20,12 @@ public class LevelGrid : MonoBehaviour
     public int GridSizeX => grid.GetLength(0);
     public int GridSizeY => grid.GetLength(1);
 
+    private Vector3 lowerLeft;
+    private Vector3 upperRight;
+
+    private Bounds worldGridBounds;
+    public Bounds WorldGridBounds => worldGridBounds;
+
     private void Start()
     {
         var levelScript = GetComponent<LevelScript>();
@@ -47,6 +53,9 @@ public class LevelGrid : MonoBehaviour
                 grid[xGrid, yGrid] = new Node(walkable, worldPos, xGrid, yGrid, result != null ? 5 : 0);
             }
         }
+        lowerLeft = grid[0, 0].WorldPosition;
+        upperRight = grid[GridSizeX - 1, GridSizeY - 1].WorldPosition;
+        worldGridBounds = new Bounds(lowerLeft + (upperRight - lowerLeft) * 0.5f, upperRight - lowerLeft);
     }
 
     public List<Node> GetNeighbours(Node node) {

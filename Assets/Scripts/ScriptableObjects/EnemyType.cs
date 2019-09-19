@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Enemy/Enemy Type")]
-public class EnemyType : ScriptableObject
+public enum EnemyType 
 {
+    Grunt,
+    Dasher,
+    ShieldDrone,
+    Sprinter,
+    LaserDome,
+    Teleporter
 }

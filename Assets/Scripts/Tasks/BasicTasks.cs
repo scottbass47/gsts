@@ -160,12 +160,26 @@ public abstract class BasicTasks : MonoBehaviour
     }
 
     [Task]
+    public void WaitRandom(string stat)
+    {
+        FloatRange range = stats.GetStat<FloatRange>(stat);
+        var waitTime = Random.Range(range.Min, range.Max);
+        MyWait(waitTime);
+    }
+
+    [Task]
     public void WaitStats(string stat)
+    {
+        MyWait(stats.GetStat<float>(stat));
+    }
+
+    [Task]
+    public void MyWait(float time)
     {
         var task = Task.current;
         if (task.isStarting)
         {
-            task.item = new WaitTime { Elapsed = 0, Duration = stats.GetStat<float>(stat) };
+            task.item = new WaitTime { Elapsed = 0, Duration = time };
         }
         
         var waitTime = task.item as WaitTime;

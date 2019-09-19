@@ -17,7 +17,6 @@ public class LevelManager : MonoBehaviour
 
     public GameObject Level => currentLevel;
     public LevelScript LevelScript => currentLevelScript;
-    //public LevelData LevelData => LevelScript.LevelData;
 
     private GameObject nextLevel;
     private GameObject levelBranch;
@@ -42,38 +41,10 @@ public class LevelManager : MonoBehaviour
 
         currentLevel = level;
         currentLevelScript = level.GetComponent<LevelScript>();
-        //levelScript.LevelData = GenerateLevelData(levelScript);
 
         levelCam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = levelScript.LevelBoundary;
         levelCam.m_Lens.OrthographicSize = GameSettings.Settings.OrthographicZoom;
     }
-
-    //private LevelData GenerateLevelData(LevelScript levelScript)
-    //{
-    //    var walls = levelScript.wallDecor;
-
-    //    // Use floor dimensions to determine size of map
-    //    LevelData levelData = new LevelData();
-    //    levelData.Width = walls.size.x;
-    //    levelData.Height = walls.size.y;
-    //    levelData.map = new bool[levelData.Width, levelData.Height];
-    //    levelData.origin = new Vector2(walls.cellBounds.xMin, walls.cellBounds.yMin) + (Vector2)levelScript.transform.position; 
-
-    //    int colRef = walls.cellBounds.xMin;
-    //    int rowRef = walls.cellBounds.yMin;
-    //    for (int row = 0; row < levelData.Height; row++)
-    //    {
-    //        for (int col = 0; col < levelData.Width; col++)
-    //        {
-    //            if (walls.GetTile(new Vector3Int(col + colRef, row + rowRef, 0)) != null)
-    //            {
-    //                levelData.map[col, row] = true;
-    //            }
-    //        }
-    //    }
-
-    //    return levelData;
-    //}
 
     public void NextLevel()
     {

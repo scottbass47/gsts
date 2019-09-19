@@ -431,7 +431,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940ec4eecb9a71e48968cdacc4ad6e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 4
   pos: {fileID: 7945190048121772767}
+  feetHitbox: {fileID: 0}
   deathPrefab: {fileID: 5592017619078036722, guid: 8ca745e862d45d94889dd8c2c797ab5c,
     type: 3}
   drawPath: 0

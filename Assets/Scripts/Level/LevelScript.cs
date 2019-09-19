@@ -226,6 +226,12 @@ public class LevelScript : MonoBehaviour
         maxPortalDist = (potentialPortalSpawnLocations[0] - potentialPortalSpawnLocations[potentialPortalSpawnLocations.Count - 1]).magnitude;
     }
 
+    public bool IsValid(Vector3 worldPosition, float radius)
+    {
+        if (!Grid.NodeFromWorldPoint(worldPosition).Walkable) return false;
+        return Physics2D.OverlapCircle(worldPosition, radius, LayerMask.GetMask("Wall"));
+    }
+
     public void GetPortalLocations()
     {
         portalLocations.Clear();

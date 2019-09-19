@@ -11,10 +11,11 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance = null;
 
     // Prefabs and References
-    [Header("Prefabs")]
+    [Header("Prefabs/References")]
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private GameState gameState;
 
     [Header("Wave")]
     [SerializeField] private WaveController waveController;
@@ -29,10 +30,9 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private CinemachineVirtualCamera vcam;
     public CinemachineVirtualCamera Vcam => vcam;
 
-
     public LevelManager LevelManager => levelManager;
-    //public LevelData level => levelManager.LevelData;
     public EventManager Events { get; private set; }
+    public GameState GameState => gameState;
 
     private GameObject player;
     public GameObject Player => player;

@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class WaveController : MonoBehaviour
 {
+    [SerializeField] private EnemySpawner enemySpawner;
+
     private int currentWave;
     public int CurrentWave => currentWave;
-    [SerializeField] private LevelScript levelScript;
-    [SerializeField] private EnemySpawner enemySpawner;
 
     private List<GameObject> portals => levelScript.PortalObjects;
     private int alive;
     private EventManager events;
     private GameObject door;
     private WaveConfig waveConfig;
+    private LevelScript levelScript;
 
     private void Start()
     {

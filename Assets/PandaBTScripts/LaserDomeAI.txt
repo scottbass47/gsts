@@ -6,29 +6,29 @@ tree("Root")
 
 tree("Chase")
 	sequence
-		StartHopping
+		SetHopping true
 		mute
 			while not tree("ShouldAttack")
 				sequence
-					StartHopping
+					SetHopping true
 					repeat
 						sequence
 							GetPathToTarget
 							not
-								while TargetOnPath
+								while PathValid
 									MoveOnPath
-		StopHopping
+		SetHopping false
 
 tree("Attack")
 	while tree("ShouldAttack")
 		sequence
 			StopMoving
-			StartAttacking
+			SetAttacking true
 			PlayAnimation "attack"
 			Wait 1.0
 			ShootLaser
 			Wait 1.5
-			StopAttacking
+			SetAttacking false
 
 tree("ShouldAttack")
 	fallback

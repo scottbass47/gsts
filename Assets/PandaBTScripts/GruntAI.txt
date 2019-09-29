@@ -25,7 +25,7 @@ tree("Chase")
 			sequence
 				GetPathToTarget
 				not
-					while TargetOnPath
+					while PathValid
 						MoveOnPath 
 
 tree("ShouldAttack")

@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TeleporterTasks : BasicTasks
+public class TeleporterTasks : MonoBehaviour
 {
-    protected override float PathSpeed => 0;
-    protected override float PathTurningVelocity => 0;
+    private AI ai;
 
     [Task]
     private bool isTeleporting;
@@ -15,20 +14,17 @@ public class TeleporterTasks : BasicTasks
     private GameState gameState;
     private LevelScript levelScript;
 
-    private TeleporterStats tStats => (TeleporterStats)stats;
+    private TeleporterStats tStats => (TeleporterStats)ai.EnemyStats;
     private List<GameObject> enemiesToTeleport;
 
-    public override void Awake()
+    public void Awake()
     {
-        base.Awake();
-
         enemiesToTeleport = new List<GameObject>();
     }
 
-    public override void Start()
+    public void Start()
     {
-        base.Start();
-
+        ai = GetComponent<AI>();
         gameState = GameManager.Instance.GameState;
         levelScript = GameManager.Instance.LevelManager.LevelScript;
     }
@@ -38,7 +34,7 @@ public class TeleporterTasks : BasicTasks
     {
         var validEnemies = gameState.Enemies.FindAll((enemy) =>
         {
-            return enemy.GetComponent<AIController>().EnemyType != EnemyType.Teleporter;
+            return enemy.GetComponent<AI>().EnemyType != EnemyType.Teleporter;
         });
 
         if(validEnemies.Count < tStats.EnemiesToTelport.Min)
@@ -70,7 +66,7 @@ public class TeleporterTasks : BasicTasks
             if (enemy == null) continue;
 
             var worldBounds = levelScript.Grid.WorldGridBounds;
-            var ai = enemy.GetComponent<AIController>();
+            var ai = enemy.GetComponent<AI>();
 
             int tries = 0;
             while(tries < maxTries)

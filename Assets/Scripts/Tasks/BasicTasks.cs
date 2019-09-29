@@ -3,72 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BasicTasks : MonoBehaviour
+public class BasicTasks : MonoBehaviour
 {
-    [SerializeField] protected Animator animator;
-    [SerializeField] protected EnemyStats stats;
+    private AI ai;
+    private IMovement movement;
+    private EnemyStats stats;
 
-    protected AIController ai;
-    protected IMovement movement;
-    protected PathParameters pathParameters;
-
-    // Variables used if not specified in tasks
-    protected abstract float PathSpeed { get; }
-    protected abstract float PathTurningVelocity { get; }
-
-    public virtual void Awake()
+    public void Awake()
     {
-        ai = GetComponent<AIController>();
+        ai = GetComponent<AI>();
         movement = GetComponent<IMovement>();
-        movement.SetAnimator(animator);
-    }
-
-    public virtual void Start()
-    {
-        GetComponent<Health>().Amount = stats.Health;
-    }
-
-    [Task]
-    public void PlayAnimation(string animation)
-    {
-        if(animator == null)
-        {
-            Debug.Log("No animator assigned in BasicTasks");
-            Task.current.Fail();
-            return;
-        }
-        animator.SetTrigger(animation);
-        Task.current.Succeed();
-    }
-
-    [Task]
-    public void GetPathToTarget()
-    {
-        var task = Task.current;
-
-        if(task.isStarting)
-        {
-            ai.PendingPath = true;
-            ai.PathFailed = false;
-            ai.Level.PathRequestManager.RequestPath(ai.Pos.position, ai.Target.position, (path, success, parameters) =>
-            {
-                ai.PendingPath = false;
-                if (!success)
-                {
-                    ai.PathFailed = true;
-                    return;
-                }
-                ai.Path = new Path(path, ai.Pos.position, parameters.TurningRadius);
-            }, pathParameters);
-        }
-        if (ai.PathFailed)
-        {
-            task.Fail();
-        }
-        else if (!ai.PendingPath)
-        {
-            task.Succeed();
-        }
+        stats = ai.EnemyStats;
     }
 
     [Task]
@@ -143,22 +88,6 @@ public abstract class BasicTasks : MonoBehaviour
         TargetInRange(stats.GetStat<float>(rangeStat));
     }
 
-
-    [Task]
-    public void TargetOnPath()
-    {
-        var task = Task.current;
-
-        if (ai.Path.TargetOnPath(ai.Target.position))
-        {
-            task.Succeed();
-        }
-        else
-        {
-            task.Fail();
-        }
-    }
-
     [Task]
     public void WaitRandom(string stat)
     {
@@ -189,36 +118,6 @@ public abstract class BasicTasks : MonoBehaviour
         {
             task.Succeed();
         }
-    }
-
-    [Task]
-    public void MoveOnPath()
-    {
-        MoveOnPath(PathSpeed, PathTurningVelocity);
-    }
-
-    [Task]
-    public void MoveOnPath(float speed, float turningVelocity)
-    {
-        var path = ai.Path;
-
-        bool done = ai.Path.Done;
-        while(!done && path.AtNextWaypoint(ai.Pos.position))
-        {
-            path.AdvanceWaypoint();
-            done = path.Done;
-        }
-        if (done)
-        {
-            Task.current.Succeed();
-            return;
-        }
-
-        Vector2 dir = path.CurrentWaypoint - ai.Pos.position;
-        dir.Normalize();
-
-        movement.SetMoveDir(path.FirstWaypoint ? dir : Vector2.Lerp(movement.MoveDir, dir, Time.deltaTime * turningVelocity));
-        movement.MoveSpeed = speed;
     }
 
     [Task]

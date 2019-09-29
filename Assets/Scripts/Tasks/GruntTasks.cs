@@ -3,25 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GruntTasks : BasicTasks
+public class GruntTasks : MonoBehaviour
 {
     [SerializeField] private Transform feet;
 
     [Task]
     public bool IsAttacking { get; set; }
 
-    private GruntStats gruntStats => (GruntStats)stats;
+    private GruntStats gruntStats => (GruntStats)ai.EnemyStats;
 
-    protected override float PathSpeed => gruntStats.Speed;
-    protected override float PathTurningVelocity => gruntStats.TurningVelocity;
-
+    private AI ai;
     private Rigidbody2D rb2d;
+    private PathFindingTasks pathFinding;
 
-    public override void Start()
+    public void Start()
     {
-        base.Start();
-
+        ai = GetComponent<AI>();
         rb2d = GetComponent<Rigidbody2D>();
+        pathFinding = GetComponent<PathFindingTasks>();
+        pathFinding.SetMovementParameters(gruntStats.Speed, gruntStats.TurningVelocity);
     }
 
     [Task]

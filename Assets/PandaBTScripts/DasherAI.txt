@@ -58,28 +58,33 @@ tree("Chase")
 			TargetInLOS		
 			not	
 				TargetInAttackRange 
-		repeat
-			sequence
-				GetPathToTarget
-				not
-					while TargetOnPath
-						race
-							MoveOnPath 
-							AimGunAlongPath
+		sequence
+			SetChasePathParameters
+			repeat
+				sequence
+					GetPathToTarget
+					not
+						while PathValid
+							race
+								MoveOnPath 
+								AimGunAlongPath
 
 tree("Patrol")
 	while not TargetInLOS
 		sequence
+			SetPatrolPathParameters
 			FindPatrolWaypoints
 			not
-				while MoreWaypoints // Move between waypoints
+				while 
+					MoreWaypoints // Move between waypoints
 					repeat
 						sequence
-							ResetPathVariables
 							ObtainPathToWaypoint
-							race
-								MoveOnPath 
-								AimGunAlongPath
+							while
+								PathValid
+								race
+									MoveOnPath 
+									AimGunAlongPath
 							IncrementWaypoint
 			Idle
 			WaitRandom 1.5 3.0 // Idle before finding new wayoints

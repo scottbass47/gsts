@@ -11,7 +11,7 @@ using Panda;
 [RequireComponent(typeof(BasicTasks))]
 [RequireComponent(typeof(PandaBehaviour))]
 [RequireComponent(typeof(DamageFilter))]
-public class AIController : MonoBehaviour
+public class AI : MonoBehaviour
 {
     private Transform target;
 
@@ -22,8 +22,10 @@ public class AIController : MonoBehaviour
     }
 
     [SerializeField] private EnemyType enemyType;
-
     public EnemyType EnemyType => enemyType;
+
+    [SerializeField] private EnemyStats enemyStats;
+    public EnemyStats EnemyStats => enemyStats;
 
     [SerializeField] private Transform pos;
     public Transform Pos
@@ -51,20 +53,6 @@ public class AIController : MonoBehaviour
         set => path = value;
     }
 
-    private bool pendingPath;
-    public bool PendingPath
-    {
-        get => pendingPath;
-        set => pendingPath = value;
-    }
-
-    private bool pathFailed;
-    public bool PathFailed
-    {
-        get => pathFailed;
-        set => pathFailed = value;
-    }
-
     private Coroutine flash;
     private bool flashing = false;
 
@@ -79,6 +67,8 @@ public class AIController : MonoBehaviour
 
     private void Start()
     {
+        GetComponent<Health>().Amount = EnemyStats.Health;
+
         var death = GetComponent<Death>();
         death.DestroyOnDeath = false;
         death.OnDeath += () =>

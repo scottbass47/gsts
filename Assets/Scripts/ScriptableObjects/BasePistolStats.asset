@@ -17,6 +17,6 @@ MonoBehaviour:
   knockbackAmount: 0
   fireRate: 15
   reloadRate: 1
-  magSize: 600
-  semiAuto: 0
+  magSize: 6
+  semiAuto: 1
   enemyGun: 0

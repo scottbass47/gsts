@@ -65,6 +65,8 @@ GameObject:
   - component: {fileID: 3298269904947443719}
   - component: {fileID: 4879383344069555372}
   - component: {fileID: 8074605811950102069}
+  - component: {fileID: 4030468140867371300}
+  - component: {fileID: 7113687866631781078}
   m_Layer: 10
   m_Name: Teleporter
   m_TagString: Untagged
@@ -136,6 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 5
+  enemyStats: {fileID: 11400000, guid: e5fdd9b72775e7b4f80b86283d80b2e3, type: 2}
   pos: {fileID: 1611580547}
   feetHitbox: {fileID: 4964115797230427942}
   deathPrefab: {fileID: 4507840772731348428, guid: 09082c036ed3f494fad39f0b2195b84c,
@@ -224,8 +227,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bddec543c7f4278489573d70c78e27e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4030468140867371300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536418901072705457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eeb4c0b539cdb345b1c9a58e81d4e2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   animator: {fileID: 6267374694890233373}
-  stats: {fileID: 11400000, guid: e5fdd9b72775e7b4f80b86283d80b2e3, type: 2}
+--- !u!114 &7113687866631781078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536418901072705457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da6ab7430edfda47bebe0dd4ed19544, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3067845398605578285
 GameObject:
   m_ObjectHideFlags: 0

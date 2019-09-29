@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject Spawn(EnemyType type)
     {
         var obj = Instantiate(prefabTable[type]);
-        obj.GetComponent<AIController>().Target = GameManager.Instance.Player.GetComponent<Body>().CenterFeet;
+        obj.GetComponent<AI>().Target = GameManager.Instance.Player.GetComponent<Body>().CenterFeet;
         return obj;
     }
 }

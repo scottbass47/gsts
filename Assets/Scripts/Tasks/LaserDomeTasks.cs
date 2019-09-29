@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class LaserDomeTasks : BasicTasks
+public class LaserDomeTasks : MonoBehaviour
 {
-    protected override float PathSpeed => hopStarted ? laserDomeStats.Speed : 0;
-    protected override float PathTurningVelocity => laserDomeStats.TurningVelocity;
-
+    private AI ai;
+    private AnimationTasks animationTasks;
     private LaserDomeAnimationHelper animationHelper;
+    private PathFindingTasks pathFinding;
 
-    private LaserDomeStats laserDomeStats => (LaserDomeStats)stats;
+    private LaserDomeStats laserDomeStats => (LaserDomeStats)ai.EnemyStats;
 
     [SerializeField] private Transform hopTransform;
     private bool hopStarted;
@@ -33,11 +33,14 @@ public class LaserDomeTasks : BasicTasks
     [SerializeField] private Transform enemySortingTransform;
     [SerializeField] private SortingGroup laserSortingGroup;
 
-    public override void Start()
+    public void Start()
     {
-        base.Start();
-
+        ai = GetComponent<AI>();
+        animationTasks = GetComponent<AnimationTasks>();
         animationHelper = GetComponentInChildren<LaserDomeAnimationHelper>();
+        pathFinding = GetComponentInChildren<PathFindingTasks>();
+        pathFinding.SetMovementParameters(laserDomeStats.Speed, laserDomeStats.TurningVelocity);
+        pathFinding.SetMoveSpeedFunction(() => hopStarted ? laserDomeStats.Speed : 0);
 
         laserObj = Instantiate(laserPrefab, laserSortingGroup.transform);
         laserObj.SetActive(false);
@@ -45,38 +48,24 @@ public class LaserDomeTasks : BasicTasks
     }
 
     [Task]
-    public void StartHopping()
+    public void SetHopping(bool hopping)
     {
-        SetHopping(true);
-        Task.current.Succeed();
-    }
-
-    [Task]
-    public void StopHopping()
-    {
-        SetHopping(false);
-        Task.current.Succeed();
-    }
-
-    private void SetHopping(bool hopping)
-    {
-        if (this.hopping == hopping) return;
+        var task = Task.current;
+        if (this.hopping == hopping)
+        {
+            task.Succeed();
+            return;
+        }
 
         this.hopping = hopping;
-        animator.SetBool("hopping", hopping);
+        animationTasks.Animator.SetBool("hopping", hopping);
+        task.Succeed();
     }
 
     [Task]
-    public void StartAttacking()
+    public void SetAttacking(bool attacking)
     {
-        isAttacking = true;
-        Task.current.Succeed();
-    }
-
-    [Task]
-    public void StopAttacking()
-    {
-        isAttacking = false;
+        isAttacking = attacking;
         Task.current.Succeed();
     }
 
@@ -145,35 +134,4 @@ public class LaserDomeTasks : BasicTasks
             hopTransform.localPosition = Vector3.zero; 
         }
     }
-
-    //private IEnumerator HoppingRoutine()
-    //{
-    //    float yVel = 0;
-    //    float y = 0;
-    //    while (hopping)
-    //    {
-    //        if(animationHelper.HopState == HopState.InAir && !hopStarted)
-    //        {
-    //            hopStarted = true;
-    //            yVel = hopVelInitial;
-    //        }
-    //        else if(animationHelper.HopState == HopState.Landed && hopStarted)
-    //        {
-    //            hopStarted = false;
-    //            yVel = 0;
-    //            y = 0;
-    //            hopTransform.localPosition = Vector3.zero;
-    //        }
-
-    //        if (hopStarted)
-    //        {
-    //            yVel += laserDomeStats.HopGravity * Time.deltaTime;
-    //            y += yVel * Time.deltaTime;
-
-    //            hopTransform.localPosition = Vector3.up * y;
-    //        }
-
-    //        yield return null;
-    //    }
-    //}
 }

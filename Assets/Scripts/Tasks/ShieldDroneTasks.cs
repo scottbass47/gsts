@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldDroneTasks : BasicTasks
+public class ShieldDroneTasks : MonoBehaviour
 {
     [SerializeField] private Transform feet;
     [SerializeField] private GameObject bulletPrefab;
@@ -19,14 +19,14 @@ public class ShieldDroneTasks : BasicTasks
     private Shield shield;
     private bool shieldTransitioning;
 
-    protected override float PathSpeed => shieldDroneStats.Speed;
-    protected override float PathTurningVelocity => float.MaxValue;
+    private AI ai;
+    private PathFindingTasks pathFinding;
+    private IMovement movement;
 
-    private ShieldDroneStats shieldDroneStats => (ShieldDroneStats)stats;
+    private ShieldDroneStats shieldDroneStats => (ShieldDroneStats)ai.EnemyStats;
 
-    public override void Awake()
+    public void Awake()
     {
-        base.Awake();
         barrelPosDict = new Dictionary<Direction, Vector3>();
 
         foreach(var barrelPos in barrelPositions)
@@ -35,17 +35,20 @@ public class ShieldDroneTasks : BasicTasks
         }
     }
 
-    public override void Start()
+    public void Start()
     {
-        base.Start();
-
+        ai = GetComponent<AI>();
+        movement = GetComponent<IMovement>();
         attackDirection = GetComponentInChildren<ShieldDroneAttackDirection>();
         damageFilter = GetComponent<DamageFilter>();
         damageFilter.IsInvulnerable = true;
 
         shield = shieldObject.GetComponent<Shield>();
         shield.ShieldTime = 0.5f;
-        pathParameters = new PathParameters(false, 0.05f);
+
+        pathFinding = GetComponent<PathFindingTasks>();
+        pathFinding.SetMovementParameters(shieldDroneStats.Speed, float.MaxValue);
+        pathFinding.SetPathParameters(new PathParameters(false, 0.05f));
     }
 
     [Task]

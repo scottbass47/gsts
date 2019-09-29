@@ -42,7 +42,7 @@ tree("FollowPath")
 		sequence
 			GetPathToTarget
 			not
-				while TargetOnPath
+				while PathValid
 					MoveOnPath 
 
 tree("Sprint")

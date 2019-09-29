@@ -3,29 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SprinterTasks : BasicTasks
+public class SprinterTasks : MonoBehaviour
 {
-    private SprinterStats sprinterStats => (SprinterStats)stats;
+    private AI ai;
+    private SprinterStats sprinterStats => (SprinterStats)ai.EnemyStats;
 
     private bool isSprinting;
 
     [Task] public bool IsAttacking { get; set; }
     [Task] public bool IsCoolingDown { get; set; } 
 
-    protected override float PathSpeed => isSprinting ? sprinterStats.SprintSpeed : sprinterStats.RunSpeed;
-    protected override float PathTurningVelocity => sprinterStats.TurningVelocity;
+    private PathFindingTasks pathFinding;
+
+    public void Start()
+    {
+        ai = GetComponent<AI>();
+        pathFinding = GetComponent<PathFindingTasks>();
+        pathFinding.SetMovementParameters(sprinterStats.RunSpeed, sprinterStats.TurningVelocity);
+        pathFinding.SetMoveSpeedFunction(() => isSprinting ? sprinterStats.SprintSpeed : sprinterStats.RunSpeed);
+    }
 
     [Task]
     public void SetSprinting(bool sprinting)
     {
         isSprinting = sprinting;
-        Task.current.Succeed();
-    }
-
-    [Task]
-    public void Sprint()
-    {
-        movement.MoveSpeed = sprinterStats.SprintSpeed;
         Task.current.Succeed();
     }
 

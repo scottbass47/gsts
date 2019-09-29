@@ -674,6 +674,9 @@ GameObject:
   - component: {fileID: 6465574195281378262}
   - component: {fileID: 1158464108486916399}
   - component: {fileID: 489326255497128533}
+  - component: {fileID: 3429254485422565263}
+  - component: {fileID: 1085825156023511929}
+  - component: {fileID: 1905096395438592194}
   m_Layer: 14
   m_Name: ShieldDrone
   m_TagString: Untagged
@@ -805,6 +808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 2
+  enemyStats: {fileID: 11400000, guid: 0ca79db8c3dd46247ae312135e684c69, type: 2}
   pos: {fileID: 7055276166770888384}
   feetHitbox: {fileID: 9149052073213276924}
   deathPrefab: {fileID: 5592017619078036722, guid: 8ca745e862d45d94889dd8c2c797ab5c,
@@ -822,8 +826,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc2e534ebec1bb45bec74b5c72d6f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 4190959119475458467}
-  stats: {fileID: 11400000, guid: 0ca79db8c3dd46247ae312135e684c69, type: 2}
   feet: {fileID: 7055276166770888384}
   bulletPrefab: {fileID: 8612871962655403228, guid: 8758ce33d7d11d8429a83283a4011a57,
     type: 3}
@@ -851,5 +853,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: baa1a0c69a557fe47927313e4a18e72b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3429254485422565263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8704914495930380701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c11dd83bb4fe0547a7c890d9309e9ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1085825156023511929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8704914495930380701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eeb4c0b539cdb345b1c9a58e81d4e2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4190959119475458467}
+--- !u!114 &1905096395438592194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8704914495930380701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da6ab7430edfda47bebe0dd4ed19544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

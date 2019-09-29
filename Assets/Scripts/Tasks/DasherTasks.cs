@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 using Random = UnityEngine.Random;
 using Panda;
 
-public class DasherTasks : BasicTasks
+public class DasherTasks : MonoBehaviour
 {
     [SerializeField] private Transform feet;
     [SerializeField] private Transform target;
@@ -15,10 +15,15 @@ public class DasherTasks : BasicTasks
     [SerializeField] private Texture2D dashForward;
     [SerializeField] private Texture2D dashBackward;
 
+    private AI ai;
+    private IMovement movement;
+    private BasicTasks basicTasks;
+    private AnimationTasks animationTasks;
     private Physics physics;
     private GunController gun;
     private Transform targetBody;
     private ParticleSystem particles;
+    private PathFindingTasks pathFinding;
 
     private float attackCooldown;
 
@@ -29,7 +34,7 @@ public class DasherTasks : BasicTasks
     private int currPatrolWaypoint;
     private int bulletsToShoot;
     private Vector2 dashDir;
-    private DasherStats dasherStats => (DasherStats)stats;
+    private DasherStats dasherStats => (DasherStats)ai.EnemyStats;
 
     [Task]
     public bool MoreWaypoints => currPatrolWaypoint < patrolWaypoints.Count;
@@ -40,22 +45,22 @@ public class DasherTasks : BasicTasks
     [Task]
     public bool StillShooting => bulletsToShoot > 0;
 
-    protected override float PathSpeed => dasherStats.Speed;
-    protected override float PathTurningVelocity => dasherStats.TurningVelocity;
-
-    public override void Awake()
+    private void Awake()
     {
-        base.Awake();
         patrolWaypoints = new List<Vector3>();
     }
 
-    public override void Start()
+    public void Start()
     {
-        base.Start();
+        ai = GetComponent<AI>();
+        basicTasks = GetComponent<BasicTasks>();
+        animationTasks = GetComponent<AnimationTasks>();
         physics = GetComponent<Physics>();
         movement = GetComponent<BasicMovement>();
         gun = GetComponentInChildren<GunController>();
         particles = GetComponent<ParticleSystem>();
+        pathFinding = GetComponent<PathFindingTasks>();
+        pathFinding.SetMovementParameters(dasherStats.Speed, dasherStats.TurningVelocity);
 
         var playerBody = GameManager.Instance.Player.GetComponent<Body>();
         targetBody = playerBody.CenterBody;
@@ -64,7 +69,7 @@ public class DasherTasks : BasicTasks
     [Task]
     public void TargetInAttackRange()
     {
-        TargetInRange(dasherStats.AttackRange);
+        basicTasks.TargetInRange(dasherStats.AttackRange);
     }
 
     [Task]
@@ -182,7 +187,7 @@ public class DasherTasks : BasicTasks
     [Task]
     public void EndDash()
     {
-        animator.SetTrigger("dash_over");
+        animationTasks.Animator.SetTrigger("dash_over");
         particles.Stop();
         Task.current.Succeed();
     }
@@ -193,6 +198,20 @@ public class DasherTasks : BasicTasks
         var target = 5 * movement.MoveDir + (Vector2)ai.Pos.position; 
         gun.AimAt(target, ai.Pos.position);
         //gun.SetDrawOrder(!movement.FacingBack);
+    }
+
+    [Task]
+    public void SetChasePathParameters()
+    {
+        pathFinding.SetMovementParameters(dasherStats.Speed, dasherStats.TurningVelocity);
+        Task.current.Succeed();
+    }
+
+    [Task]
+    public void SetPatrolPathParameters()
+    {
+        pathFinding.SetMovementParameters(dasherStats.PatrolSpeed, dasherStats.TurningVelocity);
+        Task.current.Succeed();
     }
 
     [Task]
@@ -214,49 +233,10 @@ public class DasherTasks : BasicTasks
         Task.current.Succeed();
     }
 
-    private bool waitingOnPath;
-    private bool pathRequested;
-
-    [Task]
-    public void ResetPathVariables()
-    {
-        waitingOnPath = false;
-        pathRequested = false;
-        Task.current.Succeed();
-    }
-
     [Task]
     public void ObtainPathToWaypoint()
     {
-        if (waitingOnPath) return;
-
-        var waypoint = patrolWaypoints[currPatrolWaypoint];
-        bool pathFail = false;
-
-        if (!pathRequested)
-        {
-            ai.Level.PathRequestManager.RequestPath(ai.Pos.position, waypoint, (path, success, parameters) =>
-            {
-                if (!success)
-                {
-                    pathFail = true;
-                    return;
-                }
-                ai.Path = new Path(path, ai.Pos.position, parameters.TurningRadius);
-                waitingOnPath = false;
-            });
-            waitingOnPath = true;
-            pathRequested = true;
-        }
-
-        if (pathFail)
-        {
-            Task.current.Fail();
-        }
-        else
-        {
-            Task.current.Succeed();
-        }
+        pathFinding.GetPathToPos(patrolWaypoints[currPatrolWaypoint]);
     }
 
     [Task]

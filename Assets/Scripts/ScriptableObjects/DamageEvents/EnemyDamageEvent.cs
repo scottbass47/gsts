@@ -10,7 +10,7 @@ public class EnemyDamageEvent : DamageEvent
     public override void OnDamage(DamageFilter filter, float amount)
     {
         var obj = filter.gameObject;
-        obj.GetComponent<AIController>().Flash(flashDuration);
+        obj.GetComponent<AI>().Flash(flashDuration);
 
         if(obj.GetComponent<Health>().Amount > 0)
         {

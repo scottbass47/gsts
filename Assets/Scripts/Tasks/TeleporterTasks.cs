@@ -80,6 +80,7 @@ public class TeleporterTasks : MonoBehaviour
                     (pos - ai.Pos.position).magnitude > tStats.MinTeleportDistance)
                 {
                     ai.transform.position = pos - ai.Pos.localPosition;
+                    ai.GetComponent<PathFindingTasks>()?.InvalidatePath();
                     break;
                 }
                 tries++;

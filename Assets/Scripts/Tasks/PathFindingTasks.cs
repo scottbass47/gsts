@@ -95,6 +95,7 @@ public class PathFindingTasks : MonoBehaviour
         }
         else if (!pathPending)
         {
+            pathInvalid = false;
             task.Succeed();
         }
     }

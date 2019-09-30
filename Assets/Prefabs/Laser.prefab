@@ -272,8 +272,6 @@ MonoBehaviour:
   beginning: {fileID: 7183226898280790219}
   middle: {fileID: 7183226897897597675}
   end: {fileID: 7183226897291503834}
-  beginningLength: 0.625
-  endLength: 0.5
   wallLayer:
     serializedVersion: 2
     m_Bits: 32768
@@ -475,6 +473,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7183226898327048055}
+  - component: {fileID: 5974892991919375116}
   m_Layer: 0
   m_Name: Pivot
   m_TagString: Untagged
@@ -499,6 +498,17 @@ Transform:
   m_Father: {fileID: 7183226897718582103}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &5974892991919375116
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7183226898327048052}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &7374872545077914084
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ public class Laser : MonoBehaviour
     private GameObject hitObject;
     public GameObject HitObject => hitObject;
 
-    private void Start()
+    private void Awake()
     {
         middleOff = middle.transform.localPosition;
         endOff = end.transform.localPosition;

@@ -85,17 +85,16 @@ public class LaserDomeTasks : MonoBehaviour
         var toTarget = ai.Target.position - ai.Pos.position;
         var targetAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
 
-        GameObject hitObj = null;
-
         if(AngleBetween(lastAngle, laserAngle, targetAngle))
         {
-            hitObj = laser.Shoot(targetAngle);
-            if (hitObj.CompareTag("Player"))
-            {
-                DamageManager.DealDamage(hitObj);
-            }
+            laser.Shoot(targetAngle);
         }
-        hitObj = laser.Shoot(laserAngle);
+        laser.Shoot(laserAngle);
+
+        if (laser.HitObject.CompareTag("Player"))
+        {
+            DamageManager.DealDamage(laser.HitObject);
+        }
 
         lastAngle = laserAngle;
         laserSortingGroup.sortingOrder = -(int)Mathf.Sign(Mathf.Sin(laserAngle * Mathf.Deg2Rad));

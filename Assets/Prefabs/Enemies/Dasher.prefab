@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 825730250306090470}
   - component: {fileID: 2908046485296991269}
   - component: {fileID: 2045251169771505391}
+  - component: {fileID: 9031751357032535249}
   m_Layer: 10
   m_Name: Dasher
   m_TagString: Untagged
@@ -4964,7 +4965,7 @@ MonoBehaviour:
   autoReset: 1
   tickOn: 0
   sourceInfos:
-  - isFoldout: 1
+  - isFoldout: 0
     breakPoints: 
     breakPointStatuses: 
     collapsedLines: 
@@ -4992,6 +4993,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6da6ab7430edfda47bebe0dd4ed19544, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9031751357032535249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2392959800455960250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d911dbb3989f43e439ff31ad0c1693f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2924391885684482342

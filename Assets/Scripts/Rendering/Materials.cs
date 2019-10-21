@@ -10,9 +10,8 @@ public class Materials : MonoBehaviour
 {
     public static Materials Instance = null;
 
-    [SerializeField] private Material flashMaterial;
-
-    public Material FlashMaterial => flashMaterial;
+    [SerializeField] private Material vfxMaterial;
+    public Material VFXMaterial => vfxMaterial;
 
     private void Awake()
     {

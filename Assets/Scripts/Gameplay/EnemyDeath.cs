@@ -28,8 +28,11 @@ public class EnemyDeath : MonoBehaviour
     public void Initialize(GameObject enemy)
     {
         transform.position = enemy.transform.position;
-        FacingRight = enemy.GetComponent<IMovement>().FacingRight;
-        if(flashOnDeath) StartCoroutine(DrawUtils.Flash(gameObject, 0.2f));
+        FacingRight = enemy.GetComponent<Movement>().FacingRight;
+        if (flashOnDeath)
+        {
+            enemy.GetComponent<AI>().Flash(0.2f);
+        }
     }
 
     public void AnimationFinished()

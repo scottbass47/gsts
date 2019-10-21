@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class OutlineRenderer : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
+    private MaterialPropertyBlock materialProps;
+
     private void Awake()
     {
-        //var material = GetComponent<SpriteRenderer>().material;
-        //material.SetFloat("_Resolution", 20);
-        //material.SetColor("_OutlineColor", Color.white);
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        materialProps = new MaterialPropertyBlock();
+    }
+
+    private void LateUpdate()
+    {
+        spriteRenderer.GetPropertyBlock(materialProps);
+        materialProps.SetFloat("_OutlinesOn", 1.0f);
+        spriteRenderer.SetPropertyBlock(materialProps);
     }
 }

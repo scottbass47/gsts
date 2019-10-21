@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DasherStats
   m_EditorClassIdentifier: 
   speed: 4
-  health: 1
+  health: 40
   turningVelocity: 3
   attackCooldown: 1.5
   attackRange: 5
@@ -21,8 +21,6 @@ MonoBehaviour:
   maxBullets: 4
   dashTime: 0.2
   dashDistance: 4
-  shuffleDistance: 1
-  shuffleSpeed: 2
   patrolWaypoints: 1
   patrolSpeed: 4
   patrolRadius: 6

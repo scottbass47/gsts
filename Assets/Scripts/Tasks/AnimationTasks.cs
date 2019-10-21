@@ -8,7 +8,7 @@ public class AnimationTasks : MonoBehaviour
     [SerializeField] private Animator animator;
     public Animator Animator => animator;
 
-    private IMovement movement;
+    private Movement movement;
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class AnimationTasks : MonoBehaviour
         {
             Debug.LogError("AnimationTasks - No animator assigned!");
         }
-        movement = GetComponent<IMovement>();
+        movement = GetComponent<Movement>();
         movement?.SetAnimator(animator);
     }
 

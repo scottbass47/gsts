@@ -6,11 +6,11 @@ using System.Text;
 using UnityEngine;
 
 [RequireComponent(typeof(AI))]
-[RequireComponent(typeof(IMovement))]
+[RequireComponent(typeof(Movement))]
 public class PathFindingTasks : MonoBehaviour
 {
     private AI ai;
-    private IMovement movement;
+    private Movement movement;
 
     private PathParameters pathParameters = PathParameters.Default;
     private float moveSpeed;
@@ -32,7 +32,7 @@ public class PathFindingTasks : MonoBehaviour
     private void Awake()
     {
         ai = GetComponent<AI>();
-        movement = GetComponent<IMovement>();
+        movement = GetComponent<Movement>();
     }
 
     public void SetPathParameters(PathParameters pathParameters)
@@ -121,7 +121,7 @@ public class PathFindingTasks : MonoBehaviour
         Vector2 dir = path.CurrentWaypoint - ai.Pos.position;
         dir.Normalize();
 
-        movement.SetMoveDir(path.FirstWaypoint ? dir : Vector2.Lerp(movement.MoveDir, dir, Time.deltaTime * TurningVelocity));
+        movement.MoveDir = path.FirstWaypoint ? dir : Vector2.Lerp(movement.MoveDir, dir, Time.deltaTime * TurningVelocity);
         movement.MoveSpeed = MoveSpeed;
     }
 

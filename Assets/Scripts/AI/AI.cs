@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using FluentBehaviourTree;
 using Panda;
+using Effects;
+using static Panda.BehaviourTree;
 
-[RequireComponent(typeof(IMovement))]
+[RequireComponent(typeof(Movement))]
 [RequireComponent(typeof(Death))]
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(Physics))]
@@ -59,6 +61,27 @@ public class AI : MonoBehaviour
     [SerializeField] private GameObject deathPrefab;
     [SerializeField] private bool drawPath = false;
 
+    private PandaBehaviour pandaBehavior;
+    private EffectHandler statusEffectHandler;
+
+    private bool stunned;
+    public bool Stunned
+    {
+        get => stunned;
+        set
+        {
+            stunned = value;
+            if (stunned)
+            {
+                pandaBehavior.enabled = false;
+            }
+            else
+            {
+                pandaBehavior.enabled = true;
+            }
+        }
+    }
+
     private void Awake()
     {
         // Add myself to be tracked
@@ -79,18 +102,14 @@ public class AI : MonoBehaviour
             SoundManager.PlaySound(Sounds.EnemyFleshHitFatal);
             Destroy(gameObject);
         };
+
+        pandaBehavior = GetComponent<PandaBehaviour>();
+        statusEffectHandler = GetComponent<EffectHandler>();
     }
 
     public void Flash(float duration)
     {
-        if (flashing) return;
-        flashing = true;
-        StartCoroutine(DrawUtils.Flash(gameObject, duration, flashFinished));
-    }
-
-    private void flashFinished()
-    {
-        flashing = false;
+        statusEffectHandler.AddEffect(new FlashEffect(duration));
     }
 
     private void OnDrawGizmos()

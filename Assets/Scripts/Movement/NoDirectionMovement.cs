@@ -2,41 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NoDirectionMovement : MonoBehaviour, IMovement
+public class NoDirectionMovement : Movement
 {
-    private float moveSpeed;
-    public float MoveSpeed
+    public override float MoveSpeed
     {
-        get => moveSpeed;
+        get => base.MoveSpeed;
         set
         {
-            moveSpeed = value;
-            animator.SetFloat("move_speed", moveSpeed);
+            base.MoveSpeed = value;
+            animator.SetFloat("move_speed", MoveSpeed);
         }
-    }
-
-    private Vector2 moveDir;
-    public Vector2 MoveDir => moveDir;
-
-    public bool FacingRight => false;
-    public bool FacingBack => false;
-
-    public bool IsMoving => moveSpeed > 0;
-
-    private Animator animator;
-
-    public void Idle()
-    {
-        MoveSpeed = 0;
-    }
-
-    public void SetAnimator(Animator animator)
-    {
-        this.animator = animator;
-    }
-
-    public void SetMoveDir(Vector2 moveDir)
-    {
-        this.moveDir = moveDir;
     }
 }

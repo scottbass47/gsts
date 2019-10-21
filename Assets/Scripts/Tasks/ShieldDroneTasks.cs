@@ -21,7 +21,7 @@ public class ShieldDroneTasks : MonoBehaviour
 
     private AI ai;
     private PathFindingTasks pathFinding;
-    private IMovement movement;
+    private Movement movement;
 
     private ShieldDroneStats shieldDroneStats => (ShieldDroneStats)ai.EnemyStats;
 
@@ -38,7 +38,7 @@ public class ShieldDroneTasks : MonoBehaviour
     public void Start()
     {
         ai = GetComponent<AI>();
-        movement = GetComponent<IMovement>();
+        movement = GetComponent<Movement>();
         attackDirection = GetComponentInChildren<ShieldDroneAttackDirection>();
         damageFilter = GetComponent<DamageFilter>();
         damageFilter.IsInvulnerable = true;

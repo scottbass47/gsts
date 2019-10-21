@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 417036213789464918}
   - component: {fileID: 417036213789464919}
   - component: {fileID: 417036213789464920}
+  - component: {fileID: 8202939913404871964}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -51,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14c415961580d9b4880d108e76939d5d, type: 2}
+  - {fileID: 2100000, guid: a9cbebd02f555f6488b36e69756bde57, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,6 +107,18 @@ MonoBehaviour:
   drawDebug: 0
   muzzleFlashPrefab: {fileID: 1198963700889164077, guid: 2665b1978b7264c4e8845fa598cf72b1,
     type: 3}
+--- !u!114 &8202939913404871964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417036213789464917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6dee5dccd2eb104c9c7d8ead98f97c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4421015038831943784
 GameObject:
   m_ObjectHideFlags: 0

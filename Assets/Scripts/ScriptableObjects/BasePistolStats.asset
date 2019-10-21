@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   damage: 5
-  knockbackAmount: 0
+  knockbackAmount: 5
   fireRate: 15
   reloadRate: 1
-  magSize: 6
-  semiAuto: 1
+  magSize: 20
+  semiAuto: 0
   enemyGun: 0

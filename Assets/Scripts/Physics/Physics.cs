@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,13 +8,18 @@ public class Physics : MonoBehaviour
 {
     private Rigidbody2D body;
     private Vector2 netForce;
-    private bool applyingKnockback;
-    private IMovement movement;
+    private Movement movement;
+
+    public float Weight
+    {
+        get;
+        set;
+    } = 1;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        movement = GetComponent<IMovement>();
+        movement = GetComponent<Movement>();
         netForce = Vector2.zero;
     }
 
@@ -24,30 +30,13 @@ public class Physics : MonoBehaviour
 
     private void Update()
     {
-        body.velocity = netForce;
         if(movement != null)
         {
-            body.velocity += movement.MoveDir * movement.MoveSpeed;
+            AddForce(movement.MoveDir * movement.MoveSpeed);
         }
+
+        body.velocity = netForce;
         netForce = Vector2.zero;
     }
-
-    public void ApplyKnockback(Vector2 dir, float duration, float force)
-    {
-        if (applyingKnockback) return;
-        StartCoroutine(KnockbackCoroutine(dir, duration, force));
-    }
-
-    private IEnumerator KnockbackCoroutine(Vector2 dir, float duration, float force)
-    {
-        applyingKnockback = true;
-        float time = 0;
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            AddForce(force * dir);
-            yield return null;
-        }
-        applyingKnockback = false;        
-    }
 }
+

@@ -17,6 +17,14 @@ MonoBehaviour:
     - data:
       - type: 0
         amount: 1
+      - type: 1
+        amount: 1
+      - type: 2
+        amount: 1
+      - type: 3
+        amount: 1
+      - type: 4
+        amount: 1
   - subWaves:
     - data:
       - type: 0

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Effects;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -76,8 +77,9 @@ public class Bullet : MonoBehaviour {
         GameObject other = collider.gameObject;
         bool damageDealt = DamageManager.DealDamage(other, Damage);
 
-        var physics = other.GetComponentInParent<Physics>();
-        physics?.ApplyKnockback(dir, 0.2f, KnockbackAmount);
+        var effectHandler = other.GetComponentInParent<EffectHandler>();
+        effectHandler?.AddEffect(new KnockbackEffect(0.2f, dir, KnockbackAmount));
+        effectHandler?.AddEffect(new StunEffect(5f));
         
         if(useImpact && collider.tag == "WallsCollision")
         {

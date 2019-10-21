@@ -16,7 +16,7 @@ public class DasherTasks : MonoBehaviour
     [SerializeField] private Texture2D dashBackward;
 
     private AI ai;
-    private IMovement movement;
+    private Movement movement;
     private BasicTasks basicTasks;
     private AnimationTasks animationTasks;
     private Physics physics;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Effects;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private GunController gunController;
     private Physics physics;
     private Health health;
+    private EffectHandler effectsHandler;
 
     private Vector2 movementVector;
     private bool shouldIdle;
@@ -20,8 +22,6 @@ public class PlayerController : MonoBehaviour
 
     private float elapsed;
     private int footstepSoundHandle;
-
-    [SerializeField] private Material flashMaterial;
 
     private EventManager events;
 
@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
         health.Amount = stats.MaxHealth;
 
         bodyRenderer.color = Color.white;
+        effectsHandler = GetComponent<EffectHandler>();
     }
 
     // Update is called once per frame
@@ -156,33 +157,16 @@ public class PlayerController : MonoBehaviour
         var damageFilter = GetComponent<DamageFilter>();
         damageFilter.IsInvulnerable = true;
 
-        yield return DrawUtils.Flash(gameObject, 0.15f);
-        yield return Blinking(0.75f, 0.1f);
+        float blinkTime = 0.1f;
+        float flashDuration = 0.15f;
+        float blinkDuration = 0.75f;
+
+        effectsHandler.AddEffect(new FlashEffect(flashDuration));
+        yield return new WaitForSeconds(flashDuration);
+
+        effectsHandler.AddEffect(new BlinkEffect(blinkDuration, blinkTime));
+        yield return new WaitForSeconds(blinkTime);
 
         damageFilter.IsInvulnerable = false;
-    }
-
-    private IEnumerator Blinking(float duration, float blinkTime)
-    {
-        var renderers = GetComponentsInChildren<SpriteRenderer>();
-
-        float time = 0;
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            int interval = (int)(time / blinkTime);
-            foreach(var render in renderers)
-            {
-                render.enabled = interval % 2 == 1;
-            }
-            yield return null;
-        }
-
-        // Re-enable all the renderers
-        foreach(var render in renderers)
-        {
-            render.enabled = true;
-        }
     }
 }

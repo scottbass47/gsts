@@ -6,13 +6,13 @@ using UnityEngine;
 public class BasicTasks : MonoBehaviour
 {
     private AI ai;
-    private IMovement movement;
+    private Movement movement;
     private EnemyStats stats;
 
     public void Awake()
     {
         ai = GetComponent<AI>();
-        movement = GetComponent<IMovement>();
+        movement = GetComponent<Movement>();
         stats = ai.EnemyStats;
     }
 
@@ -137,7 +137,7 @@ public class BasicTasks : MonoBehaviour
     [Task]
     public void FaceTarget()
     {
-        movement.SetMoveDir(ai.Target.position - ai.Pos.position);
+        movement.MoveDir = ai.Target.position - ai.Pos.position;
         Task.current.Succeed();
     }
     

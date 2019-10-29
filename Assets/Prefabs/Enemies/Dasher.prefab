@@ -5037,6 +5037,7 @@ Transform:
   m_Children:
   - {fileID: 8137777592736333450}
   - {fileID: 6173022296149439545}
+  - {fileID: 9212402729844558078}
   m_Father: {fileID: 9051992387803639532}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5051,6 +5052,36 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &4835416964065867561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9212402729844558078}
+  m_Layer: 10
+  m_Name: Gun Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9212402729844558078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4835416964065867561}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.631, y: 0.291, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6981578159592759690}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7825118613627087481
 GameObject:
   m_ObjectHideFlags: 0
@@ -5280,6 +5311,22 @@ PrefabInstance:
       propertyPath: rotateBullet
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4827996444111507751, guid: 1af39f0471d80504ba0b5f37a65f1ce9,
+        type: 3}
+      propertyPath: center
+      value: 
+      objectReference: {fileID: 9051992387803639532}
+    - target: {fileID: 4827996444111507751, guid: 1af39f0471d80504ba0b5f37a65f1ce9,
+        type: 3}
+      propertyPath: hand
+      value: 
+      objectReference: {fileID: 9212402729844558078}
+    - target: {fileID: 4827996444111507751, guid: 1af39f0471d80504ba0b5f37a65f1ce9,
+        type: 3}
+      propertyPath: muzzleFlashPrefab
+      value: 
+      objectReference: {fileID: 7079389871774475887, guid: 9807bde863011c346a2b987eebc1c2c8,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1af39f0471d80504ba0b5f37a65f1ce9, type: 3}
 --- !u!4 &6173022296149439545 stripped

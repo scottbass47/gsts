@@ -167,13 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8c4020dc6b051241bff99346607c1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitMask:
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 0
+  targetMask:
     serializedVersion: 2
     m_Bits: 0
   radius: 0.3
-  bulletImpactPrefab: {fileID: 1731731932588177914, guid: 9d3eebe8ae701a84d8e1c36db4a10263,
-    type: 3}
-  bulletImpactAnimation: []
-  useImpact: 0
-  impactOffset: {x: 0, y: 0}
   rotate: {fileID: 7066243221770944469}

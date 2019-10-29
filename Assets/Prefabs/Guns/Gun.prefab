@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 417036213789464918}
   - component: {fileID: 417036213789464919}
-  - component: {fileID: 417036213789464920}
   - component: {fileID: 8202939913404871964}
+  - component: {fileID: 8813318408548778366}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -84,29 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &417036213789464920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 417036213789464917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 739408b0d78592843a75e26cbb5c4222, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aimAngle: 0
-  bulletPrefab: {fileID: 8799963583245665955, guid: 00396e336f5b4db45bba7178b38f46bc,
-    type: 3}
-  stats: {fileID: 11400000, guid: d1263057e085096438dc8d4f79dfd32c, type: 2}
-  pivot: {fileID: 1279026653437961346}
-  barrelOffset: {fileID: 6830177127560420659}
-  accurateShootingRange: 1.75
-  rotateBullet: 0
-  drawDebug: 0
-  muzzleFlashPrefab: {fileID: 1198963700889164077, guid: 2665b1978b7264c4e8845fa598cf72b1,
-    type: 3}
 --- !u!114 &8202939913404871964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +96,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6dee5dccd2eb104c9c7d8ead98f97c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8813318408548778366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417036213789464917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 212d056221ead4643ab07d6f4069e053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 9170319638875291853, guid: a47b04d354a69f7429c85d5090e9421b,
+    type: 3}
+  center: {fileID: 0}
+  hand: {fileID: 0}
+  gun: {fileID: 417036213789464918}
+  pivot: {fileID: 1279026653437961346}
+  barrel: {fileID: 6830177127560420659}
+  baseGunStats: {fileID: 0}
+  accurateShootingRange: 2
+  muzzleFlashPrefab: {fileID: 0}
 --- !u!1 &4421015038831943784
 GameObject:
   m_ObjectHideFlags: 0

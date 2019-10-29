@@ -64,7 +64,14 @@ public class GameManager : MonoBehaviour {
 
         var door = levelManager.LevelScript.Door;
         door.GetComponent<DoorController>().OnDoorInteract += OnDoorOpen;
+        Events.AddListener<LevelChange>(this.gameObject, OnLevelChange);
 
+        StartCoroutine(DelayPlayerSpawn());
+    }
+
+    private IEnumerator DelayPlayerSpawn()
+    {
+        yield return null;
         player = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
         if (EnemySpawnDebug)
         {
@@ -72,8 +79,6 @@ public class GameManager : MonoBehaviour {
             enemy.transform.position = new Vector3(10, -10, 0); 
         }
         Events.FireEvent(new PlayerSpawn { Player = player });
-
-        Events.AddListener<LevelChange>(this.gameObject, OnLevelChange);
     }
 
     private void OnDoorOpen()

@@ -70,6 +70,36 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1 &3021901722910262018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 87680660463259266}
+  m_Layer: 8
+  m_Name: Hand (gun pos)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &87680660463259266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3021901722910262018}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.549, y: 0.291, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7472497155192263089}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7472497153947938650
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +177,6 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 2518ab000b137b34cab6b7b26fe3e933, type: 2}
   bodyAnim: {fileID: 7472497154031826412}
   bodyRenderer: {fileID: 7472497154031826415}
-  flashMaterial: {fileID: 2100000, guid: 904410e9f679e3349b7d4288c3196dd1, type: 2}
 --- !u!114 &7472497153947938651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,7 +330,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7c65d5ffd0f60954a864e89db520a88c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e08540ae3cd1154b9e106e130a24ca1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -309,7 +338,7 @@ SpriteRenderer:
   m_Size: {x: 1.5625, y: 1.8125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &7472497154211865520
@@ -542,6 +571,7 @@ Transform:
   - {fileID: 7472497154031826414}
   - {fileID: 7472497154733947884}
   - {fileID: 7472497154211865521}
+  - {fileID: 87680660463259266}
   m_Father: {fileID: 7472497153947938648}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -655,6 +685,38 @@ PrefabInstance:
       objectReference: {fileID: 9170319638875291853, guid: a47b04d354a69f7429c85d5090e9421b,
         type: 3}
     - target: {fileID: 417036213789464920, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: muzzleFlashPrefab
+      value: 
+      objectReference: {fileID: 3926851007881061360, guid: d7120eb97aa1361489a834199605bd4c,
+        type: 3}
+    - target: {fileID: 417036213789464920, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: hand
+      value: 
+      objectReference: {fileID: 87680660463259266}
+    - target: {fileID: 417036213789464920, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: center
+      value: 
+      objectReference: {fileID: 7472497153947938648}
+    - target: {fileID: 8813318408548778366, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: center
+      value: 
+      objectReference: {fileID: 7472497153947938648}
+    - target: {fileID: 8813318408548778366, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: hand
+      value: 
+      objectReference: {fileID: 87680660463259266}
+    - target: {fileID: 8813318408548778366, guid: db089f40546f3d646961ef2ac4a74701,
+        type: 3}
+      propertyPath: baseGunStats
+      value: 
+      objectReference: {fileID: 11400000, guid: ca995d527ea776d49af2088e93dc0aa2,
+        type: 2}
+    - target: {fileID: 8813318408548778366, guid: db089f40546f3d646961ef2ac4a74701,
         type: 3}
       propertyPath: muzzleFlashPrefab
       value: 

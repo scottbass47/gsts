@@ -1,4 +1,5 @@
 ﻿using Effects;
+using Guns;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer bodyRenderer;
     
     private HandController handController;
-    private GunController gunController;
+    private PlayerGun gunController;
     private Physics physics;
     private Health health;
     private EffectHandler effectsHandler;
@@ -31,17 +32,17 @@ public class PlayerController : MonoBehaviour
         handController = GetComponentInChildren<HandController>();
         physics = GetComponent<Physics>();
 
-        gunController = GetComponentInChildren<GunController>();
-        gunController.OnReload += (duration) =>
-        {
-            events.FireEvent(new Reload { Duration = duration });
-        };
-        gunController.OnClipChange += (bullets) =>
-        {
-            events.FireEvent(new WeaponClipChange { BulletsInClip = bullets });
-        };
+        gunController = GetComponentInChildren<PlayerGun>();
+        //gunController.OnReload += (duration) =>
+        //{
+        //    events.FireEvent(new Reload { Duration = duration });
+        //};
+        //gunController.OnClipChange += (bullets) =>
+        //{
+        //    events.FireEvent(new WeaponClipChange { BulletsInClip = bullets });
+        //};
 
-        events.FireEvent(new WeaponMagChange { Bullets = gunController.Stats.MagSize });
+        //events.FireEvent(new WeaponMagChange { Bullets = gunController.Stats.ClipSize });
 
         health = GetComponent<Health>();
         health.Amount = stats.MaxHealth;
@@ -92,14 +93,14 @@ public class PlayerController : MonoBehaviour
         // Shoot bullets
         bool holding = Input.GetButton("Shoot");  
         bool click = Input.GetButtonDown("Shoot");  
-        if ((holding && !gunController.Stats.IsSemiAuto) ||
-             click && gunController.Stats.IsSemiAuto)
+        if ((holding && !gunController.GunStats.IsSemiAuto) || click)
         {
-            if (gunController.Shoot())
-            {
-                SoundManager.PlaySound(Sounds.PlayerGunshot);
-                events.FireEvent(new WeaponFired());
-            }
+            gunController.Shoot();
+            //if (gunController.BulletShot)
+            //{
+            //    SoundManager.PlaySound(Sounds.PlayerGunshot);
+            //    events.FireEvent(new WeaponFired());
+            //}
         }
     }
 
@@ -121,7 +122,7 @@ public class PlayerController : MonoBehaviour
         AimAngle = degrees;
         //gunController.SetAimAngle(AimAngle);
 
-        gunController.AimAt(mouse, player);
+        gunController.AimAt(mouse);
 
         if(Vector2.Dot(movementVector, aimVector) < 0)
         {
@@ -132,7 +133,7 @@ public class PlayerController : MonoBehaviour
             bodyAnim.SetFloat("speed", 1);
         }
 
-        bool flip = gunController.Flipped;
+        bool flip = gunController.GunModel.IsFlipped;
 
         bodyRenderer.flipX = flip;
 
@@ -141,7 +142,7 @@ public class PlayerController : MonoBehaviour
         bodyAnim.SetFloat("moving", shouldIdle ? 0.0f : 1.0f);
 
         handController.UpdateTexture(aimVector.y < 0, flip);
-        gunController.SetDrawOrder(aimVector.y < 0);
+        //gunController.SetDrawOrder(aimVector.y < 0);
     }
 
     public void TakeDamage(float amount)

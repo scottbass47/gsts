@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Guns;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator), typeof(GunController))]
+[RequireComponent(typeof(Animator), typeof(Gun))]
 public class GunAnimatorController : MonoBehaviour
 {
     [SerializeField] private string fireTrigger = "fire";
@@ -10,13 +11,14 @@ public class GunAnimatorController : MonoBehaviour
 
     private void Start()
     {
-        var gunController = GetComponent<GunController>();
-        gunController.OnFire += OnFire;
+        var gun = GetComponent<Gun>();
+        gun.GunModel.OnBulletShot += OnBulletShot;
         animator = GetComponent<Animator>();
     }
 
-    private void OnFire()
+    private void OnBulletShot()
     {
         animator.SetTrigger(fireTrigger);
     }
 }
+

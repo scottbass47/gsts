@@ -353,6 +353,16 @@ PrefabInstance:
       propertyPath: hitMask.m_Bits
       value: 40960
       objectReference: {fileID: 0}
+    - target: {fileID: 8799963583245665956, guid: 00396e336f5b4db45bba7178b38f46bc,
+        type: 3}
+      propertyPath: wallMask.m_Bits
+      value: 32768
+      objectReference: {fileID: 0}
+    - target: {fileID: 8799963583245665956, guid: 00396e336f5b4db45bba7178b38f46bc,
+        type: 3}
+      propertyPath: targetMask.m_Bits
+      value: 8192
+      objectReference: {fileID: 0}
     - target: {fileID: 7170621794796296216, guid: 00396e336f5b4db45bba7178b38f46bc,
         type: 3}
       propertyPath: m_RootOrder

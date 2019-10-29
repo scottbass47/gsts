@@ -38,5 +38,10 @@ public class Physics : MonoBehaviour
         body.velocity = netForce;
         netForce = Vector2.zero;
     }
+
+    public static bool IsInLayerMask(int layer, LayerMask layermask)
+    {
+        return layermask == (layermask | (1 << layer));
+    }
 }
 

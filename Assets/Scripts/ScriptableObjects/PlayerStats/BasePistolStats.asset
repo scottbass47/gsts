@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7698d23309be3614d99064089dba9c48, type: 3}
   m_Name: BasePistolStats
   m_EditorClassIdentifier: 
-  speed: 15
+  bulletSpeed: 15
   damage: 5
-  knockbackAmount: 5
-  fireRate: 15
+  knockbackAmount: 0
+  fireRate: 10
   reloadRate: 1
-  magSize: 20
-  semiAuto: 0
-  enemyGun: 0
+  spread: 10
+  clipSize: 20
+  semiAuto: 1

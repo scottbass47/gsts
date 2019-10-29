@@ -131,7 +131,7 @@ public class ShieldDroneTasks : MonoBehaviour
             var bullet = obj.GetComponent<Bullet>();
             bullet.Speed = Random.Range(shieldDroneStats.MinBulletSpeed, shieldDroneStats.MaxBulletSpeed);
             bullet.RotateTransform = false;
-            bullet.Shoot(angle * Mathf.Deg2Rad);
+            bullet.ShootRadians(angle * Mathf.Deg2Rad);
         }
         var muzzleFlashObj = Instantiate(muzzleFlashPrefab);
         var muzzleFlash = muzzleFlashObj.GetComponent<MuzzleFlash>();

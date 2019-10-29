@@ -6,6 +6,7 @@ using System;
 using UnityEngine.Rendering;
 using Random = UnityEngine.Random;
 using Panda;
+using Guns;
 
 public class DasherTasks : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class DasherTasks : MonoBehaviour
     private BasicTasks basicTasks;
     private AnimationTasks animationTasks;
     private Physics physics;
-    private GunController gun;
+    private Gun gun;
     private Transform targetBody;
     private ParticleSystem particles;
     private PathFindingTasks pathFinding;
@@ -57,7 +58,7 @@ public class DasherTasks : MonoBehaviour
         animationTasks = GetComponent<AnimationTasks>();
         physics = GetComponent<Physics>();
         movement = GetComponent<BasicMovement>();
-        gun = GetComponentInChildren<GunController>();
+        gun = GetComponentInChildren<Gun>();
         particles = GetComponent<ParticleSystem>();
         pathFinding = GetComponent<PathFindingTasks>();
         pathFinding.SetMovementParameters(dasherStats.Speed, dasherStats.TurningVelocity);
@@ -98,7 +99,7 @@ public class DasherTasks : MonoBehaviour
     [Task]
     public void AimAtTarget()
     {
-        gun.AimAt(ai.Target.position, ai.Pos.position);
+        gun.AimAt(ai.Target.position);
         Task.current.Succeed();
     }
 
@@ -196,7 +197,7 @@ public class DasherTasks : MonoBehaviour
     public void AimGunAlongPath()
     {
         var target = 5 * movement.MoveDir + (Vector2)ai.Pos.position; 
-        gun.AimAt(target, ai.Pos.position);
+        gun.AimAt(target);
         //gun.SetDrawOrder(!movement.FacingBack);
     }
 

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7698d23309be3614d99064089dba9c48, type: 3}
   m_Name: DasherGunStats
   m_EditorClassIdentifier: 
-  speed: 10
+  bulletSpeed: 10
   damage: 1
   knockbackAmount: 10
-  fireRate: 0
+  fireRate: 1
   reloadRate: 0
-  magSize: 0
+  spread: 0
+  clipSize: 0
   semiAuto: 0
-  enemyGun: 1
